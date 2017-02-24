@@ -1,0 +1,68 @@
+.App {
+  /* text-align: center; */
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Navbar & filters */
+.ui.menu .dropdown.item.filters_dropdown .menu {
+  min-width: 300px;
+  border-top-width: 1px !important;
+}
+
+/* Issues list */
+.issues.ui.list > .item > .content {
+  display: inline-block;
+}
+.issues.ui.list .tracker{
+  padding-right: 10px;
+}
+.issues.ui.list .ui.circular.button{
+  padding: 0;
+  /*border-radius: 50%;*/
+  width: 20px;
+  height: 20px;
+  /* color: #666; */
+  text-align: center;
+  overflow: hidden;
+  /*line-height: 19px;*/
+  font-size: 10px;
+  font-weight: normal;
+}
+.issues.ui.list .priority-6 .ui.circular.button { border: none;background-color: #CC3A21;color: #ffffff;} /* Priorité HAUTE */
+.issues.ui.list .priority-4 .ui.circular.button { border: none;background-color: #FFAA00;color: #ffffff;} /* NORMALE */
+.issues.ui.list .priority-3 .ui.circular.button { border: 1px solid #CCC;background-color: #ffffff;color: #999;} /* BASSE */
+.issues.ui.list .priority-10 .ui.circular.button { border: none;background-color: #ffffff;color: #999;} /* NON PRIORITAIRE */
+
+.issues.ui.list .issue_id {
+  width: 4em;
+  overflow: hidden;
+  padding-right: 10px;
+}
+
+.issues.ui.list .project {
+  width: 12em;
+  overflow: hidden;
+  padding-right: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

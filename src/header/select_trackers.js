@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import ServiceAPI from '../services/service_api'
+import sample_trackers from '../services/samples/trackers.json';
 
 class SelectTrackers extends Component {
 
@@ -18,10 +19,13 @@ class SelectTrackers extends Component {
   }
 
   componentDidMount() {
+    this.setState({trackers: sample_trackers.trackers});
+    /*
     ServiceAPI.getAllTrackers('', res => {
       const trackers = res.trackers;
       this.setState({trackers});
     });
+    */
   }
 
   render() {

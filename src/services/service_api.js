@@ -52,9 +52,9 @@ function buildIssueQueryWithParams(offset, limit, filters, base_url){
   if (filters["project_id"] !== undefined) {
     param_filters += '&project_id='+filters["project_id"];
   }
-  if(filters["projects_ids"] !== undefined && filters["projects_ids"].length>0){
+  if(filters["projects"] !== undefined && filters["projects"].length>0){
     param_filters += '&f[]=project_id&op[project_id]=%3D&f[]=&c[]=project';
-    for(var i=0,l=filters["projects_ids"].length; i<l; i++) param_filters += '&v[project_id][]='+filters["projects_ids"][i];
+    for(var i=0,l=filters["projects"].length; i<l; i++) param_filters += '&v[project_id][]='+filters["projects"][i];
   }
   if(filters["assigned_to_id"] !== undefined && filters["assigned_to_id"] !== ""){
     param_filters += '&f[]=assigned_to_id&op[assigned_to_id]='+filters["assigned_to_id"];

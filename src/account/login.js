@@ -36,21 +36,18 @@ class LoginForm extends Component {
             </Header.Content>
           </Header>
           <Form size={'small'} error onSubmit={this.handleSubmit}>
-            <Segment stacked>
-              <Form.Field>
-                <Form.Input icon='user' iconPosition='left' name="email" placeholder='Adresse email' type={'email'} />
-              </Form.Field>
-              <Form.Field>
-                <Form.Input icon='lock' iconPosition='left' name="password" placeholder='Mot de passe' type={'password'} />
-              </Form.Field>
-              <Button type='submit' fluid color='green'>Valider</Button>
+            <Form.Field>
+              <Form.Input icon='user' iconPosition='left' name="email" placeholder='Adresse email' type={'email'} />
+            </Form.Field>
+            <Form.Field>
+              <Form.Input icon='lock' iconPosition='left' name="password" placeholder='Mot de passe' type={'password'} />
+            </Form.Field>
+            <Button type='submit' fluid color='green'>Valider</Button>
 
-              <Message error
-                       header='Erreurs lors de la validation'
-                       content='test du message'>
-              </Message>
-
-            </Segment>
+            <Message error
+                     header='Erreurs lors de la validation'
+                     content='test du message'>
+            </Message>
           </Form>
         </Grid.Column>
       </Grid>

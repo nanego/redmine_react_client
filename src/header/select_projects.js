@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { Dropdown } from 'semantic-ui-react'
-import ServiceAPI from '../services/service_api'
+// import ServiceAPI from '../services/service_api'
+
+import sample_projects from '../services/samples/projects.json';
 
 class SelectProjects extends Component {
 
@@ -18,15 +20,25 @@ class SelectProjects extends Component {
   }
 
   componentDidMount() {
+    /*
     ServiceAPI.getAllProjects('', res => {
+
       const projects = res.projects;
+
+      console.log('getAllProjects => ' + projects);
+
       this.setState({projects});
     });
+    */
+
+    const projects = sample_projects.projects;
+    this.setState({projects});
+
   }
 
   render() {
     return (
-      <Dropdown search fluid multiple selection
+      <Dropdown search multiple selection
                 loading={this.state.projects.length===0}
                 placeholder='Projets'
                 options={this.state.projects.map(p => { return {'key': p.id, 'value': p.id, 'text': p.name}})}

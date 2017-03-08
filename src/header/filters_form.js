@@ -39,21 +39,19 @@ class FiltersForm extends Component {
 
   render() {
     return (
-      <Segment>
-        <Form>
-          <Form.Field>
-            <label>Projets</label>
-            <SelectProjects selected_projects={this.state.selected_projects}
-                            onProjectsSelection={this.handleProjectsChanges} />
-          </Form.Field>
-          <Form.Field>
-            <label>Trackers</label>
-            <SelectTrackers selected_trackers={this.state.selected_trackers}
-                            onTrackersSelection={this.handleTrackersChanges} />
-          </Form.Field>
-          <Button type='submit' name="apply_filters" onClick={this.applyFilters}>Appliquer</Button>
-        </Form>
-      </Segment>
+      <Form className='filters_form'>
+        <Form.Field inline>
+          <label>Projets</label>
+          <SelectProjects selected_projects={this.state.selected_projects}
+                          onProjectsSelection={this.handleProjectsChanges} />
+        </Form.Field>
+        <Form.Field inline>
+          <label>Trackers</label>
+          <SelectTrackers selected_trackers={this.state.selected_trackers}
+                          onTrackersSelection={this.handleTrackersChanges} />
+        </Form.Field>
+        <Button type='submit' name="apply_filters" onClick={this.applyFilters}>Appliquer</Button>
+      </Form>
     )
   }
 }

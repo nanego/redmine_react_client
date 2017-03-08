@@ -24,9 +24,9 @@
 }
 
 /* Navbar & filters */
-.ui.menu .dropdown.item.filters_dropdown .menu {
-  min-width: 300px;
-  border-top-width: 1px !important;
+.ui.popup .form.filters_form {
+  width: 300px;
+  /* border-top-width: 1px !important; */
 }
 
 /* Issues list */

@@ -3,24 +3,22 @@ import './App.css';
 
 import ServiceAPI from './services/service_api'
 
+import sample_issues from './services/samples/issues.json';
+
 import NavBarMenu from './header/navbarmenu'
 import IssuesList from './issues/index'
-import LoginForm from './account/login'
-
-(function ($, window, document, undefined) {
-
-  // alert('TEST');
-  // console.log($.fn.dropdown.settings.selector.item);
-  // $.fn.dropdown.settings.selector.item = '.menu > .item:not(.header)' // change selector for all dropdowns
-
-})();
+import ListCurrentFilters from './current_filters'
 
 class App extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      current_filters: {projects: [], trackers: []},
+      current_filters: {
+        projects: [],
+        trackers: [],
+        text: ""
+      },
       displayed_issues: [],
       loading: true
     };
@@ -44,11 +42,17 @@ class App extends Component {
 
   updateIssues(filters){
     filters = filters || this.state.current_filters;
+
+    /*
     this.setState({loading: true});
     ServiceAPI.getFilteredIssues(filters, res => {
       this.setState({loading: false});
       this.setState({displayed_issues: res.issues});
     });
+    */
+
+    this.setState({displayed_issues: sample_issues.issues});
+    this.setState({loading: false});
   }
 
   render() {
@@ -61,7 +65,7 @@ class App extends Component {
                     issues={this.state.displayed_issues}
                     isLoading={this.state.loading}
         />
-        <LoginForm />
+        <ListCurrentFilters current_filters={this.state.current_filters} />
       </div>
     );
   }

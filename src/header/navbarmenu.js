@@ -10,7 +10,6 @@ class NavBarMenu extends Component {
   constructor(props){
     super(props);
     this.state = {
-      // show_dropdown: false
       searchInputValue: ""
     };
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);

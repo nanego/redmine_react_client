@@ -32,7 +32,8 @@ class FiltersForm extends Component {
      e.preventDefault();
      this.props.handleFiltersChanges({
        projects: this.state.selected_projects,
-       trackers: this.state.selected_trackers
+       trackers: this.state.selected_trackers,
+       text: this.props.searchValue
      });
     this.props.onSubmit();
   }

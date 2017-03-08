@@ -67,7 +67,10 @@ class NavBarMenu extends Component {
                 trigger={<Button icon className="last"><Icon name='dropdown' /></Button>}
                 content={<FiltersForm current_filters={this.props.current_filters}
                                       handleFiltersChanges={this.props.handleFiltersChanges}
-                                      onSubmit={this.closeDropdown} />}
+                                      onSubmit={this.closeDropdown}
+                                      searchValue={this.state.searchInputValue}
+                                      updateSearchValue={this.handleSearchInputChange}
+                />}
                 on='click'
                 flowing
                 offset={-5}

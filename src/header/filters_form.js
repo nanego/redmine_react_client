@@ -50,6 +50,7 @@ class FiltersForm extends Component {
           <SelectTrackers selected_trackers={this.state.selected_trackers}
                           onTrackersSelection={this.handleTrackersChanges} />
         </Form.Field>
+        <Form.Input label='Contient' placeholder='contenu recherché' value={this.props.searchValue} onChange={this.props.updateSearchValue} />
         <Button type='submit' name="apply_filters" onClick={this.applyFilters}>Appliquer</Button>
       </Form>
     )

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { DropDown, Menu, Input, Button, Icon, Popup } from 'semantic-ui-react'
+import { DropDown, Menu, Input, Button, Icon, Popup, Radio } from 'semantic-ui-react'
 import FiltersForm from './filters_form'
 import CustomQueries from './custom_queries'
 import SelectProjects from './select_projects'
@@ -81,6 +81,9 @@ class NavBarMenu extends Component {
           </Menu.Item>
 
           <Menu.Menu position='right'>
+            <Menu.Item>
+              <Radio toggle />
+            </Menu.Item>
             <Popup
               trigger={<Menu.Item name='signup' onClick={this.handleSignInClick} >Connexion</Menu.Item>}
               content={<LoginForm />}

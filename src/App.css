@@ -29,6 +29,14 @@
   /* border-top-width: 1px !important; */
 }
 
+.ui.icon.searchController.input > i.circular.icon {
+  top: 0.3em;
+  right: 3.1em;
+}
+.ui.icon.searchController.input > i.circular.icon.disabled {
+  display: none;
+}
+
 /* Issues list */
 .issues.ui.list > .item > .content {
   display: inline-block;

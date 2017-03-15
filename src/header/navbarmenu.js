@@ -45,8 +45,10 @@ class NavBarMenu extends Component {
           <Menu.Item>
             <Input type="text"
                    action
+                   icon
                    actionPosition="left"
-                   placeholder='Rechercher'>
+                   placeholder='Rechercher'
+                   className='searchController'>
               <Button icon onClick={this.applySearchInput}><Icon name='search' /></Button>
               <Popup
                 trigger={<Input placeholder='Rechercher'
@@ -61,7 +63,9 @@ class NavBarMenu extends Component {
                 position='bottom left'
                 basic
               />
-              <Button icon onClick={this.clearSearchInput}><Icon name='cancel' /></Button>
+              <Icon circular link name='cancel' onClick={this.clearSearchInput}
+                    disabled={this.state.searchInputValue==""}
+              />
               <Popup
                 trigger={<Button icon className="last"><Icon name='dropdown' /></Button>}
                 content={<FiltersForm current_filters={this.props.current_filters}

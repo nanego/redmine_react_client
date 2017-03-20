@@ -67,7 +67,7 @@ class NavBarMenu extends Component {
                     disabled={this.state.searchInputValue==""}
               />
               <Popup
-                trigger={<Button icon className="last"><Icon name='dropdown' /></Button>}
+                trigger={<Button icon className="last" id="filters_dropdown"><Icon name='dropdown' /></Button>}
                 content={<FiltersForm current_filters={this.props.current_filters}
                                       handleFiltersChanges={this.props.handleFiltersChanges}
                                       onSubmit={this.closeDropdown}

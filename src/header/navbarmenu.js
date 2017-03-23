@@ -1,9 +1,22 @@
 import React, {Component} from 'react'
-import { DropDown, Menu, Input, Button, Icon, Popup, Radio } from 'semantic-ui-react'
+import { Dropdown, Menu, Input, Button, Icon, Popup, Radio } from 'semantic-ui-react'
 import FiltersForm from './filters_form'
 import CustomQueries from './custom_queries'
 import SelectProjects from './select_projects'
 import LoginForm from '../account/login'
+import sample_projects from '../services/samples/projects.json'
+import sample_trackers from '../services/samples/trackers.json'
+
+const projects = sample_projects.projects;
+const trackers = sample_trackers.trackers;
+
+/*
+const renderLabel = (label, index, props) => ({
+  color: 'blue',
+  content: `Customized label - ${label.text}`,
+  icon: 'check',
+})
+*/
 
 class NavBarMenu extends Component {
 
@@ -15,6 +28,25 @@ class NavBarMenu extends Component {
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.clearSearchInput = this.clearSearchInput.bind(this);
     this.applySearchInput = this.applySearchInput.bind(this);
+    this.convertFiltersToOptions = this.convertFiltersToOptions.bind(this);
+    this.defaultValues = this.defaultValues.bind(this);
+    this.getNamesFromIds = this.getNamesFromIds.bind(this);
+  }
+
+  getNamesFromIds(array, ids){
+    var names = [];
+    if(ids instanceof Array){
+      for (let id of ids) {
+        names.push(array.find(function (d) {
+          return d.id === id;
+        }).name);
+      }
+    }else{
+      names.push(array.find(function (d) {
+        return d.id === ids;
+      }).name);
+    }
+    return names;
   }
 
   closeDropdown(event){
@@ -33,7 +65,47 @@ class NavBarMenu extends Component {
     this.props.handleFiltersChanges({text: this.state.searchInputValue})
   }
 
+  convertFiltersToOptions(){
+    var options = [
+    //  { key: 1, text: 'One', value: 1 },
+    //  { key: 2, text: 'Two', value: 2 },
+    //  { key: 3, text: 'Three', value: 3 },
+    ];
+
+    for (var key in this.props.current_filters) {
+      if(this.props.current_filters[key] && this.props.current_filters[key] != "" ){
+        var content;
+        switch(key) {
+          case 'projects':
+            content = this.getNamesFromIds(projects, this.props.current_filters[key]).join(', ');
+            break;
+          case 'trackers':
+            content = this.getNamesFromIds(trackers, this.props.current_filters[key]).join(', ');
+            break;
+          default:
+            this.props.current_filters[key]
+        }
+
+
+        options.push({key: options.length, text: key + ": " + content, value:key });
+      }
+    }
+
+    return options;
+  }
+
+  defaultValues(){
+    var options = this.convertFiltersToOptions();
+    var values = [];
+    options.forEach(function (option){
+      values.push(option.value);
+    });
+    console.log('values = ' + values);
+    return values;
+  }
+
   render(){
+
     return (
       <div>
         <Menu attached='top'>
@@ -50,6 +122,17 @@ class NavBarMenu extends Component {
                    placeholder='Rechercher'
                    className='searchController'>
               <Button icon onClick={this.applySearchInput}><Icon name='search' /></Button>
+              <Dropdown
+                  className="current_filters_dropdown"
+                  multiple
+                  icon={false}
+                  selection
+                  fluid
+                  options={this.convertFiltersToOptions()}
+                  // placeholder='Choose an option'
+                  // renderLabel={renderLabel}
+                  value={this.defaultValues()}
+              />
               <Popup
                 trigger={<Input placeholder='Rechercher'
                                 actionPosition="left"
@@ -84,9 +167,11 @@ class NavBarMenu extends Component {
           </Menu.Item>
 
           <Menu.Menu position='right'>
+            {/*
             <Menu.Item>
               <Radio toggle />
             </Menu.Item>
+            */}
             <Popup
               trigger={<Menu.Item name='signup' onClick={this.handleSignInClick} >Connexion</Menu.Item>}
               content={<LoginForm />}

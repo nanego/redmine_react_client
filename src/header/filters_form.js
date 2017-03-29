@@ -7,35 +7,18 @@ class FiltersForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      selected_projects: this.props.current_filters.projects,
-      selected_trackers: this.props.current_filters.trackers
-    };
-    this.handleProjectsChanges = this.handleProjectsChanges.bind(this);
-    this.handleTrackersChanges = this.handleTrackersChanges.bind(this);
     this.applyFilters = this.applyFilters.bind(this);
-  }
-
-  handleProjectsChanges(value){
-    this.setState({
-      selected_projects: value
-    })
-  }
-
-  handleTrackersChanges(value){
-    this.setState({
-      selected_trackers: value
-    })
+    this.updateTextFilter = this.updateTextFilter.bind(this);
   }
 
   applyFilters(e){
-     e.preventDefault();
-     this.props.handleFiltersChanges({
-       projects: this.state.selected_projects,
-       trackers: this.state.selected_trackers,
-       text: this.props.searchValue
-     });
+    e.preventDefault();
+    this.props.applyFiltersChanges();
     this.props.onSubmit();
+  }
+
+  updateTextFilter(e, {value}){
+    this.props.updateSelectedFilters({text: value});
   }
 
   render() {
@@ -43,15 +26,13 @@ class FiltersForm extends Component {
       <Form className='filters_form'>
         <Form.Field inline>
           <label>Projets</label>
-          <SelectProjects selected_projects={this.state.selected_projects}
-                          onProjectsSelection={this.handleProjectsChanges} />
+          <SelectProjects selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         </Form.Field>
         <Form.Field inline>
           <label>Trackers</label>
-          <SelectTrackers selected_trackers={this.state.selected_trackers}
-                          onTrackersSelection={this.handleTrackersChanges} />
+          <SelectTrackers selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         </Form.Field>
-        <Form.Input label='Contient' placeholder='contenu recherché' value={this.props.searchValue} onChange={this.props.updateSearchValue} />
+        <Form.Input label='Contient' placeholder='contenu recherché' value={this.props.selected_filters.text} onChange={this.updateTextFilter} />
         <Button type='submit' name="apply_filters" onClick={this.applyFilters}>Appliquer</Button>
       </Form>
     )

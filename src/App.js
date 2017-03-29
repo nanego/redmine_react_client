@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import ServiceAPI from './services/service_api'
+// import ServiceAPI from './services/service_api'
 
 import sample_issues from './services/samples/issues.json';
 
@@ -9,41 +9,71 @@ import NavBarMenu from './header/navbarmenu'
 import IssuesList from './issues/index'
 import ListCurrentFilters from './current_filters'
 
+const default_filters = {
+  projects: 0,
+  trackers: 0,
+  text: ""
+};
+
+let convertFilterToText = function(key, value){
+  if(value && (value > 0 || value.length > 0)){
+    return key + ':' + value + ' ';
+  }else{
+    return "";
+  }
+};
+
+let convertFiltersToText = function(filters){
+  let complete_filters_as_text = "";
+  for(var key in filters){
+    complete_filters_as_text += convertFilterToText(key, filters[key]);
+  }
+  return complete_filters_as_text;
+};
+
 class App extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      current_filters: {
-        projects: [],
-        trackers: [],
-        text: ""
-      },
+      current_filters: default_filters,
+      selected_filters: default_filters,
+      selected_filters_as_text: "",
       displayed_issues: [],
       loading: true
     };
-    this.handleFiltersChanges = this.handleFiltersChanges.bind(this);
+    this.updateSelectedFilters = this.updateSelectedFilters.bind(this);
+    this.updateSelectedFiltersAsText = this.updateSelectedFiltersAsText.bind(this);
+    this.applyFiltersChanges = this.applyFiltersChanges.bind(this);
     this.updateIssues = this.updateIssues.bind(this);
   }
 
-  handleFiltersChanges(new_filters){
-    var updated_filters = Object.assign({},this.state.current_filters, new_filters);
-
-    this.setState({
-      current_filters: updated_filters
+  updateSelectedFilters(new_filter){
+    console.log("START update selected filters : " + JSON.stringify(new_filter));
+    this.setState({selected_filters: Object.assign({},this.state.selected_filters, new_filter)}, function() {
+      this.updateSelectedFiltersAsText();
     });
+  }
 
-    this.updateIssues(updated_filters);
+  updateSelectedFiltersAsText() {
+    console.log("START AS TEXT UPDATE");
+    this.setState({selected_filters_as_text: convertFiltersToText(this.state.selected_filters)})
+  };
+
+  applyFiltersChanges(){
+    this.setState({current_filters: this.state.selected_filters});
+    this.updateIssues();
   }
 
   componentDidMount() {
     this.updateIssues();
   }
 
-  updateIssues(filters){
-    filters = filters || this.state.current_filters;
+  updateIssues(){
 
     /*
+    filters = this.state.current_filters;
+
     this.setState({loading: true});
     ServiceAPI.getFilteredIssues(filters, res => {
       this.setState({loading: false});
@@ -59,13 +89,18 @@ class App extends Component {
     return (
       <div className="App">
         <NavBarMenu current_filters={this.state.current_filters}
-                    handleFiltersChanges={this.handleFiltersChanges}
+                    selected_filters={this.state.selected_filters}
+                    selected_filters_as_text={this.state.selected_filters_as_text}
+                    applyFiltersChanges={this.applyFiltersChanges}
+                    updateSelectedFilters={this.updateSelectedFilters}
         />
         <IssuesList current_filters={this.state.current_filters}
                     issues={this.state.displayed_issues}
                     isLoading={this.state.loading}
         />
-        <ListCurrentFilters current_filters={this.state.current_filters} />
+        <ListCurrentFilters current_filters={this.state.current_filters}
+                            selected_filters={this.state.selected_filters}
+                            selected_filters_as_text={this.state.selected_filters_as_text}/>
       </div>
     );
   }

@@ -15,7 +15,7 @@ class SelectTrackers extends Component {
 
   handleTrackersSelection(e, {value}){
     if(value)
-      this.props.onTrackersSelection(value)
+      this.props.updateSelectedFilters({trackers: value});
   }
 
   componentDidMount() {
@@ -35,7 +35,7 @@ class SelectTrackers extends Component {
                 placeholder='Trackers'
                 closeOnBlur={false}
                 options={this.state.trackers.map(p => { return {'key': p.id, 'value': p.id, 'text': p.name}})}
-                value={this.props.selected_trackers}
+                value={this.props.selected_filters.trackers}
                 onChange={this.handleTrackersSelection}
       />
     )

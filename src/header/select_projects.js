@@ -15,8 +15,9 @@ class SelectProjects extends Component {
   }
 
   handleProjectsSelection(e, {value}){
+    console.log("Projects : new value = " + value);
     if(value)
-      this.props.onProjectsSelection(value)
+      this.props.updateSelectedFilters({projects: value});
   }
 
   componentDidMount() {
@@ -42,7 +43,7 @@ class SelectProjects extends Component {
                 loading={this.state.projects.length===0}
                 placeholder='Projets'
                 options={this.state.projects.map(p => { return {'key': p.id, 'value': p.id, 'text': p.name}})}
-                value={this.props.selected_projects}
+                value={this.props.selected_filters.projects}
                 onChange={this.handleProjectsSelection}
       />
     )

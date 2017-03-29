@@ -25,7 +25,7 @@
 
 /* Navbar & filters */
 .ui.popup .form.filters_form {
-  width: 300px;
+  width: 400px;
   /* border-top-width: 1px !important; */
 }
 
@@ -35,6 +35,20 @@
 }
 .ui.icon.searchController.input > i.circular.icon.disabled {
   display: none;
+}
+
+.ui.icon.searchController.input #mainSearchInput {
+  width: 100%;
+}
+
+/*
+.current_filters_dropdown{
+  border-right: none !important;
+}
+*/
+
+.ui.top.attached.menu > .item.filters_module{
+  width: calc(100% - 97px);
 }
 
 /* Issues list */

@@ -215,6 +215,7 @@ class NavBarMenu extends Component {
                                     onSubmit={this.closeDropdown}
                                     searchValue={this.state.searchInputValue}
                                     updateSearchValue={this.handleSearchInputChange}
+                                    dirty_filters={this.props.dirty_filters}
               />}
               on='click'
               flowing

@@ -9,7 +9,7 @@ import NavBarMenu from './header/navbarmenu'
 import IssuesList from './issues/index'
 import ListCurrentFilters from './current_filters'
 
-const default_filters = {}; /*{
+const default_filters = {text:''}; /*{
   projects: 0,
   trackers: 0,
   text: ""
@@ -35,6 +35,12 @@ let convertFiltersToText = function(filters){
   return complete_filters_as_text;
 };
 
+let removeBlankAttributes = function(object){
+  var obj = Object.assign({}, object);
+  Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
+  return obj;
+};
+
 class App extends Component {
 
   constructor(props){
@@ -56,8 +62,14 @@ class App extends Component {
 
   updateSelectedFilters(new_filter){
     console.log("START update selected filters : " + JSON.stringify(new_filter));
-    var new_selection = Object.assign({},this.state.selected_filters, new_filter);
-    Object.keys(new_selection).forEach(key => !new_selection[key] && delete new_selection[key]); // Remove blank attributes
+
+    var new_selection;
+    if(JSON.stringify(new_filter)==JSON.stringify({})){ // Re-init filters
+      new_selection = default_filters;
+    }else{
+      new_selection = Object.assign({},this.state.selected_filters, new_filter);
+      new_selection = removeBlankAttributes(new_selection);
+    }
     this.setState({selected_filters: new_selection}, function() {
       this.updateSelectedFiltersAsText();
       this.compareSelectedAndAppliedFilters();
@@ -65,12 +77,12 @@ class App extends Component {
   }
 
   updateSelectedFiltersAsText() {
-    console.log("START AS TEXT UPDATE");
+    console.log("START AS TEXT UPDATE : " + JSON.stringify(this.state.selected_filters));
     this.setState({selected_filters_as_text: convertFiltersToText(this.state.selected_filters)})
   };
 
   compareSelectedAndAppliedFilters(){
-    if(JSON.stringify(this.state.selected_filters) == JSON.stringify(this.state.current_filters)){
+    if(JSON.stringify(removeBlankAttributes(this.state.selected_filters)) == JSON.stringify(removeBlankAttributes(this.state.current_filters))){
       this.setState({dirty_filters: false});
     }else{
       this.setState({dirty_filters: true});

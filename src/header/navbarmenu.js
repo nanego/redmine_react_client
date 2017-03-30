@@ -56,7 +56,8 @@ class NavBarMenu extends Component {
   }
 
   clearSearchInput(event) {
-    this.setState({searchInputValue: ""});
+    this.updateSelectedFilters({});
+    // this.setState({searchInputValue: ""});
   }
 
   handleSearchInputChange(event){
@@ -65,7 +66,7 @@ class NavBarMenu extends Component {
 
   updateSelectedFilters(filters){
     this.props.updateSelectedFilters(filters);
-    this.state.searchInputValue = this.props.selected_filters_as_text;
+    this.setState({searchInputValue: this.props.selected_filters_as_text});
   }
 
   validateSearchInputChange(event, updateFilters){
@@ -204,7 +205,7 @@ class NavBarMenu extends Component {
               basic
             />
             <Icon circular link name='cancel' onClick={this.clearSearchInput}
-                  disabled={this.state.searchInputValue==""}
+                  disabled={this.props.selected_filters_as_text==""}
             />
             <Popup
               trigger={<Button icon className="last" id="filters_dropdown"><Icon name='dropdown' /></Button>}

@@ -16,10 +16,14 @@ const default_filters = {
 };
 
 let convertFilterToText = function(key, value){
-  if(value && (value > 0 || value.length > 0)){
-    return key + ':' + value + ' ';
+  if(key=='text'){
+    return value;
   }else{
-    return "";
+    if(value && (value > 0 || value.length > 0)){
+      return key + ':' + value + ' ';
+    }else{
+      return "";
+    }
   }
 };
 
@@ -40,18 +44,21 @@ class App extends Component {
       selected_filters: default_filters,
       selected_filters_as_text: "",
       displayed_issues: [],
-      loading: true
+      loading: true,
+      dirty_filters: false
     };
     this.updateSelectedFilters = this.updateSelectedFilters.bind(this);
     this.updateSelectedFiltersAsText = this.updateSelectedFiltersAsText.bind(this);
     this.applyFiltersChanges = this.applyFiltersChanges.bind(this);
     this.updateIssues = this.updateIssues.bind(this);
+    this.compareSelectedAndAppliedFilters = this.compareSelectedAndAppliedFilters.bind(this);
   }
 
   updateSelectedFilters(new_filter){
     console.log("START update selected filters : " + JSON.stringify(new_filter));
     this.setState({selected_filters: Object.assign({},this.state.selected_filters, new_filter)}, function() {
       this.updateSelectedFiltersAsText();
+      this.compareSelectedAndAppliedFilters();
     });
   }
 
@@ -60,9 +67,19 @@ class App extends Component {
     this.setState({selected_filters_as_text: convertFiltersToText(this.state.selected_filters)})
   };
 
+  compareSelectedAndAppliedFilters(){
+    if(JSON.stringify(this.state.selected_filters) == JSON.stringify(this.state.current_filters)){
+      this.setState({dirty_filters: false});
+    }else{
+      this.setState({dirty_filters: true});
+    }
+  };
+
   applyFiltersChanges(){
-    this.setState({current_filters: this.state.selected_filters});
-    this.updateIssues();
+    this.setState({current_filters: this.state.selected_filters}, function(){
+      this.updateIssues();
+      this.compareSelectedAndAppliedFilters();
+    });
   }
 
   componentDidMount() {
@@ -93,6 +110,7 @@ class App extends Component {
                     selected_filters_as_text={this.state.selected_filters_as_text}
                     applyFiltersChanges={this.applyFiltersChanges}
                     updateSelectedFilters={this.updateSelectedFilters}
+                    dirty_filters={this.state.dirty_filters}
         />
         <IssuesList current_filters={this.state.current_filters}
                     issues={this.state.displayed_issues}

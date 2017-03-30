@@ -173,7 +173,7 @@ class NavBarMenu extends Component {
                  actionPosition="left"
                  placeholder='Rechercher'
                  className='searchController'>
-            <Button icon onClick={this.applySearchInput}><Icon name='search' /></Button>
+            <Button icon onClick={this.applySearchInput} {...this.props.dirty_filters ? {color:'blue'} : {}}><Icon name='search' /></Button>
             {/*
             <Dropdown
                 className="current_filters_dropdown"

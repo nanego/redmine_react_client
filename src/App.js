@@ -9,12 +9,12 @@ import NavBarMenu from './header/navbarmenu'
 import IssuesList from './issues/index'
 import ListCurrentFilters from './current_filters'
 
-const default_filters = {
+const default_filters = {}; /*{
   projects: 0,
   trackers: 0,
   text: ""
 };
-
+*/
 let convertFilterToText = function(key, value){
   if(key=='text'){
     return value;
@@ -56,7 +56,9 @@ class App extends Component {
 
   updateSelectedFilters(new_filter){
     console.log("START update selected filters : " + JSON.stringify(new_filter));
-    this.setState({selected_filters: Object.assign({},this.state.selected_filters, new_filter)}, function() {
+    var new_selection = Object.assign({},this.state.selected_filters, new_filter);
+    Object.keys(new_selection).forEach(key => !new_selection[key] && delete new_selection[key]); // Remove blank attributes
+    this.setState({selected_filters: new_selection}, function() {
       this.updateSelectedFiltersAsText();
       this.compareSelectedAndAppliedFilters();
     });

@@ -47,7 +47,7 @@ class ListCurrentFilters extends Component {
           <Segment attached>
             <span>{JSON.stringify(this.props.current_filters)}</span>
             <List>
-              {(this.props.current_filters.projects > 0 || this.props.current_filters.projects.length > 0) &&
+              {(this.props.current_filters.projects && (this.props.current_filters.projects > 0 || this.props.current_filters.projects.length > 0)) &&
               <List.Item>
                 <List.Content>
                   <List.Header as='a'>Projets</List.Header>
@@ -55,7 +55,7 @@ class ListCurrentFilters extends Component {
                 </List.Content>
               </List.Item>
               }
-              {(this.props.current_filters.trackers > 0 || this.props.current_filters.trackers.length > 0) &&
+              {(this.props.current_filters.trackers && (this.props.current_filters.trackers > 0 || this.props.current_filters.trackers.length > 0)) &&
               <List.Item>
                 <List.Content>
                   <List.Header as='a'>Trackers</List.Header>
@@ -63,7 +63,7 @@ class ListCurrentFilters extends Component {
                 </List.Content>
               </List.Item>
               }
-              {this.props.current_filters.text.length > 0 &&
+              {(this.props.current_filters.text && this.props.current_filters.text.length > 0) &&
               <List.Item>
                 <List.Content>
                   <List.Header as='a'>Contient</List.Header>
@@ -84,7 +84,7 @@ class ListCurrentFilters extends Component {
           <Segment attached>
             <span>{JSON.stringify(this.props.selected_filters)}</span>
             <List>
-              {(this.props.selected_filters.projects > 0 || this.props.selected_filters.projects.length > 0) &&
+              {(this.props.selected_filters.projects && (this.props.selected_filters.projects > 0 || this.props.selected_filters.projects.length > 0)) &&
               <List.Item>
                 <List.Content>
                   <List.Header as='a'>Projets</List.Header>
@@ -92,7 +92,7 @@ class ListCurrentFilters extends Component {
                 </List.Content>
               </List.Item>
               }
-              {(this.props.selected_filters.trackers > 0 || this.props.selected_filters.trackers.length > 0) &&
+              {(this.props.selected_filters.trackers && (this.props.selected_filters.trackers > 0 || this.props.selected_filters.trackers.length > 0)) &&
               <List.Item>
                 <List.Content>
                   <List.Header as='a'>Trackers</List.Header>
@@ -100,7 +100,7 @@ class ListCurrentFilters extends Component {
                 </List.Content>
               </List.Item>
               }
-              {this.props.selected_filters.text.length > 0 &&
+              {(this.props.selected_filters.text && this.props.selected_filters.text.length > 0) &&
               <List.Item>
                 <List.Content>
                   <List.Header as='a'>Contient</List.Header>

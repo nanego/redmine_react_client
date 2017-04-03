@@ -1,21 +1,24 @@
 import React, {Component} from 'react'
-import { Image, List, Grid, Dimmer, Loader, Button } from 'semantic-ui-react'
+import { List, Grid, Dimmer, Loader, Button } from 'semantic-ui-react'
 import Moment from 'react-moment';
 
 class IssuesList extends Component {
 
+  /*
   constructor(props){
     super(props);
   }
+  */
 
   dateFormat(input){
     if(input == null){ return ""; }
     var date = new Date(input);
     var now = new Date();
-    if( date.setHours(0,0,0,0) == now.setHours(0,0,0,0) ) {
-      var format = 'HH:mm';
+    var format;
+    if( date.setHours(0,0,0,0) === now.setHours(0,0,0,0) ) {
+      format = 'HH:mm';
     } else {
-      var format = 'd MMM';
+      format = 'd MMM';
     }
     return format;
   }
@@ -27,7 +30,7 @@ class IssuesList extends Component {
 
   render() {
     if(this.props.issues)
-      console.log(JSON.stringify(this.props.issues[1]));
+      // console.log(JSON.stringify(this.props.issues[1]));
     return (
       <Grid padded columns={1} divided>
 

@@ -14,19 +14,25 @@ class ListCurrentFilters extends Component {
 
   getNamesFromIds(array, ids){
 
-    console.log("ids : " + ids);
+    // console.log("ids : " + ids);
 
     var names = [];
     if(ids instanceof Array){
       for (let id of ids) {
-        names.push(array.find(function (d) {
+        var element = array.find(function (d) {
           return d.id == id;
-        }).name);
+        });
+        if(element){
+          names.push(element.name);
+        }
       }
     }else{
-      names.push(array.find(function (d) {
+      var element = array.find(function (d) {
         return d.id == ids;
-      }).name);
+      });
+      if(element) {
+        names.push(element.name);
+      }
     }
     return names;
   }

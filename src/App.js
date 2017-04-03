@@ -16,7 +16,7 @@ const default_filters = {text:''}; /*{
 };
 */
 let convertFilterToText = function(key, value){
-  if(key=='text'){
+  if(key==='text'){
     return value;
   }else{
     if(value && (value > 0 || value.length > 0)){
@@ -30,7 +30,11 @@ let convertFilterToText = function(key, value){
 let convertFiltersToText = function(filters){
   let complete_filters_as_text = "";
   for(var key in filters){
-    complete_filters_as_text += convertFilterToText(key, filters[key]);
+    if(key!=='text')
+      complete_filters_as_text += convertFilterToText(key, filters[key]);
+  }
+  if(filters['text'] && filters['text'].length>0){
+    complete_filters_as_text += convertFilterToText('text', filters['text']);
   }
   return complete_filters_as_text;
 };
@@ -39,6 +43,18 @@ let removeBlankAttributes = function(object){
   var obj = Object.assign({}, object);
   Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
   return obj;
+};
+
+let normalizeFilter = function(filters){
+  var normalized_filter = {};
+  for (var filter_key in filters) {
+    if(filters[filter_key] == parseInt(filters[filter_key])){
+      normalized_filter[filter_key] = parseInt(filters[filter_key]);
+    }else{
+      normalized_filter[filter_key] = filters[filter_key];
+    }
+  }
+  return normalized_filter;
 };
 
 class App extends Component {
@@ -63,26 +79,32 @@ class App extends Component {
   updateSelectedFilters(new_filter){
     console.log("START update selected filters : " + JSON.stringify(new_filter));
 
+    new_filter = normalizeFilter(new_filter);
+
     var new_selection;
-    if(JSON.stringify(new_filter)==JSON.stringify({})){ // Re-init filters
+    if(JSON.stringify(new_filter)===JSON.stringify({})){ // Re-init filters
+      console.log("REINIT FILTERS");
       new_selection = default_filters;
     }else{
       new_selection = Object.assign({},this.state.selected_filters, new_filter);
       new_selection = removeBlankAttributes(new_selection);
     }
     this.setState({selected_filters: new_selection}, function() {
+
+      console.log("001 : state = " + JSON.stringify(this.state.selected_filters));
+
       this.updateSelectedFiltersAsText();
       this.compareSelectedAndAppliedFilters();
     });
   }
 
   updateSelectedFiltersAsText() {
-    console.log("START AS TEXT UPDATE : " + JSON.stringify(this.state.selected_filters));
+    console.log("SELECTED FILTERS AS TEXT : " + JSON.stringify(this.state.selected_filters));
     this.setState({selected_filters_as_text: convertFiltersToText(this.state.selected_filters)})
   };
 
   compareSelectedAndAppliedFilters(){
-    if(JSON.stringify(removeBlankAttributes(this.state.selected_filters)) == JSON.stringify(removeBlankAttributes(this.state.current_filters))){
+    if(JSON.stringify(removeBlankAttributes(this.state.selected_filters)) === JSON.stringify(removeBlankAttributes(this.state.current_filters))){
       this.setState({dirty_filters: false});
     }else{
       this.setState({dirty_filters: true});

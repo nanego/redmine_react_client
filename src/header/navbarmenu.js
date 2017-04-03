@@ -66,18 +66,29 @@ class NavBarMenu extends Component {
 
   updateSelectedFilters(filters){
     this.props.updateSelectedFilters(filters);
-    this.setState({searchInputValue: this.props.selected_filters_as_text});
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.selected_filters_as_text !== this.state.searchInputValue) {
+      this.setState({ searchInputValue: nextProps.selected_filters_as_text });
+    }
   }
 
   validateSearchInputChange(event, updateFilters){
-    // let _this = this;
-    if(event.key == 'Enter'){
+    let _this = this;
+    if(event.key === 'Enter'){
       console.log('enter');
 
-      let words = this.state.searchInputValue.split(' ');
-      let text = '';
-      let content_filter = '';
+      // Re-init all selected filters
+      _this.updateSelectedFilters({});
 
+      let words = this.state.searchInputValue.split(' ');
+      // let text = '';
+      let content_filter = '';
+      let projects_filter = undefined;
+      let trackers_filter = undefined;
+
+      console.log("words :");
       console.log(words);
 
       words.forEach(function(word){
@@ -86,29 +97,40 @@ class NavBarMenu extends Component {
 
         if(word.indexOf(':') > 0){
           let key_value = word.split(':');
-          switch(key_value[0]){
+          switch(key_value[0].toLowerCase()){
             case 'projects':
-              this.updateSelectedFilters({projects: key_value[1]});
-              text = word + ' ' + text;
+              projects_filter = key_value[1];
+              // text = word + ' ' + text;
               break;
             case 'trackers':
-              this.updateSelectedFilters({trackers: key_value[1]});
-              text = word + ' ' + text;
+              trackers_filter = key_value[1];
+              // text = word + ' ' + text;
               break;
             default:
               content_filter += word + " ";
-              this.updateSelectedFilters({text: content_filter});
-              text += word + " ";
+              // _this.updateSelectedFilters({text: content_filter});
+              // text += word + " ";
           }
           console.log("key="+key_value[0]);
           console.log("value="+key_value[1]);
         }else{
           content_filter += word + " ";
-          text += word + ' ';
+          // _this.updateSelectedFilters({text: content_filter});
+          // text += word + ' ';
         }
       });
-      this.setState({searchInputValue: text});
-      this.props.applyFiltersChanges();
+
+      //if(content_filter.trim().length>0){
+
+      _this.updateSelectedFilters({ text: content_filter.trim(),
+                                    projects: projects_filter,
+                                    trackers: trackers_filter
+      });
+
+      //}
+
+      // this.setState({searchInputValue: text});
+      // this.props.applyFiltersChanges();
     }
 
   }
@@ -125,7 +147,7 @@ class NavBarMenu extends Component {
     ];
 
     for (var key in this.props.current_filters) {
-      if(this.props.current_filters[key] && this.props.current_filters[key] != "" ){
+      if(this.props.current_filters[key] && this.props.current_filters[key] !== "" ){
         var content;
         switch(key) {
           case 'projects':
@@ -193,19 +215,20 @@ class NavBarMenu extends Component {
                               placeholder='Rechercher'
                               actionPosition="left"
                               labelPosition={'right'}
-                              value={this.props.selected_filters_as_text}
+                              value={this.state.searchInputValue}
                               onKeyPress={this.validateSearchInputChange}
                               onChange={this.handleSearchInputChange}
               />}
               content={<CustomQueries />}
               on='focus'
+              id="custom_queries_popup"
               flowing
               offset={50}
               position='bottom left'
               basic
             />
             <Icon circular link name='cancel' onClick={this.clearSearchInput}
-                  disabled={this.props.selected_filters_as_text==""}
+                  disabled={this.props.selected_filters_as_text===""}
             />
             <Popup
               trigger={<Button icon className="last" id="filters_dropdown"><Icon name='dropdown' /></Button>}
@@ -223,6 +246,7 @@ class NavBarMenu extends Component {
               offset={-5}
               position='bottom right'
               basic
+              id="filters_form_popup"
             />
           </Input>
         </Menu.Item>

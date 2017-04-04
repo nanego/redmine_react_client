@@ -4,10 +4,14 @@ import './App.css';
 // import ServiceAPI from './services/service_api'
 
 import sample_issues from './services/samples/issues.json';
+import sample_projects from './services/samples/projects.json'
+import sample_trackers from './services/samples/trackers.json'
 
 import NavBarMenu from './header/navbarmenu'
 import IssuesList from './issues/index'
 import ListCurrentFilters from './current_filters'
+
+import {convertFiltersToText, normalizeFilter, removeBlankAttributes} from './helpers/helper_functions'
 
 const default_filters = {text:''}; /*{
   projects: 0,
@@ -15,47 +19,6 @@ const default_filters = {text:''}; /*{
   text: ""
 };
 */
-let convertFilterToText = function(key, value){
-  if(key==='text'){
-    return value;
-  }else{
-    if(value && (value > 0 || value.length > 0)){
-      return key + ':' + value + ' ';
-    }else{
-      return "";
-    }
-  }
-};
-
-let convertFiltersToText = function(filters){
-  let complete_filters_as_text = "";
-  for(var key in filters){
-    if(key!=='text')
-      complete_filters_as_text += convertFilterToText(key, filters[key]);
-  }
-  if(filters['text'] && filters['text'].length>0){
-    complete_filters_as_text += convertFilterToText('text', filters['text']);
-  }
-  return complete_filters_as_text;
-};
-
-let removeBlankAttributes = function(object){
-  var obj = Object.assign({}, object);
-  Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
-  return obj;
-};
-
-let normalizeFilter = function(filters){
-  var normalized_filter = {};
-  for (var filter_key in filters) {
-    if(filters[filter_key] == parseInt(filters[filter_key])){
-      normalized_filter[filter_key] = parseInt(filters[filter_key]);
-    }else{
-      normalized_filter[filter_key] = filters[filter_key];
-    }
-  }
-  return normalized_filter;
-};
 
 class App extends Component {
 

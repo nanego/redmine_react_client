@@ -6,6 +6,7 @@ import SelectProjects from './select_projects'
 import LoginForm from '../account/login'
 import sample_projects from '../services/samples/projects.json'
 import sample_trackers from '../services/samples/trackers.json'
+import {getNamesFromIds, getIdByValue} from '../helpers/helper_functions'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
@@ -31,24 +32,7 @@ class NavBarMenu extends Component {
     this.applySearchInput = this.applySearchInput.bind(this);
     this.convertFiltersToOptions = this.convertFiltersToOptions.bind(this);
     this.defaultValues = this.defaultValues.bind(this);
-    this.getNamesFromIds = this.getNamesFromIds.bind(this);
     this.updateSelectedFilters = this.updateSelectedFilters.bind(this);
-  }
-
-  getNamesFromIds(array, ids){
-    var names = [];
-    if(ids instanceof Array){
-      for (let id of ids) {
-        names.push(array.find(function (d) {
-          return d.id === id;
-        }).name);
-      }
-    }else{
-      names.push(array.find(function (d) {
-        return d.id === ids;
-      }).name);
-    }
-    return names;
   }
 
   closeDropdown(event){
@@ -82,7 +66,21 @@ class NavBarMenu extends Component {
       // Re-init all selected filters
       _this.updateSelectedFilters({});
 
-      let words = this.state.searchInputValue.split(' ');
+      // Split input by key:value (with quotes)
+      var regexp = /[^\W]+:"([^"]*)"|[^\s"]+/gi;
+      var words = [];
+      do {
+        //Each call to exec returns the next regex match as an array
+        var match = regexp.exec(this.state.searchInputValue);
+        if (match != null)
+        {
+          //Index 1 in the array is the captured group if it exists
+          //Index 0 is the matched text, which we use if no captured group exists
+          // words.push(match[1] ? match[1] : match[0]);
+          words.push(match[0]);
+        }
+      } while (match != null);
+
       // let text = '';
       let content_filter = '';
       let projects_filter = undefined;
@@ -99,11 +97,11 @@ class NavBarMenu extends Component {
           let key_value = word.split(':');
           switch(key_value[0].toLowerCase()){
             case 'projects':
-              projects_filter = key_value[1];
+              projects_filter = getIdByValue(projects, key_value[1]);
               // text = word + ' ' + text;
               break;
             case 'trackers':
-              trackers_filter = key_value[1];
+              trackers_filter = getIdByValue(trackers, key_value[1]);
               // text = word + ' ' + text;
               break;
             default:
@@ -151,10 +149,10 @@ class NavBarMenu extends Component {
         var content;
         switch(key) {
           case 'projects':
-            content = 'projet : ' + this.getNamesFromIds(projects, this.props.current_filters[key]).join(', ');
+            content = 'projet : ' + getNamesFromIds(projects, this.props.current_filters[key]).join(', ');
             break;
           case 'trackers':
-            content = 'tracker : ' + this.getNamesFromIds(trackers, this.props.current_filters[key]).join(', ');
+            content = 'tracker : ' + getNamesFromIds(trackers, this.props.current_filters[key]).join(', ');
             break;
           default:
             content = key + ": " + this.props.current_filters[key];

@@ -2,40 +2,16 @@ import React, {Component} from 'react'
 import { List, Segment, Header, Container, Grid } from 'semantic-ui-react'
 import sample_projects from './services/samples/projects.json'
 import sample_trackers from './services/samples/trackers.json'
+import { getNamesFromIds } from './helpers/helper_functions'
 
 class ListCurrentFilters extends Component {
 
+  /*
   constructor(props){
     super(props);
     this.state = {
     };
-    this.getNamesFromIds = this.getNamesFromIds.bind(this);
-  }
-
-  getNamesFromIds(array, ids){
-
-    // console.log("ids : " + ids);
-
-    var names = [];
-    if(ids instanceof Array){
-      for (let id of ids) {
-        var element = array.find(function (d) {
-          return d.id == id;
-        });
-        if(element){
-          names.push(element.name);
-        }
-      }
-    }else{
-      var element = array.find(function (d) {
-        return d.id == ids;
-      });
-      if(element) {
-        names.push(element.name);
-      }
-    }
-    return names;
-  }
+  }*/
 
   render() {
     const projects = sample_projects.projects;
@@ -57,7 +33,7 @@ class ListCurrentFilters extends Component {
               <List.Item>
                 <List.Content>
                   <List.Header as='a'>Projets</List.Header>
-                  <List.Description>{this.getNamesFromIds(projects, this.props.current_filters.projects).join(', ')}</List.Description>
+                  <List.Description>{getNamesFromIds(projects, this.props.current_filters.projects).join(', ')}</List.Description>
                 </List.Content>
               </List.Item>
               }
@@ -65,7 +41,7 @@ class ListCurrentFilters extends Component {
               <List.Item>
                 <List.Content>
                   <List.Header as='a'>Trackers</List.Header>
-                  <List.Description>{this.getNamesFromIds(trackers, this.props.current_filters.trackers).join(', ')}</List.Description>
+                  <List.Description>{getNamesFromIds(trackers, this.props.current_filters.trackers).join(', ')}</List.Description>
                 </List.Content>
               </List.Item>
               }
@@ -94,7 +70,7 @@ class ListCurrentFilters extends Component {
               <List.Item>
                 <List.Content>
                   <List.Header as='a'>Projets</List.Header>
-                  <List.Description>{this.getNamesFromIds(projects, this.props.selected_filters.projects).join(', ')}</List.Description>
+                  <List.Description>{getNamesFromIds(projects, this.props.selected_filters.projects).join(', ')}</List.Description>
                 </List.Content>
               </List.Item>
               }
@@ -102,7 +78,7 @@ class ListCurrentFilters extends Component {
               <List.Item>
                 <List.Content>
                   <List.Header as='a'>Trackers</List.Header>
-                  <List.Description>{this.getNamesFromIds(trackers, this.props.selected_filters.trackers).join(', ')}</List.Description>
+                  <List.Description>{getNamesFromIds(trackers, this.props.selected_filters.trackers).join(', ')}</List.Description>
                 </List.Content>
               </List.Item>
               }

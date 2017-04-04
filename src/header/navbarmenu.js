@@ -29,9 +29,9 @@ class NavBarMenu extends Component {
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.validateSearchInputChange = this.validateSearchInputChange.bind(this);
     this.clearSearchInput = this.clearSearchInput.bind(this);
-    this.applySearchInput = this.applySearchInput.bind(this);
     this.convertFiltersToOptions = this.convertFiltersToOptions.bind(this);
     this.defaultValues = this.defaultValues.bind(this);
+    this.applyIfEnter = this.applyIfEnter.bind(this);
   }
 
   closeDropdown(event){
@@ -40,8 +40,7 @@ class NavBarMenu extends Component {
   }
 
   clearSearchInput(event) {
-    this.props.updateSelectedFilters({});
-    // this.setState({searchInputValue: ""});
+    this.props.updateSelectedFilters({}, true);
   }
 
   handleSearchInputChange(event){
@@ -58,8 +57,14 @@ class NavBarMenu extends Component {
     }
   }
 
-  validateSearchInputChange(event){
+  applyIfEnter(event){
+    if(event.key === 'Enter'){
+      console.log('enter');
+      this.props.applyFiltersChanges();
+    }
+  }
 
+  validateSearchInputChange(event){
     let _this = this;
     let input = event.target.value;
     this.setState({searchInputValue: input});
@@ -102,21 +107,10 @@ class NavBarMenu extends Component {
       }
     });
 
-    //if(content_filter.trim().length>0){
-
     _this.props.replaceSelectedFilters({text: content_filter.trim(),
-                                        projects: projects_filter,
-                                        trackers: trackers_filter
+      projects: projects_filter,
+      trackers: trackers_filter
     });
-
-    //}
-
-    // this.props.applyFiltersChanges();
-
-  }
-
-  applySearchInput(event){
-    this.props.applyFiltersChanges();
   }
 
   convertFiltersToOptions(){
@@ -176,7 +170,7 @@ class NavBarMenu extends Component {
                  actionPosition="left"
                  placeholder='Rechercher'
                  className='searchController'>
-            <Button icon onClick={this.applySearchInput} {...this.props.dirty_filters ? {color:'blue'} : {}}><Icon name='search' /></Button>
+            <Button icon onClick={this.props.applyFiltersChanges} {...this.props.dirty_filters ? {color:'blue'} : {}}><Icon name='search' /></Button>
             {/*
             <Dropdown
                 className="current_filters_dropdown"
@@ -197,6 +191,7 @@ class NavBarMenu extends Component {
                               labelPosition={'right'}
                               value={this.state.searchInputValue}
                               onChange={this.validateSearchInputChange}
+                              onKeyPress={this.applyIfEnter}
               />}
               content={<CustomQueries />}
               on='focus'
@@ -207,7 +202,7 @@ class NavBarMenu extends Component {
               basic
             />
             <Icon circular link name='cancel' onClick={this.clearSearchInput}
-                  disabled={this.props.selected_filters_as_text===""}
+                  disabled={this.state.searchInputValue===""}
             />
             <Popup
               trigger={<Button icon className="last" id="filters_dropdown"><Icon name='dropdown' /></Button>}

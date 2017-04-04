@@ -61,7 +61,7 @@ class App extends Component {
 
   }
 
-  updateSelectedFilters(new_filter){
+  updateSelectedFilters(new_filter, and_apply=false){
     console.log("START update selected filters : " + JSON.stringify(new_filter));
 
     new_filter = normalizeFilter(new_filter);
@@ -79,7 +79,11 @@ class App extends Component {
       console.log("001 : state = " + JSON.stringify(this.state.selected_filters));
 
       this.updateSelectedFiltersAsText();
-      this.compareSelectedAndAppliedFilters();
+      if(and_apply){
+        this.applyFiltersChanges();
+      }else{
+        this.compareSelectedAndAppliedFilters();
+      }
     });
   }
 

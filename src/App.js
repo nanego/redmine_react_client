@@ -103,6 +103,7 @@ class App extends Component {
   applyFiltersChanges(){
     this.setState({current_filters: this.state.selected_filters}, function(){
       this.updateIssues();
+      this.updateSelectedFiltersAsText(); // Ensure the input field is up to date
       this.compareSelectedAndAppliedFilters();
     });
   }

@@ -51,10 +51,18 @@
   width: calc(100% - 97px);
 }
 
+.list_current_filters .ui.list > .item .header, .list_current_filters .ui.list > .item .description {
+  display: inline-block !important;
+}
+.list_current_filters .ui.list > .item .description{
+  padding-left: 1em;
+}
+
 /* Issues list */
 .issues.ui.list > .item > .content {
   display: inline-block;
 }
+
 .issues.ui.list .tracker{
   padding-right: 10px;
 }

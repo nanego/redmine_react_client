@@ -15,7 +15,7 @@ class FiltersForm extends Component {
   applyFilters(e){
     e.preventDefault();
     this.props.applyFiltersChanges();
-    this.props.onSubmit();
+    document.getElementById('filters_dropdown').click(); // closeDropdown
   }
 
   resetFilters(e){

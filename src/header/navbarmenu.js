@@ -34,11 +34,6 @@ class NavBarMenu extends Component {
     this.applyIfEnter = this.applyIfEnter.bind(this);
   }
 
-  closeDropdown(event){
-    document.getElementById('filters_dropdown').click();
-    // console.log("closeDropdown : event : "+ event.target);
-  }
-
   clearSearchInput(event) {
     this.props.updateSelectedFilters({}, true);
   }
@@ -210,7 +205,6 @@ class NavBarMenu extends Component {
                                     selected_filters={this.props.selected_filters}
                                     applyFiltersChanges={this.props.applyFiltersChanges}
                                     updateSelectedFilters={this.props.updateSelectedFilters}
-                                    onSubmit={this.closeDropdown}
                                     searchValue={this.state.searchInputValue}
                                     updateSearchValue={this.handleSearchInputChange}
                                     dirty_filters={this.props.dirty_filters}

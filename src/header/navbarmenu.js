@@ -6,7 +6,7 @@ import SelectProjects from './select_projects'
 import LoginForm from '../account/login'
 import sample_projects from '../services/samples/projects.json'
 import sample_trackers from '../services/samples/trackers.json'
-import {getNamesFromIds, getIdByValue} from '../helpers/helper_functions'
+import {getNamesFromIds, getIdByValue, splitByKeyValue} from '../helpers/helper_functions'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
@@ -32,15 +32,15 @@ class NavBarMenu extends Component {
     this.applySearchInput = this.applySearchInput.bind(this);
     this.convertFiltersToOptions = this.convertFiltersToOptions.bind(this);
     this.defaultValues = this.defaultValues.bind(this);
-    this.updateSelectedFilters = this.updateSelectedFilters.bind(this);
   }
 
   closeDropdown(event){
+    document.getElementById('filters_dropdown').click();
     // console.log("closeDropdown : event : "+ event.target);
   }
 
   clearSearchInput(event) {
-    this.updateSelectedFilters({});
+    this.props.updateSelectedFilters({});
     // this.setState({searchInputValue: ""});
   }
 
@@ -48,88 +48,70 @@ class NavBarMenu extends Component {
     this.setState({searchInputValue: event.target.value});
   }
 
-  updateSelectedFilters(filters){
-    this.props.updateSelectedFilters(filters);
-  }
-
   componentWillReceiveProps(nextProps) {
-    if (nextProps.selected_filters_as_text !== this.state.searchInputValue) {
+
+    console.log("Just received new props. document.activeElement = " + document.activeElement);
+
+    if (document.getElementById('mainSearchInput').getElementsByTagName('input')[0] !== document.activeElement &&
+        nextProps.selected_filters_as_text !== this.state.searchInputValue) {
       this.setState({ searchInputValue: nextProps.selected_filters_as_text });
     }
   }
 
-  validateSearchInputChange(event, updateFilters){
+  validateSearchInputChange(event){
+
     let _this = this;
-    if(event.key === 'Enter'){
-      console.log('enter');
+    let input = event.target.value;
+    this.setState({searchInputValue: input});
+    let words = splitByKeyValue(input);
 
-      // Re-init all selected filters
-      _this.updateSelectedFilters({});
+    // let text = '';
+    let content_filter = '';
+    let projects_filter = undefined;
+    let trackers_filter = undefined;
 
-      // Split input by key:value (with quotes)
-      var regexp = /[^\W]+:"([^"]*)"|[^\s"]+/gi;
-      var words = [];
-      do {
-        //Each call to exec returns the next regex match as an array
-        var match = regexp.exec(this.state.searchInputValue);
-        if (match != null)
-        {
-          //Index 1 in the array is the captured group if it exists
-          //Index 0 is the matched text, which we use if no captured group exists
-          // words.push(match[1] ? match[1] : match[0]);
-          words.push(match[0]);
+    console.log("words :");
+    console.log(words);
+
+    words.forEach(function(word){
+
+      console.log(word);
+
+      if(word.indexOf(':') > 0){
+        let key_value = word.split(':');
+        switch(key_value[0].toLowerCase()){
+          case 'projects':
+            projects_filter = getIdByValue(projects, key_value[1]);
+            // text = word + ' ' + text;
+            break;
+          case 'trackers':
+            trackers_filter = getIdByValue(trackers, key_value[1]);
+            // text = word + ' ' + text;
+            break;
+          default:
+            content_filter += word + " ";
+            // _this.props.updateSelectedFilters({text: content_filter});
+            // text += word + " ";
         }
-      } while (match != null);
+        console.log("key="+key_value[0]);
+        console.log("value="+key_value[1]);
+      }else{
+        content_filter += word + " ";
+        // _this.props.updateSelectedFilters({text: content_filter});
+        // text += word + ' ';
+      }
+    });
 
-      // let text = '';
-      let content_filter = '';
-      let projects_filter = undefined;
-      let trackers_filter = undefined;
+    //if(content_filter.trim().length>0){
 
-      console.log("words :");
-      console.log(words);
+    _this.props.replaceSelectedFilters({text: content_filter.trim(),
+                                        projects: projects_filter,
+                                        trackers: trackers_filter
+    });
 
-      words.forEach(function(word){
+    //}
 
-        console.log(word);
-
-        if(word.indexOf(':') > 0){
-          let key_value = word.split(':');
-          switch(key_value[0].toLowerCase()){
-            case 'projects':
-              projects_filter = getIdByValue(projects, key_value[1]);
-              // text = word + ' ' + text;
-              break;
-            case 'trackers':
-              trackers_filter = getIdByValue(trackers, key_value[1]);
-              // text = word + ' ' + text;
-              break;
-            default:
-              content_filter += word + " ";
-              // _this.updateSelectedFilters({text: content_filter});
-              // text += word + " ";
-          }
-          console.log("key="+key_value[0]);
-          console.log("value="+key_value[1]);
-        }else{
-          content_filter += word + " ";
-          // _this.updateSelectedFilters({text: content_filter});
-          // text += word + ' ';
-        }
-      });
-
-      //if(content_filter.trim().length>0){
-
-      _this.updateSelectedFilters({ text: content_filter.trim(),
-                                    projects: projects_filter,
-                                    trackers: trackers_filter
-      });
-
-      //}
-
-      // this.setState({searchInputValue: text});
-      // this.props.applyFiltersChanges();
-    }
+    // this.props.applyFiltersChanges();
 
   }
 
@@ -209,13 +191,12 @@ class NavBarMenu extends Component {
             />*/}
             <Popup
               trigger={<Input id="mainSearchInput"
-                  className="searchInput"
+                              className="searchInput"
                               placeholder='Rechercher'
                               actionPosition="left"
                               labelPosition={'right'}
                               value={this.state.searchInputValue}
-                              onKeyPress={this.validateSearchInputChange}
-                              onChange={this.handleSearchInputChange}
+                              onChange={this.validateSearchInputChange}
               />}
               content={<CustomQueries />}
               on='focus'
@@ -233,7 +214,7 @@ class NavBarMenu extends Component {
               content={<FiltersForm current_filters={this.props.current_filters}
                                     selected_filters={this.props.selected_filters}
                                     applyFiltersChanges={this.props.applyFiltersChanges}
-                                    updateSelectedFilters={this.updateSelectedFilters}
+                                    updateSelectedFilters={this.props.updateSelectedFilters}
                                     onSubmit={this.closeDropdown}
                                     searchValue={this.state.searchInputValue}
                                     updateSearchValue={this.handleSearchInputChange}

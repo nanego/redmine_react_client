@@ -4,6 +4,24 @@ import sample_trackers from '../services/samples/trackers.json'
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
 
+export function splitByKeyValue(input){
+  // Split input by key:value (with quotes)
+  var regexp = /[^\W]+:"([^"]*)"|[^\s"]+/gi;
+  var words = [];
+  do {
+    //Each call to exec returns the next regex match as an array
+    var match = regexp.exec(input);
+    if (match != null)
+    {
+      //Index 1 in the array is the captured group if it exists
+      //Index 0 is the matched text, which we use if no captured group exists
+      // words.push(match[1] ? match[1] : match[0]);
+      words.push(match[0]);
+    }
+  } while (match != null);
+  return words
+}
+
 export function getNamesFromIds(array, ids){
   var names = [];
   if(ids instanceof Array){

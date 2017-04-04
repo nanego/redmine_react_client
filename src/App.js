@@ -32,11 +32,33 @@ class App extends Component {
       loading: true,
       dirty_filters: false
     };
+    this.replaceSelectedFilters = this.replaceSelectedFilters.bind(this);
     this.updateSelectedFilters = this.updateSelectedFilters.bind(this);
     this.updateSelectedFiltersAsText = this.updateSelectedFiltersAsText.bind(this);
     this.applyFiltersChanges = this.applyFiltersChanges.bind(this);
     this.updateIssues = this.updateIssues.bind(this);
     this.compareSelectedAndAppliedFilters = this.compareSelectedAndAppliedFilters.bind(this);
+  }
+
+  replaceSelectedFilters(new_filter){
+    console.log("START replace selected filters : " + JSON.stringify(new_filter));
+
+    new_filter = normalizeFilter(new_filter);
+
+    var new_selection;
+    if(JSON.stringify(new_filter)===JSON.stringify({})){ // Re-init filters
+      new_selection = default_filters;
+    }else{
+      new_selection = removeBlankAttributes(new_filter);
+    }
+    this.setState({selected_filters: new_selection}, function() {
+
+      console.log("001 : state = " + JSON.stringify(this.state.selected_filters));
+
+      // this.updateSelectedFiltersAsText();
+      this.compareSelectedAndAppliedFilters();
+    });
+
   }
 
   updateSelectedFilters(new_filter){
@@ -109,6 +131,7 @@ class App extends Component {
                     selected_filters_as_text={this.state.selected_filters_as_text}
                     applyFiltersChanges={this.applyFiltersChanges}
                     updateSelectedFilters={this.updateSelectedFilters}
+                    replaceSelectedFilters={this.replaceSelectedFilters}
                     dirty_filters={this.state.dirty_filters}
         />
         <IssuesList current_filters={this.state.current_filters}

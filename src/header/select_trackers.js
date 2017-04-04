@@ -30,7 +30,7 @@ class SelectTrackers extends Component {
 
   render() {
     return (
-      <Dropdown search fluid selection
+      <Dropdown search fluid selection allowAdditions
                 loading={this.state.trackers.length===0}
                 placeholder='Trackers'
                 closeOnBlur={false}

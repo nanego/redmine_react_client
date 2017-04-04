@@ -39,7 +39,7 @@ class SelectProjects extends Component {
 
   render() {
     return (
-      <Dropdown search fluid selection
+      <Dropdown search fluid selection allowAdditions
                 loading={this.state.projects.length===0}
                 placeholder='Projets'
                 options={this.state.projects.map(p => { return {'key': p.id, 'value': p.id, 'text': p.name}})}

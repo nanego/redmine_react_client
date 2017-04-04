@@ -6,7 +6,7 @@ import SelectProjects from './select_projects'
 import LoginForm from '../account/login'
 import sample_projects from '../services/samples/projects.json'
 import sample_trackers from '../services/samples/trackers.json'
-import {getNamesFromIds, getIdByValue, splitByKeyValue} from '../helpers/helper_functions'
+import {getNamesFromIds, getIdByValue, splitByKeyValue, removeBlankAttributes} from '../helpers/helper_functions'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
@@ -202,7 +202,7 @@ class NavBarMenu extends Component {
               basic
             />
             <Icon circular link name='cancel' onClick={this.clearSearchInput}
-                  disabled={this.state.searchInputValue===""}
+                  disabled={this.props.dirty_filters === false && JSON.stringify(removeBlankAttributes(this.props.current_filters)) === JSON.stringify({}) }
             />
             <Popup
               trigger={<Button icon className="last" id="filters_dropdown"><Icon name='dropdown' /></Button>}

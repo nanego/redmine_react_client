@@ -4,6 +4,18 @@ import sample_trackers from '../services/samples/trackers.json'
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
 
+export function findByAttribute(array, attr, value) {
+  if(array != undefined){
+    for(var i = 0; i < array.length; i += 1) {
+      if(array[i][attr] === value) {
+        return i;
+      }
+    }
+  }else{
+    return undefined;
+  }
+}
+
 export function splitByKeyValue(input){
   // Split input by key:value (with quotes)
   var regexp = /[^\W]+:"([^"]*)"|[^\s"]+/gi;
@@ -58,7 +70,7 @@ export function getIdFromName(array, name){
   if(element){
     return element.id
   }else{
-    return 0
+    return undefined
   }
 }
 
@@ -99,9 +111,9 @@ export function getNameFromValue(key, value){
   if(exists(value)){
     switch(key){
       case 'projects':
-        return getNameFromId(projects, getIdByValue(projects, value));
+        return getNameFromId(projects, getIdByValue(projects, value)) || value;
       case 'trackers':
-        return getNameFromId(trackers, getIdByValue(trackers, value));
+        return getNameFromId(trackers, getIdByValue(trackers, value)) || value;
       default:
         return value;
     }

@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 // import ServiceAPI from '../services/service_api'
 
+import {findByAttribute} from '../helpers/helper_functions'
+
 import sample_projects from '../services/samples/projects.json';
 
 class SelectProjects extends Component {
@@ -38,12 +40,20 @@ class SelectProjects extends Component {
   }
 
   render() {
+    var selected_value = this.props.selected_filters.projects;
+    var options = this.state.projects.map(p => { return {'key': p.id, 'value': p.id, 'text': p.name}});
+    var selected_option = {'key':selected_value,
+        'value':selected_value,
+        'text':selected_value};
+    if(findByAttribute(options, 'key', selected_value) == undefined){
+      options.push(selected_option);
+    }
     return (
       <Dropdown search fluid selection allowAdditions
                 loading={this.state.projects.length===0}
                 placeholder='Projets'
-                options={this.state.projects.map(p => { return {'key': p.id, 'value': p.id, 'text': p.name}})}
-                value={this.props.selected_filters.projects}
+                options={options}
+                value={selected_value}
                 onChange={this.handleProjectsSelection}
       />
     )

@@ -81,11 +81,11 @@ class NavBarMenu extends Component {
         let key_value = word.split(':');
         switch(key_value[0].toLowerCase()){
           case 'projects':
-            projects_filter = getIdByValue(projects, key_value[1]);
+            projects_filter = getIdByValue(projects, key_value[1]) || key_value[1];
             // text = word + ' ' + text;
             break;
           case 'trackers':
-            trackers_filter = getIdByValue(trackers, key_value[1]);
+            trackers_filter = getIdByValue(trackers, key_value[1]) || key_value[1];
             // text = word + ' ' + text;
             break;
           default:

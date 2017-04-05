@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Button, Checkbox, Form, Segment } from 'semantic-ui-react'
 import SelectProjects from './select_projects'
 import SelectTrackers from './select_trackers'
+import {removeBlankAttributes} from '../helpers/helper_functions'
 
 class FiltersForm extends Component {
 
@@ -20,7 +21,8 @@ class FiltersForm extends Component {
 
   resetFilters(e){
     e.preventDefault();
-    this.props.updateSelectedFilters({});
+    this.props.updateSelectedFilters({}, true);
+    document.getElementById('filters_dropdown').click(); // closeDropdown
   }
 
   updateTextFilter(e, {value}){
@@ -40,7 +42,7 @@ class FiltersForm extends Component {
         </Form.Field>
         <Form.Input label='Contient' placeholder='contenu recherché' value={this.props.selected_filters.text} onChange={this.updateTextFilter} />
         <Button type='submit' {...this.props.dirty_filters ? {color:'blue'} : {color:'grey'}} name="apply_filters" onClick={this.applyFilters}>Appliquer</Button>
-        <Button name="reset_filters" onClick={this.resetFilters}>Effacer</Button>
+        <Button {...(this.props.dirty_filters || JSON.stringify(removeBlankAttributes(this.props.current_filters)) !== JSON.stringify({})) ? {disabled:false} : {disabled:true}} name="reset_filters" onClick={this.resetFilters}>Effacer</Button>
       </Form>
     )
   }

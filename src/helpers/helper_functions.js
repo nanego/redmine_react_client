@@ -86,7 +86,7 @@ export function getIdByValue(array, value){
 }
 
 export function convertFilterToText(key, value){
-  if(key==='text'){
+  if(key==="text"){
     return value;
   }else{
     value = getNameFromValue(key, value);
@@ -136,7 +136,7 @@ export function convertFiltersToText(filters){
     if(key!=='text')
       complete_filters_as_text += convertFilterToText(key, filters[key]);
   }
-  if(filters['text'] && filters['text'].length>0){
+  if(exists(filters['text'])){
     complete_filters_as_text += convertFilterToText('text', filters['text']);
   }
   return complete_filters_as_text;

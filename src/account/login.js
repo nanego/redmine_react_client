@@ -17,12 +17,12 @@ class LoginForm extends Component {
 
   handleSubmit = (event, {formData}) => {
     event.preventDefault();
-    this.setState({ formData })
+    this.setState({ formData });
     alert(JSON.stringify(formData, "", 4));
     ServiceAPI.login(formData, res => {
       // callback
     });
-  }
+  };
 
   render() {
     // const { formData } = this.state

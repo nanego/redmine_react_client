@@ -165,7 +165,7 @@ class NavBarMenu extends Component {
                  actionPosition="left"
                  placeholder='Rechercher'
                  className='searchController'>
-            <Button icon onClick={this.props.applyFiltersChanges} {...this.props.dirty_filters ? {color:'blue'} : {}}><Icon name='search' /></Button>
+            <Button icon id="mainSearchButton" onClick={this.props.applyFiltersChanges} {...this.props.dirty_filters ? {color:'blue'} : {}}><Icon name='search' /></Button>
             {/*
             <Dropdown
                 className="current_filters_dropdown"
@@ -188,7 +188,7 @@ class NavBarMenu extends Component {
                               onChange={this.validateSearchInputChange}
                               onKeyPress={this.applyIfEnter}
               />}
-              content={<CustomQueries />}
+              content={<CustomQueries replaceSelectedFilters={this.props.replaceSelectedFilters} />}
               on='focus'
               id="custom_queries_popup"
               flowing

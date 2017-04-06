@@ -40,7 +40,7 @@ class App extends Component {
     this.compareSelectedAndAppliedFilters = this.compareSelectedAndAppliedFilters.bind(this);
   }
 
-  replaceSelectedFilters(new_filter){
+  replaceSelectedFilters(new_filter, and_apply=false){
     console.log("START replace selected filters : " + JSON.stringify(new_filter));
 
     new_filter = normalizeFilter(new_filter);
@@ -55,8 +55,11 @@ class App extends Component {
 
       console.log("001 : state = " + JSON.stringify(this.state.selected_filters));
 
-      // this.updateSelectedFiltersAsText();
-      this.compareSelectedAndAppliedFilters();
+      if(and_apply){
+        this.applyFiltersChanges();
+      }else{
+        this.compareSelectedAndAppliedFilters();
+      }
     });
 
   }
@@ -146,6 +149,7 @@ class App extends Component {
         <ListCurrentFilters current_filters={this.state.current_filters}
                             selected_filters={this.state.selected_filters}
                             selected_filters_as_text={this.state.selected_filters_as_text}/>
+
       </div>
     );
   }

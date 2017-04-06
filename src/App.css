@@ -1,39 +1,26 @@
-.App {
-  /* text-align: center; */
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 /* Navbar & filters */
 .ui.popup .form.filters_form {
   width: 400px;
   /* border-top-width: 1px !important; */
 }
 
-.ui.icon.searchController.input > i.circular.icon {
-  top: 0.3em;
+.ui.icon.searchController.input > i.reset.icon {
   right: 3.1em;
 }
-.ui.icon.searchController.input > i.circular.icon.disabled {
+.ui.icon.searchController.input > i.reset.icon:hover {
+  top: 0.3em;
+  right: 3.43em;
+  border-radius: 500em !important;
+  line-height: 1 !important;
+  padding: 0.5em 0.5em !important;
+  box-shadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;
+  width: 2em !important;
+  height: 2em !important;
+}
+.ui.icon.searchController.input > i.reset.icon:active {
+  background-color: #e0e1e2;
+}
+.ui.icon.searchController.input > i.reset.icon.disabled {
   display: none;
 }
 

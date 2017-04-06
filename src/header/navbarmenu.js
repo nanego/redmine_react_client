@@ -196,7 +196,8 @@ class NavBarMenu extends Component {
               position='bottom left'
               basic
             />
-            <Icon circular link name='cancel' onClick={this.clearSearchInput}
+            <Icon link name='cancel' className='reset'
+                  onClick={this.clearSearchInput}
                   disabled={this.props.dirty_filters === false && JSON.stringify(removeBlankAttributes(this.props.current_filters)) === JSON.stringify({}) }
             />
             <Popup

@@ -46,7 +46,8 @@ class NavBarMenu extends Component {
 
     console.log("Just received new props. document.activeElement = " + document.activeElement);
 
-    if (document.getElementById('mainSearchInput').getElementsByTagName('input')[0] !== document.activeElement &&
+    if (document.getElementById('mainSearchInput') &&
+        document.getElementById('mainSearchInput').getElementsByTagName('input')[0] !== document.activeElement &&
         nextProps.selected_filters_as_text !== this.state.searchInputValue) {
       this.setState({ searchInputValue: nextProps.selected_filters_as_text });
     }

@@ -1,0 +1,120 @@
+exports[`test should render NavBarMenu 1`] = `
+<div
+  className="ui vertical menu">
+  <div
+    className="item"
+    onClick={[Function]}>
+    <div
+      className="ui input">
+      <input
+        placeholder="Search..."
+        type="text" />
+    </div>
+  </div>
+  <div
+    className="item"
+    onClick={[Function]}>
+    Home
+    <div
+      className="menu">
+      <a
+        className="item"
+        onClick={[Function]}>
+        Search
+      </a>
+      <a
+        className="item"
+        onClick={[Function]}>
+        Add
+      </a>
+      <a
+        className="item"
+        onClick={[Function]}>
+        Remove
+      </a>
+    </div>
+  </div>
+  <a
+    className="item"
+    onClick={[Function]}>
+    <i
+      aria-hidden="true"
+      className="grid layout icon" />
+    Browse
+  </a>
+  <a
+    className="item"
+    onClick={[Function]}>
+    Messages
+  </a>
+  <div
+    aria-busy={undefined}
+    aria-disabled={undefined}
+    aria-expanded={false}
+    aria-multiselectable={undefined}
+    className="ui item dropdown"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onMouseDown={[Function]}
+    role="listbox"
+    tabIndex={0}>
+    <div
+      className="text">
+      More
+    </div>
+    <i
+      aria-hidden="true"
+      className="dropdown icon" />
+    <div
+      className="menu transition">
+      <div
+        aria-checked={undefined}
+        aria-disabled={undefined}
+        aria-selected={undefined}
+        className="item"
+        onClick={[Function]}
+        role="option">
+        <i
+          aria-hidden="true"
+          className="edit icon" />
+        <span
+          className="text">
+          Edit Profile
+        </span>
+      </div>
+      <div
+        aria-checked={undefined}
+        aria-disabled={undefined}
+        aria-selected={undefined}
+        className="item"
+        onClick={[Function]}
+        role="option">
+        <i
+          aria-hidden="true"
+          className="globe icon" />
+        <span
+          className="text">
+          Choose Language
+        </span>
+      </div>
+      <div
+        aria-checked={undefined}
+        aria-disabled={undefined}
+        aria-selected={undefined}
+        className="item"
+        onClick={[Function]}
+        role="option">
+        <i
+          aria-hidden="true"
+          className="settings icon" />
+        <span
+          className="text">
+          Account Settings
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

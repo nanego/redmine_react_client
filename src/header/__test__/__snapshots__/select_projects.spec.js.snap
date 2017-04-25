@@ -1,4 +1,4 @@
-exports[`test loads SelectProjects 1`] = `
+exports[`test should render SelectProjects 1`] = `
 <div
   aria-busy={false}
   aria-disabled={undefined}

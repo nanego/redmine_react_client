@@ -1,0 +1,450 @@
+exports[`test should render CustomQueries 1`] = `
+<div
+  className="ui secondary vertical menu">
+  <div
+    aria-busy={undefined}
+    aria-disabled={undefined}
+    aria-expanded={false}
+    aria-multiselectable={undefined}
+    className="ui item dropdown"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onMouseDown={[Function]}
+    role="listbox"
+    tabIndex={0}>
+    <div
+      className="text">
+      Mes demandes par priorité
+    </div>
+    <div
+      className="menu transition" />
+  </div>
+  <div
+    aria-busy={undefined}
+    aria-disabled={undefined}
+    aria-expanded={false}
+    aria-multiselectable={undefined}
+    className="ui item dropdown"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onMouseDown={[Function]}
+    role="listbox"
+    tabIndex={0}>
+    <div
+      className="text">
+      Demandes surveillées
+    </div>
+    <div
+      className="menu transition" />
+  </div>
+  <div
+    aria-busy={undefined}
+    aria-disabled={undefined}
+    aria-expanded={false}
+    aria-multiselectable={undefined}
+    className="ui item dropdown"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onMouseDown={[Function]}
+    role="listbox"
+    tabIndex={0}>
+    <div
+      className="text">
+      Traité sans activité récente
+    </div>
+    <div
+      className="menu transition" />
+  </div>
+  <div
+    aria-busy={undefined}
+    aria-disabled={undefined}
+    aria-expanded={false}
+    aria-multiselectable={undefined}
+    className="ui item dropdown"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onMouseDown={[Function]}
+    role="listbox"
+    tabIndex={0}>
+    <div
+      className="text">
+      Recherche avancée
+    </div>
+    <i
+      aria-hidden="true"
+      className="dropdown icon" />
+    <div
+      className="menu transition" />
+  </div>
+</div>
+`;
+
+exports[`test should render FiltersForm 1`] = `
+<form
+  className="ui form filters_form">
+  <div
+    className="inline field">
+    <label>
+      Projets
+    </label>
+    <div
+      aria-busy={false}
+      aria-disabled={undefined}
+      aria-expanded={false}
+      className="ui fluid search selection dropdown"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseDown={[Function]}
+      role="combobox"
+      tabIndex={undefined}>
+      <select
+        aria-hidden="true"
+        multiple={undefined}
+        name={undefined}
+        type="hidden"
+        value="">
+        <option
+          value="" />
+        <option
+          value={1}>
+          eCookbook
+        </option>
+        <option
+          value={5}>
+          Private child of eCookbook
+        </option>
+        <option
+          value={6}>
+          Child of private child
+        </option>
+        <option
+          value={3}>
+          eCookbook Subproject 1
+        </option>
+        <option
+          value={4}>
+          eCookbook Subproject 2
+        </option>
+        <option
+          value={2}>
+          OnlineStore
+        </option>
+        <option
+          value={undefined} />
+      </select>
+      <input
+        aria-autocomplete="list"
+        autoComplete="off"
+        className="search"
+        name="-search"
+        onChange={[Function]}
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+        tabIndex={0}
+        type="text"
+        value="" />
+      <div
+        className="default text">
+        Projets
+      </div>
+      <i
+        aria-hidden="true"
+        className="dropdown icon" />
+      <div
+        aria-multiselectable={undefined}
+        className="menu transition"
+        role="listbox">
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={true}
+          className="selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            eCookbook
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Private child of eCookbook
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Child of private child
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            eCookbook Subproject 1
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            eCookbook Subproject 2
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            OnlineStore
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          } />
+      </div>
+    </div>
+  </div>
+  <div
+    className="inline field">
+    <label>
+      Trackers
+    </label>
+    <div
+      aria-busy={false}
+      aria-disabled={undefined}
+      aria-expanded={false}
+      className="ui fluid search selection dropdown"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseDown={[Function]}
+      role="combobox"
+      tabIndex={undefined}>
+      <select
+        aria-hidden="true"
+        multiple={undefined}
+        name={undefined}
+        type="hidden"
+        value="">
+        <option
+          value="" />
+        <option
+          value={1}>
+          Bug
+        </option>
+        <option
+          value={2}>
+          Feature request
+        </option>
+        <option
+          value={3}>
+          Support request
+        </option>
+        <option
+          value={undefined} />
+      </select>
+      <input
+        aria-autocomplete="list"
+        autoComplete="off"
+        className="search"
+        name="-search"
+        onChange={[Function]}
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+        tabIndex={0}
+        type="text"
+        value="" />
+      <div
+        className="default text">
+        Trackers
+      </div>
+      <i
+        aria-hidden="true"
+        className="dropdown icon" />
+      <div
+        aria-multiselectable={undefined}
+        className="menu transition"
+        role="listbox">
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={true}
+          className="selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Bug
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Feature request
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Support request
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          } />
+      </div>
+    </div>
+  </div>
+  <div
+    className="field">
+    <label
+      htmlFor={undefined}>
+      Contient
+    </label>
+    <div
+      className="ui input">
+      <input
+        onChange={[Function]}
+        placeholder="contenu recherché"
+        required={undefined}
+        type="text"
+        value={undefined} />
+    </div>
+  </div>
+  <button
+    className="ui blue button"
+    name="apply_filters"
+    onClick={[Function]}
+    tabIndex={undefined}
+    type="submit">
+    Appliquer
+  </button>
+  <button
+    className="ui button"
+    name="reset_filters"
+    onClick={[Function]}
+    tabIndex={undefined}>
+    Effacer
+  </button>
+</form>
+`;

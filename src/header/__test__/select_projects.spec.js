@@ -1,11 +1,11 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import SelectProjects from './select_projects';
+import SelectProjects from '../select_projects';
 import renderer from 'react-test-renderer';
 
 var updateSelectedFilters = function(){};
 
-it('loads SelectProjects', () => {
+it('should render SelectProjects', () => {
   const component = renderer.create(
       <SelectProjects selected_filters={{}} updateSelectedFilters={updateSelectedFilters} />
   );

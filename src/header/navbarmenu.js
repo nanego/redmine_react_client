@@ -46,8 +46,7 @@ class NavBarMenu extends Component {
 
     console.log("Just received new props. document.activeElement = " + document.activeElement);
 
-    if (document.getElementById('mainSearchInput') &&
-        document.getElementById('mainSearchInput').getElementsByTagName('input')[0] !== document.activeElement &&
+    if (document.getElementById('mainSearchInput') !== document.activeElement &&
         nextProps.selected_filters_as_text !== this.state.searchInputValue) {
       this.setState({ searchInputValue: nextProps.selected_filters_as_text });
     }
@@ -193,8 +192,8 @@ class NavBarMenu extends Component {
               on='focus'
               id="custom_queries_popup"
               flowing
-              offset={50}
-              position='bottom left'
+              // offset={50}
+              position='bottom right'
               basic
             />
             <Icon link name='cancel' className='reset'

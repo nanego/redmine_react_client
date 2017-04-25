@@ -24,7 +24,7 @@
   display: none;
 }
 
-.ui.icon.searchController.input #mainSearchInput {
+.ui.icon.searchController.input .searchInput {
   width: 100%;
 }
 

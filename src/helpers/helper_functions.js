@@ -108,11 +108,16 @@ export function convertFilterToText(key, value){
 }
 
 export function surroundWithQuotesIfNecessary(value){
-  if(value.indexOf(' ')>0){
+  log("surroud if necessary", value);
+  if(isString(value) && value.indexOf(' ')>0){
     return "\"" + value + "\""
   }else{
     return value
   }
+}
+
+export function isString(value){
+  return (typeof value === 'string' || value instanceof String);
 }
 
 export function getNameFromValue(key, value){

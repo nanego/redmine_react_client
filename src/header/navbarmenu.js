@@ -6,18 +6,10 @@ import CustomQueries from './custom_queries'
 import LoginForm from '../account/login'
 import sample_projects from '../services/samples/projects.json'
 import sample_trackers from '../services/samples/trackers.json'
-import {getNamesFromIds, getIdByValue, splitByKeyValue, removeBlankAttributes, convertToBoolean} from '../helpers/helper_functions'
+import {getNamesFromIds, getIdByValue, splitByKeyValue, removeBlankAttributes, convertToBoolean, log} from '../helpers/helper_functions'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
-
-/*
-const renderLabel = (label, index, props) => ({
-  color: 'blue',
-  content: `Customized label - ${label.text}`,
-  icon: 'check',
-})
-*/
 
 class NavBarMenu extends Component {
 

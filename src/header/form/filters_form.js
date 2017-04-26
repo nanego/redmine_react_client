@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Button, Checkbox, Form, Segment } from 'semantic-ui-react'
 import SelectProjects from './select_projects'
 import SelectTrackers from './select_trackers'
-import {removeBlankAttributes} from '../helpers/helper_functions'
+import {removeBlankAttributes} from '../../helpers/helper_functions'
 
 class FiltersForm extends Component {
 

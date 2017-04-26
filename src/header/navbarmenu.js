@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import { Dropdown, Menu, Input, Button, Icon, Popup, Radio } from 'semantic-ui-react'
-import FiltersForm from './filters_form'
+import FiltersForm from './form/filters_form'
 import CustomQueries from './custom_queries'
-import SelectProjects from './select_projects'
+// import SelectProjects from './form/select_projects'
 import LoginForm from '../account/login'
 import sample_projects from '../services/samples/projects.json'
 import sample_trackers from '../services/samples/trackers.json'
-import {getNamesFromIds, getIdByValue, splitByKeyValue, removeBlankAttributes} from '../helpers/helper_functions'
+import {getNamesFromIds, getIdByValue, splitByKeyValue, removeBlankAttributes, convertToBoolean} from '../helpers/helper_functions'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
@@ -29,8 +29,6 @@ class NavBarMenu extends Component {
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.validateSearchInputChange = this.validateSearchInputChange.bind(this);
     this.clearSearchInput = this.clearSearchInput.bind(this);
-    this.convertFiltersToOptions = this.convertFiltersToOptions.bind(this);
-    this.defaultValues = this.defaultValues.bind(this);
     this.applyIfEnter = this.applyIfEnter.bind(this);
   }
 
@@ -69,6 +67,7 @@ class NavBarMenu extends Component {
     let content_filter = '';
     let projects_filter = undefined;
     let trackers_filter = undefined;
+    let watched_filter = undefined;
 
     console.log("words :");
     console.log(words);
@@ -79,14 +78,17 @@ class NavBarMenu extends Component {
 
       if(word.indexOf(':') > 0){
         let key_value = word.split(':');
-        switch(key_value[0].toLowerCase()){
+        let key = key_value[0];
+        let value = key_value[1];
+        switch(key.toLowerCase()){
           case 'projects':
-            projects_filter = getIdByValue(projects, key_value[1]) || key_value[1];
-            // text = word + ' ' + text;
+            projects_filter = getIdByValue(projects, value) || value;
             break;
           case 'trackers':
-            trackers_filter = getIdByValue(trackers, key_value[1]) || key_value[1];
-            // text = word + ' ' + text;
+            trackers_filter = getIdByValue(trackers, value) || value;
+            break;
+          case 'watched':
+            watched_filter = convertToBoolean(value);
             break;
           default:
             content_filter += word + " ";
@@ -102,49 +104,12 @@ class NavBarMenu extends Component {
       }
     });
 
-    _this.props.replaceSelectedFilters({text: content_filter.trim(),
+    _this.props.replaceSelectedFilters({
+      text: content_filter.trim(),
       projects: projects_filter,
-      trackers: trackers_filter
+      trackers: trackers_filter,
+      watched: watched_filter
     });
-  }
-
-  convertFiltersToOptions(){
-    var options = [
-    //  { key: 1, text: 'One', value: 1 },
-    //  { key: 2, text: 'Two', value: 2 },
-    //  { key: 3, text: 'Three', value: 3 },
-    ];
-
-    for (var key in this.props.current_filters) {
-      if(this.props.current_filters[key] && this.props.current_filters[key] !== "" ){
-        var content;
-        switch(key) {
-          case 'projects':
-            content = 'projet : ' + getNamesFromIds(projects, this.props.current_filters[key]).join(', ');
-            break;
-          case 'trackers':
-            content = 'tracker : ' + getNamesFromIds(trackers, this.props.current_filters[key]).join(', ');
-            break;
-          default:
-            content = key + ": " + this.props.current_filters[key];
-        }
-
-
-        options.push({key: options.length, text: content, value:key });
-      }
-    }
-
-    return options;
-  }
-
-  defaultValues(){
-    var options = this.convertFiltersToOptions();
-    var values = [];
-    options.forEach(function (option){
-      values.push(option.value);
-    });
-    console.log('values = ' + values);
-    return values;
   }
 
   render(){
@@ -166,18 +131,6 @@ class NavBarMenu extends Component {
                  placeholder='Rechercher'
                  className='searchController'>
             <Button icon id="mainSearchButton" onClick={this.props.applyFiltersChanges} {...this.props.dirty_filters ? {color:'blue'} : {}}><Icon name='search' /></Button>
-            {/*
-            <Dropdown
-                className="current_filters_dropdown"
-                multiple
-                icon={false}
-                selection
-                fluid
-                options={this.convertFiltersToOptions()}
-                // placeholder='Choose an option'
-                // renderLabel={renderLabel}
-                value={this.defaultValues()}
-            />*/}
             <Popup
               trigger={<Input id="mainSearchInput"
                               className="searchInput"

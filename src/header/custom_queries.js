@@ -26,7 +26,7 @@ class CustomQueries extends Component {
         closePopup();
         break;
       case "Demandes surveillées":
-        this.props.replaceSelectedFilters({is:'starred'}, true);
+        this.props.replaceSelectedFilters({watched:"true"}, true);
         closePopup();
         break;
       case "Traité sans activité récente":

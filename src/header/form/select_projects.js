@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 // import ServiceAPI from '../services/service_api'
 
-import {findByAttribute} from '../helpers/helper_functions'
+import {findByAttribute} from '../../helpers/helper_functions'
 
-import sample_projects from '../services/samples/projects.json';
+import sample_projects from '../../services/samples/projects.json';
 
 class SelectProjects extends Component {
 

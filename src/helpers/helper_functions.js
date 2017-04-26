@@ -16,6 +16,14 @@ export function findByAttribute(array, attr, value) {
   }
 }
 
+export function log(key, value=undefined){
+  if(value){
+    console.log(key+" : "+JSON.stringify(value));
+  }else{
+    console.log(key);
+  }
+}
+
 export function splitByKeyValue(input){
   // Split input by key:value (with quotes)
   var regexp = /[^\W]+:"([^"]*)"|[^\s"]+/gi;
@@ -123,6 +131,7 @@ export function getNameFromValue(key, value){
 }
 
 export function exists(value){
+  log("800 - Exists", value);
   if(value && (value > 0 || value.length > 0)){
     return true;
   }else{
@@ -144,7 +153,7 @@ export function convertFiltersToText(filters){
 
 export function removeBlankAttributes(object){
   var obj = Object.assign({}, object);
-  Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
+  Object.keys(obj).forEach(key => obj[key]!==false && !obj[key] && delete obj[key]);
   return obj;
 }
 
@@ -158,4 +167,9 @@ export function normalizeFilter(filters){
     }
   }
   return normalized_filter;
+}
+
+export function convertToBoolean(value){
+  value = value.toLowerCase();
+  return (value != 'false' && value != '0' && value != 'no' && value!==false);
 }

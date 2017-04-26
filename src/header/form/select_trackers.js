@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import { Dropdown } from 'semantic-ui-react'
-import ServiceAPI from '../services/service_api'
-import sample_trackers from '../services/samples/trackers.json';
-import {findByAttribute} from '../helpers/helper_functions'
+import ServiceAPI from '../../services/service_api'
+import sample_trackers from '../../services/samples/trackers.json';
+import {findByAttribute} from '../../helpers/helper_functions'
 
 class SelectTrackers extends Component {
 

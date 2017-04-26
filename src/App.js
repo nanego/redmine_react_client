@@ -11,7 +11,7 @@ import NavBarMenu from './header/navbarmenu'
 import IssuesList from './issues/index'
 import ListCurrentFilters from './current_filters'
 
-import {convertFiltersToText, normalizeFilter, removeBlankAttributes} from './helpers/helper_functions'
+import {convertFiltersToText, normalizeFilter, removeBlankAttributes, log} from './helpers/helper_functions'
 
 const default_filters = {text:''}; /*{
   projects: 0,
@@ -41,15 +41,18 @@ class App extends Component {
   }
 
   replaceSelectedFilters(new_filter, and_apply=false){
-    console.log("START replace selected filters : " + JSON.stringify(new_filter));
+    log("START replace selected filters", new_filter);
 
     new_filter = normalizeFilter(new_filter);
+
+    log("normalized", new_filter);
 
     var new_selection;
     if(JSON.stringify(new_filter)===JSON.stringify({})){ // Re-init filters
       new_selection = default_filters;
     }else{
       new_selection = removeBlankAttributes(new_filter);
+      log("no blank attributes", new_selection);
     }
     this.setState({selected_filters: new_selection}, function() {
 

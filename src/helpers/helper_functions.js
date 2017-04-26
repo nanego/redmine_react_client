@@ -136,8 +136,7 @@ export function getNameFromValue(key, value){
 }
 
 export function exists(value){
-  log("800 - Exists", value);
-  if(value && (value > 0 || value.length > 0)){
+  if( value != undefined && (value > 0 || value.length > 0 || typeof value === "boolean") ){
     return true;
   }else{
     return false;

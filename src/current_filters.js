@@ -4,21 +4,44 @@ import sample_projects from './services/samples/projects.json'
 import sample_trackers from './services/samples/trackers.json'
 import { getNamesFromIds } from './helpers/helper_functions'
 
+const projects = sample_projects.projects;
+const trackers = sample_trackers.trackers;
+
+function knownFilters(filters){
+  return (<Segment attached>
+    <span>{JSON.stringify(filters)}</span>
+    <List>
+      {(filters.projects && (filters.projects > 0 || filters.projects.length > 0)) &&
+      <List.Item>
+        <List.Content>
+          <List.Header as='a'>Projets :</List.Header>
+          <List.Description>{getNamesFromIds(projects, filters.projects).join(', ')}</List.Description>
+        </List.Content>
+      </List.Item>
+      }
+      {(filters.trackers && (filters.trackers > 0 || filters.trackers.length > 0)) &&
+      <List.Item>
+        <List.Content>
+          <List.Header as='a'>Trackers :</List.Header>
+          <List.Description>{getNamesFromIds(trackers, filters.trackers).join(', ')}</List.Description>
+        </List.Content>
+      </List.Item>
+      }
+      {(filters.text && filters.text.length > 0) &&
+      <List.Item>
+        <List.Content>
+          <List.Header as='a'>Contient :</List.Header>
+          <List.Description>{filters.text}</List.Description>
+        </List.Content>
+      </List.Item>
+      }
+    </List>
+  </Segment>)
+}
+
 class ListCurrentFilters extends Component {
-
-  /*
-  constructor(props){
-    super(props);
-    this.state = {
-    };
-  } */
-
   render() {
-    const projects = sample_projects.projects;
-    const trackers = sample_trackers.trackers;
-
     return (
-
     <Grid columns={2} centered className="list_current_filters">
       <Grid.Column>
         <Container text>
@@ -26,35 +49,7 @@ class ListCurrentFilters extends Component {
             <List.Icon name='filter' />
             Filtres appliqués
           </Header>
-          <Segment attached>
-            <span>{JSON.stringify(this.props.current_filters)}</span>
-            <List>
-              {(this.props.current_filters.projects && (this.props.current_filters.projects > 0 || this.props.current_filters.projects.length > 0)) &&
-              <List.Item>
-                <List.Content>
-                  <List.Header as='a'>Projets :</List.Header>
-                  <List.Description>{getNamesFromIds(projects, this.props.current_filters.projects).join(', ')}</List.Description>
-                </List.Content>
-              </List.Item>
-              }
-              {(this.props.current_filters.trackers && (this.props.current_filters.trackers > 0 || this.props.current_filters.trackers.length > 0)) &&
-              <List.Item>
-                <List.Content>
-                  <List.Header as='a'>Trackers :</List.Header>
-                  <List.Description>{getNamesFromIds(trackers, this.props.current_filters.trackers).join(', ')}</List.Description>
-                </List.Content>
-              </List.Item>
-              }
-              {(this.props.current_filters.text && this.props.current_filters.text.length > 0) &&
-              <List.Item>
-                <List.Content>
-                  <List.Header as='a'>Contient :</List.Header>
-                  <List.Description>{this.props.current_filters.text}</List.Description>
-                </List.Content>
-              </List.Item>
-              }
-            </List>
-          </Segment>
+          {knownFilters(this.props.current_filters)}
         </Container>
       </Grid.Column>
       <Grid.Column>
@@ -63,40 +58,11 @@ class ListCurrentFilters extends Component {
             <List.Icon name='filter' />
             Filtres en cours de modification
           </Header>
-          <Segment attached>
-            <span>{JSON.stringify(this.props.selected_filters)}</span>
-            <List>
-              {(this.props.selected_filters.projects && (this.props.selected_filters.projects > 0 || this.props.selected_filters.projects.length > 0)) &&
-              <List.Item>
-                <List.Content>
-                  <List.Header as='a'>Projets :</List.Header>
-                  <List.Description>{getNamesFromIds(projects, this.props.selected_filters.projects).join(', ')}</List.Description>
-                </List.Content>
-              </List.Item>
-              }
-              {(this.props.selected_filters.trackers && (this.props.selected_filters.trackers > 0 || this.props.selected_filters.trackers.length > 0)) &&
-              <List.Item>
-                <List.Content>
-                  <List.Header as='a'>Trackers :</List.Header>
-                  <List.Description>{getNamesFromIds(trackers, this.props.selected_filters.trackers).join(', ')}</List.Description>
-                </List.Content>
-              </List.Item>
-              }
-              {(this.props.selected_filters.text && this.props.selected_filters.text.length > 0) &&
-              <List.Item>
-                <List.Content>
-                  <List.Header as='a'>Contient :</List.Header>
-                  <List.Description>{this.props.selected_filters.text}</List.Description>
-                </List.Content>
-              </List.Item>
-              }
-            </List>
-          </Segment>
+          {knownFilters(this.props.selected_filters)}
         </Container>
       </Grid.Column>
     </Grid>
-
-      );
+    );
   }
 }
 

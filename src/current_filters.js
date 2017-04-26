@@ -27,6 +27,14 @@ function knownFilters(filters){
         </List.Content>
       </List.Item>
       }
+      {filters.watched != undefined &&
+      <List.Item>
+        <List.Content>
+          <List.Header as='a'>Observateur :</List.Header>
+          <List.Description>{filters.watched ? 'Oui':'Non'}</List.Description>
+        </List.Content>
+      </List.Item>
+      }
       {(filters.text && filters.text.length > 0) &&
       <List.Item>
         <List.Content>

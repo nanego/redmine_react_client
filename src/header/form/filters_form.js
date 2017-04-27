@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Button, Checkbox, Form, Segment } from 'semantic-ui-react'
 import SelectProjects from './select_projects'
 import SelectTrackers from './select_trackers'
+import SelectIssueStatuses from './select_issue_statuses'
 import {removeBlankAttributes} from '../../helpers/helper_functions'
 
 class FiltersForm extends Component {
@@ -39,6 +40,10 @@ class FiltersForm extends Component {
         <Form.Field inline>
           <label>Trackers</label>
           <SelectTrackers selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
+        </Form.Field>
+        <Form.Field inline>
+          <label>Statuts</label>
+          <SelectIssueStatuses selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         </Form.Field>
         <Form.Input label='Contient' placeholder='contenu recherché' value={this.props.selected_filters.text} onChange={this.updateTextFilter} />
         <Button type='submit' {...this.props.dirty_filters ? {color:'blue'} : {color:'grey'}} name="apply_filters" onClick={this.applyFilters}>Appliquer</Button>

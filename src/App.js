@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 // import ServiceAPI from './services/service_api'
-
 import sample_issues from './services/samples/issues.json';
-import sample_projects from './services/samples/projects.json'
-import sample_trackers from './services/samples/trackers.json'
 
 import NavBarMenu from './header/navbarmenu'
 import IssuesList from './issues/index'
@@ -69,21 +66,17 @@ class App extends Component {
 
   updateSelectedFilters(new_filter, and_apply=false){
     console.log("START update selected filters : " + JSON.stringify(new_filter));
-
     new_filter = normalizeFilter(new_filter);
-
     var new_selection;
     if(JSON.stringify(new_filter)===JSON.stringify({})){ // Re-init filters
-      console.log("REINIT FILTERS");
+      // console.log("REINIT FILTERS");
       new_selection = default_filters;
     }else{
       new_selection = Object.assign({},this.state.selected_filters, new_filter);
       new_selection = removeBlankAttributes(new_selection);
     }
     this.setState({selected_filters: new_selection}, function() {
-
-      console.log("001 : state = " + JSON.stringify(this.state.selected_filters));
-
+      // console.log("001 : state = " + JSON.stringify(this.state.selected_filters));
       this.updateSelectedFiltersAsText();
       if(and_apply){
         this.applyFiltersChanges();

@@ -1,8 +1,10 @@
 import sample_projects from '../services/samples/projects.json'
 import sample_trackers from '../services/samples/trackers.json'
+import sample_issue_statuses from '../services/samples/issue_statuses.json';
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
+const issue_statuses = sample_issue_statuses.issue_statuses;
 
 export function findByAttribute(array, attr, value) {
   if(array != undefined){
@@ -16,12 +18,15 @@ export function findByAttribute(array, attr, value) {
   }
 }
 
-export function log(key, value=undefined){
-  if(value){
-    console.log(key+" : "+JSON.stringify(value));
+export function log(string, object = undefined){
+  let print = "";
+  if(object){
+    print = string + " : " + JSON.stringify(object);
   }else{
-    console.log(key);
+    print = string;
   }
+  console.log(print);
+  return print;
 }
 
 export function splitByKeyValue(input){
@@ -127,6 +132,8 @@ export function getNameFromValue(key, value){
         return getNameFromId(projects, getIdByValue(projects, value)) || value;
       case 'trackers':
         return getNameFromId(trackers, getIdByValue(trackers, value)) || value;
+      case 'status':
+        return getNameFromId(issue_statuses, getIdByValue(issue_statuses, value)) || value;
       default:
         return value;
     }

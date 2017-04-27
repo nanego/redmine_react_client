@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import { List, Segment, Header, Container, Grid } from 'semantic-ui-react'
+import moment from 'moment'
 import sample_projects from './services/samples/projects.json'
 import sample_trackers from './services/samples/trackers.json'
 import sample_issue_statuses from './services/samples/issue_statuses.json'
-import { getNamesFromIds } from './helpers/helper_functions'
+import { getNamesFromIds, exists } from './helpers/helper_functions'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
@@ -42,6 +43,14 @@ function knownFilters(filters){
         <List.Content>
           <List.Header as='a'>Observateur :</List.Header>
           <List.Description>{filters.watched ? 'Oui':'Non'}</List.Description>
+        </List.Content>
+      </List.Item>
+      }
+      {filters.updated_before &&
+      <List.Item>
+        <List.Content>
+          <List.Header as='a'>Mis à jour avant le</List.Header>
+          <List.Description>{moment(filters.updated_before, 'DD/MM/YYYY').format('LLLL')}</List.Description>
         </List.Content>
       </List.Item>
       }

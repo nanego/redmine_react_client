@@ -1,6 +1,7 @@
 import sample_projects from '../services/samples/projects.json'
 import sample_trackers from '../services/samples/trackers.json'
 import sample_issue_statuses from '../services/samples/issue_statuses.json';
+import moment from 'moment'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
@@ -185,4 +186,15 @@ export function normalizeFilter(filters){
 export function convertToBoolean(value){
   value = value.toLowerCase();
   return (value != 'false' && value != '0' && value != 'no' && value!==false);
+}
+
+export function convertToStringDate(value){
+  log(value);
+  let date = moment(value, "DD/MM/YYYY");
+  if(date.isValid()){
+    return date.format("DD/MM/YYYY");
+  }else{
+    return "";
+  }
+  return date;
 }

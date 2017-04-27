@@ -42,6 +42,8 @@ test("parseInput function", () => {
   expect(parseInput('anykey:anything').text).toEqual("anykey:anything");
   expect(parseInput('anything').text).toEqual("anything");
 
+  expect(parseInput('updated_before:26/02/2017').updated_before).toEqual("26/02/2017");
+
   //Combine them
   expect(parseInput('anything twice')).toEqual({"text":"anything twice"});
   expect(parseInput('anything twice projects:2')).toEqual({"projects":2, "text":"anything twice"});

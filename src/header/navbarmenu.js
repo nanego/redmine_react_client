@@ -7,7 +7,7 @@ import LoginForm from '../account/login'
 import sample_projects from '../services/samples/projects.json'
 import sample_trackers from '../services/samples/trackers.json'
 import sample_issue_statuses from '../services/samples/issue_statuses.json'
-import {getIdByValue, splitByKeyValue, removeBlankAttributes, convertToBoolean, log, exists} from '../helpers/helper_functions'
+import {getIdByValue, splitByKeyValue, removeBlankAttributes, convertToBoolean, convertToStringDate, log, exists} from '../helpers/helper_functions'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
@@ -42,6 +42,9 @@ export function parseInput(input){
           break;
         case 'watched':
           filters.watched = convertToBoolean(value);
+          break;
+        case 'updated_before':
+          filters.updated_before = convertToStringDate(value);
           break;
         default:
           if(exists(word)){
@@ -118,6 +121,7 @@ class NavBarMenu extends Component {
       projects: filters.projects,
       trackers: filters.trackers,
       issue_statuses: filters.issue_statuses,
+      updated_before: filters.updated_before,
       watched: filters.watched
     });
   }

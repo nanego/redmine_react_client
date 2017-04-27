@@ -1,4 +1,5 @@
-import {log, getNameFromValue} from '../helper_functions'
+import {log, getNameFromValue, convertToStringDate} from '../helper_functions'
+// import moment from 'moment'
 
 it('should provide log() function', () => {
   // with 1 param (string)
@@ -18,4 +19,10 @@ test('getNameFromValue(key, value) function', () => {
   // Search by id
   var name = getNameFromValue('status', 3);
   expect(name).toEqual('Done');
+});
+
+test('convertToStringDate function', () => {
+  // moment.locale('fr');
+  expect(convertToStringDate('26/01/2016')).toEqual('26/01/2016');
+  expect(convertToStringDate('30/02/2016')).toEqual(''); // Invalid date
 });

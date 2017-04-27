@@ -61,7 +61,6 @@ class App extends Component {
         this.compareSelectedAndAppliedFilters();
       }
     });
-
   }
 
   updateSelectedFilters(new_filter, and_apply=false){

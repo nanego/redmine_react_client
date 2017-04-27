@@ -16,7 +16,7 @@ class SelectIssueStatuses extends Component {
 
   handleIssueStatusesSelection(e, {value}){
     if(value)
-      this.props.updateSelectedFilters({status: value});
+      this.props.updateSelectedFilters({issue_statuses: value});
   }
 
   componentDidMount() {

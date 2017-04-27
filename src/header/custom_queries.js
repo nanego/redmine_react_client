@@ -31,7 +31,7 @@ class CustomQueries extends Component {
         break;
       case "Traité sans activité récente":
         var date = moment().subtract(60, 'days').format("DD/MM/YYYY");
-        this.props.replaceSelectedFilters({status:'Done', updated_before:date}, true);
+        this.props.replaceSelectedFilters({issue_statuses:3, updated_before:date}, true);
         closePopup();
         break;
       default:

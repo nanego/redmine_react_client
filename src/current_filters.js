@@ -2,10 +2,12 @@ import React, {Component} from 'react'
 import { List, Segment, Header, Container, Grid } from 'semantic-ui-react'
 import sample_projects from './services/samples/projects.json'
 import sample_trackers from './services/samples/trackers.json'
+import sample_issue_statuses from './services/samples/issue_statuses.json'
 import { getNamesFromIds } from './helpers/helper_functions'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
+const list_of_statuses = sample_issue_statuses.issue_statuses;
 
 function knownFilters(filters){
   return (<Segment attached>
@@ -24,6 +26,14 @@ function knownFilters(filters){
         <List.Content>
           <List.Header as='a'>Trackers :</List.Header>
           <List.Description>{getNamesFromIds(trackers, filters.trackers).join(', ')}</List.Description>
+        </List.Content>
+      </List.Item>
+      }
+      {(filters.issue_statuses && (filters.issue_statuses > 0 || filters.issue_statuses.length > 0)) &&
+      <List.Item>
+        <List.Content>
+          <List.Header as='a'>Statut :</List.Header>
+          <List.Description>{getNamesFromIds(list_of_statuses, filters.issue_statuses).join(', ')}</List.Description>
         </List.Content>
       </List.Item>
       }

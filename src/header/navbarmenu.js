@@ -6,10 +6,67 @@ import CustomQueries from './custom_queries'
 import LoginForm from '../account/login'
 import sample_projects from '../services/samples/projects.json'
 import sample_trackers from '../services/samples/trackers.json'
-import {getNamesFromIds, getIdByValue, splitByKeyValue, removeBlankAttributes, convertToBoolean, log} from '../helpers/helper_functions'
+import sample_issue_statuses from '../services/samples/issue_statuses.json'
+import {getIdByValue, splitByKeyValue, removeBlankAttributes, convertToBoolean, log, exists} from '../helpers/helper_functions'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
+const list_of_statuses = sample_issue_statuses.issue_statuses;
+
+export function parseInput(input){
+
+  log(input);
+
+  let words = splitByKeyValue(input);
+  let filters = {text:""};
+
+  log("words", words);
+
+  words.forEach(function(word){
+
+    log(word);
+
+    if(word.indexOf(':') > 0){
+      let key_value = word.split(':');
+      let key = key_value[0];
+      let value = key_value[1];
+      switch(key.toLowerCase()){
+        case 'projects':
+          filters.projects = getIdByValue(projects, value) || value;
+          break;
+        case 'trackers':
+          filters.trackers = getIdByValue(trackers, value) || value;
+          break;
+        case 'status':
+          filters.issue_statuses = getIdByValue(list_of_statuses, value) || value;
+          break;
+        case 'watched':
+          filters.watched = convertToBoolean(value);
+          break;
+        default:
+          if(exists(word)){
+            if(exists(filters.text))
+              filters.text += " ";
+            filters.text += word;
+          }
+          // _this.props.updateSelectedFilters({text: content_filter});
+          // text += word + " ";
+      }
+      console.log("key="+key_value[0]);
+      console.log("value="+key_value[1]);
+    }else{
+      if(exists(word)){
+        if(exists(filters.text))
+          filters.text += " ";
+        filters.text += word;
+      }
+      // _this.props.updateSelectedFilters({text: content_filter});
+      // text += word + ' ';
+    }
+  });
+
+  return filters;
+}
 
 class NavBarMenu extends Component {
 
@@ -53,54 +110,15 @@ class NavBarMenu extends Component {
     let _this = this;
     let input = event.target.value;
     this.setState({searchInputValue: input});
-    let words = splitByKeyValue(input);
 
-    // let text = '';
-    let content_filter = '';
-    let projects_filter = undefined;
-    let trackers_filter = undefined;
-    let watched_filter = undefined;
-
-    console.log("words :");
-    console.log(words);
-
-    words.forEach(function(word){
-
-      console.log(word);
-
-      if(word.indexOf(':') > 0){
-        let key_value = word.split(':');
-        let key = key_value[0];
-        let value = key_value[1];
-        switch(key.toLowerCase()){
-          case 'projects':
-            projects_filter = getIdByValue(projects, value) || value;
-            break;
-          case 'trackers':
-            trackers_filter = getIdByValue(trackers, value) || value;
-            break;
-          case 'watched':
-            watched_filter = convertToBoolean(value);
-            break;
-          default:
-            content_filter += word + " ";
-            // _this.props.updateSelectedFilters({text: content_filter});
-            // text += word + " ";
-        }
-        console.log("key="+key_value[0]);
-        console.log("value="+key_value[1]);
-      }else{
-        content_filter += word + " ";
-        // _this.props.updateSelectedFilters({text: content_filter});
-        // text += word + ' ';
-      }
-    });
+    let filters = parseInput(input);
 
     _this.props.replaceSelectedFilters({
-      text: content_filter.trim(),
-      projects: projects_filter,
-      trackers: trackers_filter,
-      watched: watched_filter
+      text: filters.text.trim(),
+      projects: filters.projects,
+      trackers: filters.trackers,
+      issue_statuses: filters.issue_statuses,
+      watched: filters.watched
     });
   }
 

@@ -99,6 +99,8 @@ export function getIdByValue(array, value){
 }
 
 export function convertFilterToText(key, value){
+  if(key==="issue_statuses")
+    key="status";
   if(key==="text"){
     return value;
   }else{

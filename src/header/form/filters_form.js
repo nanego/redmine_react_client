@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Button, Checkbox, Form, Segment } from 'semantic-ui-react'
+import { Button, Checkbox, Form, Segment, Divider } from 'semantic-ui-react'
 import SelectProjects from './select_projects'
 import SelectTrackers from './select_trackers'
 import SelectIssueStatuses from './select_issue_statuses'
@@ -46,6 +46,7 @@ class FiltersForm extends Component {
           <SelectIssueStatuses selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         </Form.Field>
         <Form.Input label='Contient' placeholder='contenu recherché' value={this.props.selected_filters.text} onChange={this.updateTextFilter} />
+        <Divider/>
         <Button type='submit' {...this.props.dirty_filters ? {color:'blue'} : {color:'grey'}} name="apply_filters" onClick={this.applyFilters}>Appliquer</Button>
         <Button {...(this.props.dirty_filters || JSON.stringify(removeBlankAttributes(this.props.current_filters)) !== JSON.stringify({})) ? {disabled:false} : {disabled:true}} name="reset_filters" onClick={this.resetFilters}>Effacer</Button>
       </Form>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Item, Button, Image, List, Menu, Popup, Dropdown } from 'semantic-ui-react'
+import { Item, Button, Image, List, Menu, Popup, Dropdown, Divider } from 'semantic-ui-react'
 import moment from 'moment'
 
 var closePopup = function(){
@@ -44,6 +44,7 @@ class CustomQueries extends Component {
         <Dropdown item icon={false} onClick={this.applyCustomQuery} text="Mes demandes par priorité" />
         <Dropdown item icon={false} onClick={this.applyCustomQuery} text="Demandes surveillées" />
         <Dropdown item icon={false} onClick={this.applyCustomQuery} text="Traité sans activité récente" />
+        <Divider />
         <Dropdown item text='Recherche avancée' onClick={this.simulateClick} />
       </Menu>
     )

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Dropdown, Menu, Input, Button, Icon, Popup, Radio } from 'semantic-ui-react'
+import { Dropdown, Menu, Input, Button, Icon, Popup, Radio, Modal } from 'semantic-ui-react'
 import FiltersForm from './form/filters_form'
 import CustomQueries from './custom_queries'
 import LoginForm from '../account/login'
@@ -187,7 +187,7 @@ class NavBarMenu extends Component {
               id="custom_queries_popup"
               flowing
               // offset={50}
-              position='left'
+              position='bottom left'
               open={this.state.isPopupOpen}
               onClose={this.closePopup}
               onOpen={this.openPopup}
@@ -210,7 +210,7 @@ class NavBarMenu extends Component {
               />}
               on='click'
               flowing
-              position='right'
+              position='bottom right'
               basic
               wide
               id="filters_form_popup"
@@ -227,12 +227,9 @@ class NavBarMenu extends Component {
             <Radio toggle />
           </Menu.Item>
           */}
-          <Popup
+          <Modal
             trigger={<Menu.Item name='signup' onClick={this.handleSignInClick} >Connexion</Menu.Item>}
             content={<LoginForm />}
-            on='click'
-            flowing
-            position='bottom right'
           />
         </Menu.Menu>
 

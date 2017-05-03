@@ -76,7 +76,8 @@ class NavBarMenu extends Component {
   constructor(props){
     super(props);
     this.state = {
-      searchInputValue: this.props.selected_filters_as_text
+      searchInputValue: this.props.selected_filters_as_text,
+      isOpen: false
     };
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.validateSearchInputChange = this.validateSearchInputChange.bind(this);
@@ -126,6 +127,17 @@ class NavBarMenu extends Component {
     });
   }
 
+  handleOpen = () => {
+    this.setState({ isOpen: true })
+  };
+
+  closePopup = (e, data) => {
+    console.log("close popup");
+    console.log(e.currentTarget);
+    console.log(data);
+    this.setState({ isOpen: false })
+  };
+
   render(){
 
     return (
@@ -155,12 +167,16 @@ class NavBarMenu extends Component {
                               onChange={this.validateSearchInputChange}
                               onKeyPress={this.applyIfEnter}
               />}
-              content={<CustomQueries replaceSelectedFilters={this.props.replaceSelectedFilters} />}
+              content={<CustomQueries replaceSelectedFilters={this.props.replaceSelectedFilters} closePopup={this.closePopup} />}
               on='focus'
               id="custom_queries_popup"
               flowing
               // offset={50}
               position='bottom right'
+              open={this.state.isOpen}
+              // onUnmount={ this.closePopup }
+              onClose={this.closePopup}
+              onOpen={this.handleOpen}
               basic
             />
             <Icon link name='cancel' className='reset'

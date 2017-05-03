@@ -2,11 +2,6 @@ import React, {Component} from 'react'
 import { Item, Button, Image, List, Menu, Popup, Dropdown, Divider } from 'semantic-ui-react'
 import moment from 'moment'
 
-var closePopup = function(){
-  // Dirty hack to close popup
-  document.getElementsByClassName('filters_module')[0].click();
-};
-
 class CustomQueries extends Component {
 
   constructor(props) {
@@ -15,26 +10,28 @@ class CustomQueries extends Component {
     this.applyCustomQuery = this.applyCustomQuery.bind(this);
   }
 
-  simulateClick() {
+  simulateClick(e, data) {
+    this.props.closePopup(e, data);
     document.getElementById('filters_dropdown').click();
   }
 
-  applyCustomQuery(event){
+  applyCustomQuery(event, data){
     switch(event.currentTarget.textContent){
       case "Mes demandes par priorité":
         this.props.replaceSelectedFilters({assigned_to:'me', order:"priority"}, true);
-        closePopup();
+        // this.props.closePopup(event, data);
         break;
       case "Demandes surveillées":
         this.props.replaceSelectedFilters({watched:"true"}, true);
-        closePopup();
+        // closePopup();
         break;
       case "Traité sans activité récente":
         var date = moment().subtract(60, 'days').format("DD/MM/YYYY");
         this.props.replaceSelectedFilters({issue_statuses:3, updated_before:date}, true);
-        closePopup();
+        // closePopup();
         break;
       default:
+        this.props.closePopup(event, data);
     }
   }
 

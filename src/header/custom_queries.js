@@ -25,7 +25,7 @@ class CustomQueries extends Component {
         // closePopup();
         break;
       case "Filtres du permanent":
-        this.props.replaceSelectedFilters({assigned_to:"none"}, true);
+        this.props.replaceSelectedFilters({issue_statuses:"open", assigned_to:"none"}, true);
         // closePopup();
         break;
       default:

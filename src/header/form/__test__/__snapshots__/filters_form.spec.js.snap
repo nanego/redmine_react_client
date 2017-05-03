@@ -10,7 +10,7 @@ exports[`test should render FiltersForm 1`] = `
       aria-busy={false}
       aria-disabled={undefined}
       aria-expanded={false}
-      className="ui fluid search selection dropdown"
+      className="ui search selection left pointing link item dropdown"
       onBlur={[Function]}
       onChange={[Function]}
       onClick={[Function]}
@@ -204,7 +204,7 @@ exports[`test should render FiltersForm 1`] = `
       aria-busy={false}
       aria-disabled={undefined}
       aria-expanded={false}
-      className="ui fluid search selection dropdown"
+      className="ui search selection left pointing link item dropdown"
       onBlur={[Function]}
       onChange={[Function]}
       onClick={[Function]}
@@ -335,7 +335,7 @@ exports[`test should render FiltersForm 1`] = `
       aria-busy={false}
       aria-disabled={undefined}
       aria-expanded={false}
-      className="ui fluid search selection dropdown"
+      className="ui search selection left pointing link item dropdown"
       onBlur={[Function]}
       onChange={[Function]}
       onClick={[Function]}
@@ -521,9 +521,8 @@ exports[`test should render FiltersForm 1`] = `
     </div>
   </div>
   <div
-    className="field">
-    <label
-      htmlFor={undefined}>
+    className="inline field">
+    <label>
       Contient
     </label>
     <div
@@ -531,7 +530,6 @@ exports[`test should render FiltersForm 1`] = `
       <input
         onChange={[Function]}
         placeholder="contenu recherché"
-        required={undefined}
         type="text"
         value={undefined} />
     </div>

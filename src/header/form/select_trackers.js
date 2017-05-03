@@ -39,7 +39,9 @@ class SelectTrackers extends Component {
       options.push(selected_option);
     }
     return (
-      <Dropdown search fluid selection allowAdditions
+      <Dropdown search selection allowAdditions
+                pointing='left'
+                className='link item'
                 loading={this.state.trackers.length===0}
                 placeholder='Trackers'
                 closeOnBlur={false}

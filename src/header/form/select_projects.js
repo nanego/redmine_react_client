@@ -49,7 +49,11 @@ class SelectProjects extends Component {
       options.push(selected_option);
     }
     return (
-      <Dropdown search fluid selection allowAdditions
+      <Dropdown search
+                selection
+                allowAdditions
+                pointing='left'
+                className='link item'
                 loading={this.state.projects.length===0}
                 placeholder='Projets'
                 options={options}

@@ -90,6 +90,18 @@
   top: 32px !important;
   border-radius: 0 0 0.285714rem 0.285714rem;
 }
+#filters_form_popup{
+  top: 42px !important;
+}
 #custom_queries_popup .vertical.menu{
   width: auto;
+}
+#filters_form_popup label{
+  min-width: 100px;
+}
+#filters_form_popup .ui.selection.dropdown .menu{
+  border-top-width: 1px !important;
+}
+#filters_form_popup .ui.left.pointing.dropdown > .menu{
+  margin: 0em 0em 0em 0.2em;
 }

@@ -536,6 +536,8 @@ exports[`test should render FiltersForm 1`] = `
         value={undefined} />
     </div>
   </div>
+  <div
+    className="ui divider" />
   <button
     className="ui blue button"
     name="apply_filters"

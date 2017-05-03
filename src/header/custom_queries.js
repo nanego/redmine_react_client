@@ -30,6 +30,10 @@ class CustomQueries extends Component {
         this.props.replaceSelectedFilters({issue_statuses:3, updated_before:date}, true);
         // closePopup();
         break;
+      case "Filtres du permanent":
+        this.props.replaceSelectedFilters({assigned_to:"none"}, true);
+        // closePopup();
+        break;
       default:
         this.props.closePopup(event, data);
     }
@@ -41,6 +45,7 @@ class CustomQueries extends Component {
         <Dropdown item icon={false} onClick={this.applyCustomQuery} text="Mes demandes par priorité" />
         <Dropdown item icon={false} onClick={this.applyCustomQuery} text="Demandes surveillées" />
         <Dropdown item icon={false} onClick={this.applyCustomQuery} text="Traité sans activité récente" />
+        <Dropdown item icon={false} onClick={this.applyCustomQuery} text="Filtres du permanent" />
         <Divider />
         <Dropdown item text='Recherche avancée' onClick={this.simulateClick} />
       </Menu>

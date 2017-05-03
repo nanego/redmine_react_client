@@ -2,12 +2,12 @@ import React, {Component} from 'react'
 import { Dropdown, Menu, Input, Button, Icon, Popup, Radio } from 'semantic-ui-react'
 import FiltersForm from './form/filters_form'
 import CustomQueries from './custom_queries'
-// import SelectProjects from './form/select_projects'
 import LoginForm from '../account/login'
 import sample_projects from '../services/samples/projects.json'
 import sample_trackers from '../services/samples/trackers.json'
 import sample_issue_statuses from '../services/samples/issue_statuses.json'
 import {getIdByValue, splitByKeyValue, removeBlankAttributes, convertToBoolean, convertToStringDate, log, exists} from '../helpers/helper_functions'
+// import SelectProjects from './form/select_projects'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
@@ -77,7 +77,8 @@ class NavBarMenu extends Component {
     super(props);
     this.state = {
       searchInputValue: this.props.selected_filters_as_text,
-      isOpen: false
+      isPopupOpen: false,
+      isFormOpen: false
     };
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.validateSearchInputChange = this.validateSearchInputChange.bind(this);
@@ -127,15 +128,26 @@ class NavBarMenu extends Component {
     });
   }
 
-  handleOpen = () => {
-    this.setState({ isOpen: true })
+  openPopup = () => {
+    this.setState({ isPopupOpen: true })
   };
 
   closePopup = (e, data) => {
     console.log("close popup");
     console.log(e.currentTarget);
     console.log(data);
-    this.setState({ isOpen: false })
+    this.setState({ isPopupOpen: false })
+  };
+
+  openForm = () => {
+    this.setState({ isFormOpen: true })
+  };
+
+  closeForm = (e, data) => {
+    console.log("close form");
+    console.log(e.currentTarget);
+    console.log(data);
+    this.setState({ isFormOpen: false })
   };
 
   render(){
@@ -167,16 +179,18 @@ class NavBarMenu extends Component {
                               onChange={this.validateSearchInputChange}
                               onKeyPress={this.applyIfEnter}
               />}
-              content={<CustomQueries replaceSelectedFilters={this.props.replaceSelectedFilters} closePopup={this.closePopup} />}
+              content={<CustomQueries replaceSelectedFilters={this.props.replaceSelectedFilters}
+                                      closePopup={this.closePopup}
+                                      openForm={this.openForm}
+              />}
               on='focus'
               id="custom_queries_popup"
               flowing
               // offset={50}
-              position='bottom right'
-              open={this.state.isOpen}
-              // onUnmount={ this.closePopup }
+              position='left'
+              open={this.state.isPopupOpen}
               onClose={this.closePopup}
-              onOpen={this.handleOpen}
+              onOpen={this.openPopup}
               basic
             />
             <Icon link name='cancel' className='reset'
@@ -192,13 +206,17 @@ class NavBarMenu extends Component {
                                     searchValue={this.state.searchInputValue}
                                     updateSearchValue={this.handleSearchInputChange}
                                     dirty_filters={this.props.dirty_filters}
+                                    closeForm={this.closeForm}
               />}
               on='click'
               flowing
-              offset={-5}
-              position='bottom right'
+              position='right'
               basic
+              wide
               id="filters_form_popup"
+              open={this.state.isFormOpen}
+              onClose={this.closeForm}
+              onOpen={this.openForm}
             />
           </Input>
         </Menu.Item>

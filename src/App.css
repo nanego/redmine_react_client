@@ -1,6 +1,6 @@
 /* Navbar & filters */
 .ui.popup .form.filters_form {
-  width: 400px;
+  /* width: 400px; */
   /* border-top-width: 1px !important; */
 }
 
@@ -82,4 +82,15 @@
   padding-right: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+#filters_form_popup, #custom_queries_popup{
+  left: 55px !important;
+  right: 116px !important;
+  top: 32px !important;
+  border-radius: 0 0 0.285714rem 0.285714rem;
+  padding-top: 0 !important;
+}
+#custom_queries_popup .vertical.menu{
+  width: auto;
 }

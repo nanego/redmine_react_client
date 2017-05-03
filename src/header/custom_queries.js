@@ -6,13 +6,7 @@ class CustomQueries extends Component {
 
   constructor(props) {
     super(props);
-    this.simulateClick = this.simulateClick.bind(this);
     this.applyCustomQuery = this.applyCustomQuery.bind(this);
-  }
-
-  simulateClick(e, data) {
-    this.props.closePopup(e, data);
-    document.getElementById('filters_dropdown').click();
   }
 
   applyCustomQuery(event, data){
@@ -47,7 +41,7 @@ class CustomQueries extends Component {
         <Dropdown item icon={false} onClick={this.applyCustomQuery} text="Traité sans activité récente" />
         <Dropdown item icon={false} onClick={this.applyCustomQuery} text="Filtres du permanent" />
         <Divider />
-        <Dropdown item text='Recherche avancée' onClick={this.simulateClick} />
+        <Dropdown item text='Recherche avancée' onClick={this.props.openForm} />
       </Menu>
     )
   }

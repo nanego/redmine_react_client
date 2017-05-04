@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Item, Button, Image, List, Menu, Popup, Dropdown, Divider } from 'semantic-ui-react'
+import {filter_value} from "../helpers/helper_functions"
 import moment from 'moment'
 
 class CustomQueries extends Component {
@@ -12,20 +13,20 @@ class CustomQueries extends Component {
   applyCustomQuery(event, data){
     switch(event.currentTarget.textContent){
       case "Mes demandes par priorité":
-        this.props.replaceSelectedFilters({assigned_to:'me', order:"priority"}, true);
+        this.props.replaceSelectedFilters({assigned_to:filter_value('=', "me"), order:filter_value('=', "priority")}, true);
         // this.props.closePopup(event, data);
         break;
       case "Demandes surveillées":
-        this.props.replaceSelectedFilters({watched:"true"}, true);
+        this.props.replaceSelectedFilters({watched:filter_value('=', "true")}, true);
         // closePopup();
         break;
       case "Traité sans activité récente":
         var date = moment().subtract(60, 'days').format("DD/MM/YYYY");
-        this.props.replaceSelectedFilters({issue_statuses:3, updated_before:date}, true);
+        this.props.replaceSelectedFilters({issue_statuses:filter_value('=', 3), updated_at:filter_value('<', date)}, true);
         // closePopup();
         break;
       case "Filtres du permanent":
-        this.props.replaceSelectedFilters({issue_statuses:"open", assigned_to:"none"}, true);
+        this.props.replaceSelectedFilters({issue_statuses:filter_value('=',"open"), assigned_to:filter_value('=', "none")}, true);
         // closePopup();
         break;
       default:

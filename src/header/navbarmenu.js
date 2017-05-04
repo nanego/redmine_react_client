@@ -45,7 +45,7 @@ export function parseInput(input){
         case 'watched':
           filters.watched = {operator: operator, value: convertToBoolean(value)};
           break;
-        case 'updated_before':
+        case 'updated_at':
           filters.updated_at = {operator: operator, value: convertToStringDate(value)};
           break;
         default:
@@ -78,6 +78,10 @@ export function findOperatorIn(string){
     return ':';
   if(string.indexOf('=') > 0)
     return '=';
+  if(string.indexOf('<') > 0)
+    return '<';
+  if(string.indexOf('>') > 0)
+    return '>';
 }
 
 class NavBarMenu extends Component {
@@ -132,7 +136,7 @@ class NavBarMenu extends Component {
       projects: filters.projects,
       trackers: filters.trackers,
       issue_statuses: filters.issue_statuses,
-      updated_before: filters.updated_before,
+      updated_at: filters.updated_at,
       watched: filters.watched
     });
   }

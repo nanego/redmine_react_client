@@ -46,11 +46,11 @@ function knownFilters(filters){
         </List.Content>
       </List.Item>
       }
-      {filters.updated_before &&
+      {exists(filters.updated_at) && exists(filters.updated_at.value) &&
       <List.Item>
         <List.Content>
-          <List.Header as='a'>Mis à jour avant le</List.Header>
-          <List.Description>{moment(filters.updated_at, 'DD/MM/YYYY').format('LLLL')}</List.Description>
+          <List.Header as='a'>Mis à jour {filters.updated_at.operator=='<' ? 'avant le' : filters.updated_at.operator=='>' ? 'après le' : ""}</List.Header>
+          <List.Description>{moment(filters.updated_at.value, 'DD/MM/YYYY').format('LLLL')}</List.Description>
         </List.Content>
       </List.Item>
       }

@@ -210,6 +210,10 @@ export function normalizeFilter(filters){
   return normalized_filter;
 }
 
+export function filter_value(op, val){
+  return {operator: op, value: val}
+}
+
 export function convertToBoolean(value){
   value = value.toLowerCase();
   return (value != 'false' && value != '0' && value != 'no' && value!==false);

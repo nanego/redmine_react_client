@@ -33,6 +33,7 @@ test("parseInput function", () => {
 
   expect(parseInput('projects:eCookbook').projects).toEqual({operator:':', value:1});
   expect(parseInput('projects:2').projects).toEqual({operator:':', value:2});
+  expect(parseInput('projects=3').projects).toEqual({operator:'=', value:3});
 
   expect(parseInput('trackers:Bug').trackers).toEqual({operator:':', value:1});
 
@@ -42,8 +43,9 @@ test("parseInput function", () => {
   expect(parseInput('anykey:anything').text).toEqual("anykey:anything");
   expect(parseInput('anything').text).toEqual("anything");
 
-  expect(parseInput('updated_before:26/02/2017').updated_at).toEqual({operator:':', value:"26/02/2017"});
-  // expect(parseInput('updated_at<26/02/2017').updated_at).toEqual("")
+  expect(parseInput('updated_at:26/02/2017').updated_at).toEqual({operator:':', value:"26/02/2017"});
+  expect(parseInput('updated_at<26/02/2017').updated_at).toEqual({operator:'<', value:"26/02/2017"});
+  expect(parseInput('updated_at>26/02/2017').updated_at).toEqual({operator:'>', value:"26/02/2017"});
 
   //Combine them
   expect(parseInput('anything twice')).toEqual({"text":"anything twice"});

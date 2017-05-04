@@ -3,7 +3,7 @@ import { Button, Checkbox, Form, Segment, Divider, Input } from 'semantic-ui-rea
 import SelectProjects from './select_projects'
 import SelectTrackers from './select_trackers'
 import SelectIssueStatuses from './select_issue_statuses'
-import {removeBlankAttributes} from '../../helpers/helper_functions'
+import {removeBlankAttributes, log} from '../../helpers/helper_functions'
 
 class FiltersForm extends Component {
 
@@ -27,6 +27,7 @@ class FiltersForm extends Component {
   }
 
   updateTextFilter(e, {value}){
+    log("Update text filter in FORM");
     this.props.updateSelectedFilters({text: value});
   }
 

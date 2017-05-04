@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import ServiceAPI from '../../services/service_api'
 import sample_issue_statuses from '../../services/samples/issue_statuses.json';
-import {findByAttribute} from '../../helpers/helper_functions'
+import {findByAttribute, getFilterValue} from '../../helpers/helper_functions'
 
 class SelectIssueStatuses extends Component {
 
@@ -16,7 +16,7 @@ class SelectIssueStatuses extends Component {
 
   handleIssueStatusesSelection(e, {value}){
     if(value)
-      this.props.updateSelectedFilters({issue_statuses: value});
+      this.props.updateSelectedFilters({issue_statuses: {operator: '=', value: value}});
   }
 
   componentDidMount() {
@@ -30,12 +30,12 @@ class SelectIssueStatuses extends Component {
   }
 
   render() {
-    var selected_value = this.props.selected_filters.issue_statuses;
+    var selected_value = getFilterValue(this.props.selected_filters.issue_statuses);
     var options = this.state.issue_statuses.map(p => { return {'key': p.id, 'value': p.id, 'text': p.name}});
     var selected_option = {'key':selected_value,
       'value':selected_value,
       'text':selected_value};
-    if(findByAttribute(options, 'key', selected_value) == undefined){
+    if(selected_value && findByAttribute(options, 'key', selected_value) == undefined){
       options.push(selected_option);
     }
     return (

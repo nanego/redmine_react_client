@@ -31,8 +31,6 @@ exports[`test should render SelectTrackers 1`] = `
       value={3}>
       Support request
     </option>
-    <option
-      value={undefined} />
   </select>
   <input
     aria-autocomplete="list"
@@ -110,18 +108,6 @@ exports[`test should render SelectTrackers 1`] = `
         Support request
       </span>
     </div>
-    <div
-      aria-checked={false}
-      aria-disabled={undefined}
-      aria-selected={false}
-      className="item"
-      onClick={[Function]}
-      role="option"
-      style={
-        Object {
-          "pointerEvents": "all",
-        }
-      } />
   </div>
 </div>
 `;

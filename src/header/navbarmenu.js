@@ -26,25 +26,27 @@ export function parseInput(input){
 
     log(word);
 
-    if(word.indexOf(':') > 0){
-      let key_value = word.split(':');
+    let operator = findOperatorIn(word);
+
+    if(operator){
+      let key_value = word.split(operator);
       let key = key_value[0];
       let value = key_value[1];
       switch(key.toLowerCase()){
         case 'projects':
-          filters.projects = getIdByValue(projects, value) || value;
+          filters.projects = {operator: operator, value: getIdByValue(projects, value) || value};
           break;
         case 'trackers':
-          filters.trackers = getIdByValue(trackers, value) || value;
+          filters.trackers = {operator: operator, value: getIdByValue(trackers, value) || value};
           break;
         case 'status':
-          filters.issue_statuses = getIdByValue(list_of_statuses, value) || value;
+          filters.issue_statuses = {operator: operator, value: getIdByValue(list_of_statuses, value) || value};
           break;
         case 'watched':
-          filters.watched = convertToBoolean(value);
+          filters.watched = {operator: operator, value: convertToBoolean(value)};
           break;
         case 'updated_before':
-          filters.updated_before = convertToStringDate(value);
+          filters.updated_at = {operator: operator, value: convertToStringDate(value)};
           break;
         default:
           if(exists(word)){
@@ -69,6 +71,13 @@ export function parseInput(input){
   });
 
   return filters;
+}
+
+export function findOperatorIn(string){
+  if(string.indexOf(':') > 0)
+    return ':';
+  if(string.indexOf('=') > 0)
+    return '=';
 }
 
 class NavBarMenu extends Component {

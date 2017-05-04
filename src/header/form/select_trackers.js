@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import ServiceAPI from '../../services/service_api'
 import sample_trackers from '../../services/samples/trackers.json';
-import {findByAttribute} from '../../helpers/helper_functions'
+import {findByAttribute, getFilterValue} from '../../helpers/helper_functions'
 
 class SelectTrackers extends Component {
 
@@ -16,7 +16,7 @@ class SelectTrackers extends Component {
 
   handleTrackersSelection(e, {value}){
     if(value)
-      this.props.updateSelectedFilters({trackers: value});
+      this.props.updateSelectedFilters({trackers: {operator: '=', value: value}});
   }
 
   componentDidMount() {
@@ -30,12 +30,12 @@ class SelectTrackers extends Component {
   }
 
   render() {
-    var selected_value = this.props.selected_filters.trackers;
+    var selected_value = getFilterValue(this.props.selected_filters.trackers);
     var options = this.state.trackers.map(p => { return {'key': p.id, 'value': p.id, 'text': p.name}});
     var selected_option = {'key':selected_value,
       'value':selected_value,
       'text':selected_value};
-    if(findByAttribute(options, 'key', selected_value) == undefined){
+    if(selected_value && findByAttribute(options, 'key', selected_value) == undefined){
       options.push(selected_option);
     }
     return (

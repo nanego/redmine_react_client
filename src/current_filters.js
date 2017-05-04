@@ -6,43 +6,43 @@ import sample_trackers from './services/samples/trackers.json'
 import sample_issue_statuses from './services/samples/issue_statuses.json'
 import { getNamesFromIds, exists } from './helpers/helper_functions'
 
-const projects = sample_projects.projects;
-const trackers = sample_trackers.trackers;
+const list_of_projects = sample_projects.projects;
+const list_of_trackers = sample_trackers.trackers;
 const list_of_statuses = sample_issue_statuses.issue_statuses;
 
 function knownFilters(filters){
   return (<Segment attached>
-    <span>{JSON.stringify(filters)}</span>
+    <span>{JSON.stringify(filters, null, 4)}</span>
     <List>
-      {(filters.projects && (filters.projects > 0 || filters.projects.length > 0)) &&
+      {(exists(filters.projects) && exists(filters.projects.value)) &&
       <List.Item>
         <List.Content>
           <List.Header as='a'>Projets :</List.Header>
-          <List.Description>{getNamesFromIds(projects, filters.projects).join(', ')}</List.Description>
+          <List.Description>{getNamesFromIds(list_of_projects, filters.projects.value).join(', ')}</List.Description>
         </List.Content>
       </List.Item>
       }
-      {(filters.trackers && (filters.trackers > 0 || filters.trackers.length > 0)) &&
+      {(exists(filters.trackers) && exists(filters.trackers.value)) &&
       <List.Item>
         <List.Content>
           <List.Header as='a'>Trackers :</List.Header>
-          <List.Description>{getNamesFromIds(trackers, filters.trackers).join(', ')}</List.Description>
+          <List.Description>{getNamesFromIds(list_of_trackers, filters.trackers.value).join(', ')}</List.Description>
         </List.Content>
       </List.Item>
       }
-      {(filters.issue_statuses && (filters.issue_statuses > 0 || filters.issue_statuses.length > 0)) &&
+      {(exists(filters.issue_statuses) && exists(filters.issue_statuses.value)) &&
       <List.Item>
         <List.Content>
           <List.Header as='a'>Statut :</List.Header>
-          <List.Description>{getNamesFromIds(list_of_statuses, filters.issue_statuses).join(', ')}</List.Description>
+          <List.Description>{getNamesFromIds(list_of_statuses, filters.issue_statuses.value).join(', ')}</List.Description>
         </List.Content>
       </List.Item>
       }
-      {filters.watched != undefined &&
+      {exists(filters.watched) && exists(filters.watched.value) &&
       <List.Item>
         <List.Content>
           <List.Header as='a'>Observateur :</List.Header>
-          <List.Description>{filters.watched ? 'Oui':'Non'}</List.Description>
+          <List.Description>{filters.watched.value ? 'Oui':'Non'}</List.Description>
         </List.Content>
       </List.Item>
       }
@@ -50,7 +50,7 @@ function knownFilters(filters){
       <List.Item>
         <List.Content>
           <List.Header as='a'>Mis à jour avant le</List.Header>
-          <List.Description>{moment(filters.updated_before, 'DD/MM/YYYY').format('LLLL')}</List.Description>
+          <List.Description>{moment(filters.updated_at, 'DD/MM/YYYY').format('LLLL')}</List.Description>
         </List.Content>
       </List.Item>
       }

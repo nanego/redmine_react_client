@@ -1,4 +1,4 @@
-import {log, getNameFromValue, convertToStringDate} from '../helper_functions'
+import {log, getNameFromValue, convertToStringDate, removeBlankAttributes, convertFilterToText, normalizeFilter} from '../helper_functions'
 // import moment from 'moment'
 
 it('should provide log() function', () => {
@@ -21,8 +21,25 @@ test('getNameFromValue(key, value) function', () => {
   expect(name).toEqual('Done');
 });
 
+test('removeBlankAttributes', () => {
+  expect(removeBlankAttributes({date:'26/01/2016'})).toEqual({date:'26/01/2016'});
+  expect(removeBlankAttributes({date:'26/01/2016', empty_attr: undefined})).toEqual({date:'26/01/2016'});
+  expect(removeBlankAttributes({date:'26/01/2016', empty_attr: ""})).toEqual({date:'26/01/2016'});
+  expect(removeBlankAttributes({projects:{}})).toEqual({});
+  expect(removeBlankAttributes({date:'26/01/2016', projects:{}})).toEqual({date:'26/01/2016'});
+});
+
 test('convertToStringDate function', () => {
   // moment.locale('fr');
   expect(convertToStringDate('26/01/2016')).toEqual('26/01/2016');
   expect(convertToStringDate('30/02/2016')).toEqual(''); // Invalid date
+});
+
+test('convertFilterToText', () => {
+  expect(convertFilterToText('projects', {operator:'=', value:'1'})).toEqual("projects=eCookbook ");
+});
+
+test('normalizeFilter', () => {
+  expect(normalizeFilter({"projects":{operator:':', value:'1'}})).toEqual({"projects":{operator:':', value:1}});
+  expect(normalizeFilter({"text":"a"})).toEqual({"text":"a"});
 });

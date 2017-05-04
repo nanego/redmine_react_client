@@ -99,16 +99,23 @@ export function getIdByValue(array, value){
   }
 }
 
-export function convertFilterToText(key, value){
+export function convertFilterToText(key, content){
+  let operator = content.operator;
+  let value = content.value;
+
+  log("convertFilterToText(key)", key);
+  log("convertFilterToText(operator)", operator);
+  log("convertFilterToText(value)", value);
+
   if(key==="issue_statuses")
     key="status";
   if(key==="text"){
-    return value;
+    return content;
   }else{
     value = getNameFromValue(key, value);
     if(exists(value)){
       value = surroundWithQuotesIfNecessary(value);
-      return key + ':' + value + ' ';
+      return key + operator + value + ' ';
     }else{
       return "";
     }
@@ -146,7 +153,7 @@ export function getNameFromValue(key, value){
 }
 
 export function exists(value){
-  if( value != undefined && (value > 0 || value.length > 0 || typeof value === "boolean") ){
+  if( value != undefined && (value > 0 || value.length > 0 || typeof value === "boolean" || typeof value === "object") ){
     return true;
   }else{
     return false;
@@ -156,8 +163,9 @@ export function exists(value){
 export function convertFiltersToText(filters){
   let complete_filters_as_text = "";
   for(var key in filters){
-    if(key!=='text')
+    if(key!=='text') {
       complete_filters_as_text += convertFilterToText(key, filters[key]);
+    }
   }
   if(exists(filters['text'])){
     complete_filters_as_text += convertFilterToText('text', filters['text']);
@@ -166,20 +174,39 @@ export function convertFiltersToText(filters){
 }
 
 export function removeBlankAttributes(object){
+
+  log("start", object);
+
   var obj = Object.assign({}, object);
-  Object.keys(obj).forEach(key => obj[key]!==false && !obj[key] && delete obj[key]);
+  Object.keys(obj).forEach(key => ((obj[key]!==false && !obj[key]) || JSON.stringify(obj[key])===JSON.stringify({}) ) && delete obj[key]);
+
+  log("removeBlankAttributes", obj);
+
   return obj;
 }
 
 export function normalizeFilter(filters){
+  log("10 - normalizeFilter", filters);
+
   var normalized_filter = {};
   for (var filter_key in filters) {
-    if(filters[filter_key] == parseInt(filters[filter_key])){
-      normalized_filter[filter_key] = parseInt(filters[filter_key]);
-    }else{
+
+    if(filter_key=="text"){
       normalized_filter[filter_key] = filters[filter_key];
+    }else{
+      if(filters[filter_key]){
+        normalized_filter[filter_key] = normalized_filter[filter_key] || {};
+        normalized_filter[filter_key].operator = filters[filter_key].operator;
+
+        if(filters[filter_key].value == parseInt(filters[filter_key].value)){
+          normalized_filter[filter_key].value = parseInt(filters[filter_key].value);
+        }else{
+          normalized_filter[filter_key].value = filters[filter_key].value;
+        }
+      }
     }
   }
+  log("19 - normalizeFilter", normalized_filter);
   return normalized_filter;
 }
 
@@ -197,4 +224,16 @@ export function convertToStringDate(value){
     return "";
   }
   return date;
+}
+
+export function getFilterValue(filter){
+  if(filter){
+    if(filter.value){
+      return filter.value
+    }else{
+      return filter
+    }
+  }else{
+    return "";
+  }
 }

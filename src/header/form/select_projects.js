@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import { Dropdown } from 'semantic-ui-react'
-// import ServiceAPI from '../services/service_api'
-
 import {findByAttribute} from '../../helpers/helper_functions'
-
 import sample_projects from '../../services/samples/projects.json';
+import { getFilterValue } from '../../helpers/helper_functions'
+// import ServiceAPI from '../services/service_api'
 
 class SelectProjects extends Component {
 
@@ -19,7 +18,7 @@ class SelectProjects extends Component {
   handleProjectsSelection(e, {value}){
     console.log("Projects : new value = " + value);
     if(value)
-      this.props.updateSelectedFilters({projects: value});
+      this.props.updateSelectedFilters({projects: {operator: '=', value: value}});
   }
 
   componentDidMount() {
@@ -40,12 +39,12 @@ class SelectProjects extends Component {
   }
 
   render() {
-    var selected_value = this.props.selected_filters.projects;
+    var selected_value = getFilterValue(this.props.selected_filters.projects);
     var options = this.state.projects.map(p => { return {'key': p.id, 'value': p.id, 'text': p.name}});
     var selected_option = {'key':selected_value,
         'value':selected_value,
         'text':selected_value};
-    if(findByAttribute(options, 'key', selected_value) == undefined){
+    if(selected_value && findByAttribute(options, 'key', selected_value) == undefined){
       options.push(selected_option);
     }
     return (

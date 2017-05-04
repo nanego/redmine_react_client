@@ -10,7 +10,7 @@ import ListCurrentFilters from './current_filters'
 
 import {convertFiltersToText, normalizeFilter, removeBlankAttributes, log} from './helpers/helper_functions'
 
-const default_filters = {text:''}; /*{
+const default_filters = {text:""}; /*{
   projects: 0,
   trackers: 0,
   text: ""
@@ -71,7 +71,9 @@ class App extends Component {
       // console.log("REINIT FILTERS");
       new_selection = default_filters;
     }else{
+      // log("2 new_filter", new_filter);
       new_selection = Object.assign({},this.state.selected_filters, new_filter);
+      // log("3 new_selection", new_selection);
       new_selection = removeBlankAttributes(new_selection);
     }
     this.setState({selected_filters: new_selection}, function() {
@@ -83,11 +85,14 @@ class App extends Component {
         this.compareSelectedAndAppliedFilters();
       }
     });
+    return this.selected_filters;
   }
 
   updateSelectedFiltersAsText() {
-    console.log("SELECTED FILTERS AS TEXT : " + JSON.stringify(this.state.selected_filters));
-    this.setState({selected_filters_as_text: convertFiltersToText(this.state.selected_filters)})
+    log("SELECTED FILTERS AS TEXT", this.state.selected_filters);
+    let text_filter = convertFiltersToText(this.state.selected_filters);
+    this.setState({selected_filters_as_text: text_filter});
+    // log("new main text", text_filter);
   };
 
   compareSelectedAndAppliedFilters(){

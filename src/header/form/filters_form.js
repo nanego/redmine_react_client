@@ -3,6 +3,7 @@ import { Button, Checkbox, Form, Segment, Divider, Input } from 'semantic-ui-rea
 import SelectProjects from './select_projects'
 import SelectTrackers from './select_trackers'
 import SelectIssueStatuses from './select_issue_statuses'
+import SelectWatched from './select_watched'
 import {removeBlankAttributes, log} from '../../helpers/helper_functions'
 
 class FiltersForm extends Component {
@@ -45,6 +46,10 @@ class FiltersForm extends Component {
         <Form.Field inline>
           <label>Statuts</label>
           <SelectIssueStatuses selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
+        </Form.Field>
+        <Form.Field inline>
+          <label>Observateur</label>
+          <SelectWatched selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         </Form.Field>
         <Form.Field inline>
           <label>Contient</label>

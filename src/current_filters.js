@@ -4,7 +4,7 @@ import moment from 'moment'
 import sample_projects from './services/samples/projects.json'
 import sample_trackers from './services/samples/trackers.json'
 import sample_issue_statuses from './services/samples/issue_statuses.json'
-import { getNamesFromIds, exists } from './helpers/helper_functions'
+import { getNamesFromIds, exists, convertToBoolean } from './helpers/helper_functions'
 
 const list_of_projects = sample_projects.projects;
 const list_of_trackers = sample_trackers.trackers;
@@ -42,7 +42,7 @@ function knownFilters(filters){
       <List.Item>
         <List.Content>
           <List.Header as='a'>Observateur :</List.Header>
-          <List.Description>{filters.watched.value ? 'Oui':'Non'}</List.Description>
+          <List.Description>{convertToBoolean(filters.watched.value) ? 'Oui':'Non'}</List.Description>
         </List.Content>
       </List.Item>
       }

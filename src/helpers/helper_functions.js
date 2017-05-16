@@ -215,7 +215,12 @@ export function filter_value(op, val){
 }
 
 export function convertToBoolean(value){
-  value = value.toLowerCase();
+
+  log('convertToBoolean', value);
+
+  if (typeof(value)=='string'){
+    value = value.toLowerCase();
+  }
   return (value != 'false' && value != '0' && value != 'no' && value!==false);
 }
 

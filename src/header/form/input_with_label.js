@@ -34,20 +34,22 @@ class InputField extends Component {
 
   updateValue(e, {value}){
     log("param value", value);
-    this.props.selected_filters[this.props.filter_name] = {
+    let new_filter = {};
+    new_filter[this.props.filter_name] = {
       operator: operator_of(this.props.selected_filters[this.props.filter_name]),
       value: value
     };
-    this.props.updateSelectedFilters(this.props.selected_filters[this.props.filter_name]);
+    this.props.updateSelectedFilters(new_filter);
   }
 
   updateOperator(e, {value}){
     let operator = value;
-    this.props.selected_filters[this.props.filter_name] = {
+    let new_filter = {};
+    new_filter[this.props.filter_name] = {
       operator: operator,
       value: value_of(this.props.selected_filters[this.props.filter_name])
     };
-    this.props.updateSelectedFilters(this.props.selected_filters[this.props.filter_name]);
+    this.props.updateSelectedFilters(new_filter);
   }
 
   render() {

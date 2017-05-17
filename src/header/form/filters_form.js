@@ -4,6 +4,7 @@ import SelectProjects from './select_projects'
 import SelectTrackers from './select_trackers'
 import SelectIssueStatuses from './select_issue_statuses'
 import SelectWatched from './select_watched'
+import InputField from './input_with_label'
 import {removeBlankAttributes, log} from '../../helpers/helper_functions'
 
 class FiltersForm extends Component {
@@ -51,6 +52,7 @@ class FiltersForm extends Component {
           <label>Observateur</label>
           <SelectWatched selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         </Form.Field>
+        <InputField label="Date de mise à jour" filter_name='updated_at' selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         <Form.Field inline>
           <label>Contient</label>
           <Input placeholder='contenu recherché' value={this.props.selected_filters.text} onChange={this.updateTextFilter} />

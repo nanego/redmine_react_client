@@ -95,7 +95,7 @@
   width: auto;
 }
 #filters_form_popup label{
-  min-width: 100px;
+  min-width: 120px;
 }
 #filters_form_popup .ui.selection.dropdown .menu{
   border-top-width: 1px !important;

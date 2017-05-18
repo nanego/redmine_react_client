@@ -1,0 +1,60 @@
+exports[`test should render SelectProjects 1`] = `
+<div
+  className="inline field">
+  <label>
+    Projets
+  </label>
+  <div
+    aria-busy={true}
+    aria-disabled={undefined}
+    aria-expanded={false}
+    className="ui loading search selection left pointing link item dropdown"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onMouseDown={[Function]}
+    role="combobox"
+    tabIndex={undefined}>
+    <select
+      aria-hidden="true"
+      multiple={undefined}
+      name={undefined}
+      type="hidden"
+      value="">
+      <option
+        value="" />
+    </select>
+    <input
+      aria-autocomplete="list"
+      autoComplete="off"
+      className="search"
+      name="-search"
+      onChange={[Function]}
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+      tabIndex={0}
+      type="text"
+      value="" />
+    <div
+      className="default text">
+      Projets
+    </div>
+    <i
+      aria-hidden="true"
+      className="dropdown icon" />
+    <div
+      aria-multiselectable={undefined}
+      className="menu transition"
+      role="listbox">
+      <div
+        className="message">
+        No results found.
+      </div>
+    </div>
+  </div>
+</div>
+`;

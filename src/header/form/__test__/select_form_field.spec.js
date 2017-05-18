@@ -1,13 +1,17 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import SelectProjects from '../select_projects';
+import SelectFormField from '../select_form_field';
 import renderer from 'react-test-renderer';
 
 var updateSelectedFilters = function(){return true;};
 
 it('should render SelectProjects', () => {
   const component = renderer.create(
-      <SelectProjects selected_filters={{}} updateSelectedFilters={updateSelectedFilters} />
+      <SelectFormField label="Projets"
+                       filter_name="projects"
+                       possible_values={[]}
+                       selected_filters={{}}
+                       updateSelectedFilters={updateSelectedFilters} />
   );
   let select = component.toJSON();
   expect(select).toMatchSnapshot();
@@ -27,12 +31,15 @@ it('should render SelectProjects', () => {
 
 it('render component with Enzyme', () => {
   const component = shallow(
-      <SelectProjects selected_filters={{}} updateSelectedFilters={updateSelectedFilters} />
+      <SelectFormField label="Projets"
+                       filter_name="projects"
+                       possible_values={[]}
+                       selected_filters={{}} updateSelectedFilters={updateSelectedFilters} />
   );
   const select = component.find('select');
   const event1 = {target: {value: 'eCookbook'}};
-  let handler1 = component.instance().handleProjectsSelection(event1, "eCookbook");
-  let handler2 = component.instance().handleProjectsSelection(event1, {value: "eCookbook"});
+  let handler1 = component.instance().handleSelection(event1, "eCookbook");
+  let handler2 = component.instance().handleSelection(event1, {value: "eCookbook"});
   var assert = require('assert');
   assert.equal(handler1, undefined); // TODO
   assert.equal(handler2, undefined);

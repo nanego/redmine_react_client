@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import { Button, Checkbox, Form, Segment, Divider, Input } from 'semantic-ui-react'
-import SelectProjects from './select_projects'
-import SelectTrackers from './select_trackers'
-import SelectIssueStatuses from './select_issue_statuses'
+import SelectFormField from './select_form_field'
 import SelectWatched from './select_watched'
 import InputField from './input_with_label'
 import {removeBlankAttributes, log} from '../../helpers/helper_functions'
+
+import sample_projects from '../../services/samples/projects.json';
+import sample_issue_statuses from '../../services/samples/issue_statuses.json';
+import sample_trackers from '../../services/samples/trackers.json';
 
 class FiltersForm extends Component {
 
@@ -36,23 +38,28 @@ class FiltersForm extends Component {
   render() {
     return (
       <Form className='filters_form'>
-        <Form.Field inline>
-          <label>Projets</label>
-          <SelectProjects selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
-        </Form.Field>
-        <Form.Field inline>
-          <label>Trackers</label>
-          <SelectTrackers selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
-        </Form.Field>
-        <Form.Field inline>
-          <label>Statuts</label>
-          <SelectIssueStatuses selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
-        </Form.Field>
+        <SelectFormField label="Projets"
+                         filter_name="projects"
+                         possible_values={sample_projects.projects}
+                         selected_filters={this.props.selected_filters}
+                         updateSelectedFilters={this.props.updateSelectedFilters} />
+        <SelectFormField label="Trackers"
+                         filter_name="trackers"
+                         possible_values={sample_trackers.trackers}
+                         selected_filters={this.props.selected_filters}
+                         updateSelectedFilters={this.props.updateSelectedFilters} />
+        <SelectFormField label="Statuts"
+                         filter_name="issue_statuses"
+                         possible_values={sample_issue_statuses.issue_statuses}
+                         selected_filters={this.props.selected_filters}
+                         updateSelectedFilters={this.props.updateSelectedFilters} />
         <Form.Field inline>
           <label>Observateur</label>
           <SelectWatched selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         </Form.Field>
-        <InputField label="Date de mise à jour" filter_name='updated_at' selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
+        <InputField label="Date de mise à jour"
+                    filter_name='updated_at'
+                    selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         <Form.Field inline id='form_content_field'>
           <label>Contient</label>
           <Input placeholder='contenu recherché' value={this.props.selected_filters.text} onChange={this.updateTextFilter} />

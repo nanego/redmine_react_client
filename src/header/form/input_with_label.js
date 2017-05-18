@@ -1,28 +1,12 @@
 import React, {Component} from 'react'
 import { Input, Form, Select } from 'semantic-ui-react'
-import {log} from '../../helpers/helper_functions'
+import {log, value_of, operator_of} from '../../helpers/helper_functions'
 
 const options = [
   { key: '=', text: '=', value: '=' },
   { key: '<', text: '<', value: '<' },
   { key: '>', text: '>', value: '>' },
 ];
-
-const operator_of = function(filter){
-  if (filter){
-    return filter.operator;
-  }else{
-    return "=";
-  }
-};
-
-const value_of = function(filter){
-  if (filter){
-    return filter.value;
-  }else{
-    return undefined;
-  }
-};
 
 class InputField extends Component {
 

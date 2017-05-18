@@ -1,4 +1,4 @@
-import {log, getNameFromValue, convertToStringDate, removeBlankAttributes, convertFilterToText, normalizeFilter} from '../helper_functions'
+import {log, getNameFromValue, convertToStringDate, removeBlankAttributes, convertFilterToText, normalizeFilter, parseInput} from '../helper_functions'
 // import moment from 'moment'
 
 it('should provide log() function', () => {
@@ -7,6 +7,32 @@ it('should provide log() function', () => {
   // with 2 params (string + object)
   const value = {val:3};
   expect(log("test", value)).toEqual('test : {\"val\":3}');
+});
+
+test("parseInput function", () => {
+  expect(parseInput('watched:true').watched).toEqual({operator:':', value:true});
+  expect(parseInput('watched:anything').watched).toEqual({operator:':', value:true});
+
+  expect(parseInput('projects:eCookbook').projects).toEqual({operator:':', value:1});
+  expect(parseInput('projects:2').projects).toEqual({operator:':', value:2});
+  expect(parseInput('projects=3').projects).toEqual({operator:'=', value:3});
+
+  expect(parseInput('trackers:Bug').trackers).toEqual({operator:':', value:1});
+
+  expect(parseInput('status:"In Progress"').issue_statuses).toEqual({operator:':', value:2});
+  // TODO expect(parseInput('status:"Terminated"').issue_statuses).toEqual("Terminated");
+
+  expect(parseInput('anykey:anything').text).toEqual("anykey:anything");
+  expect(parseInput('anything').text).toEqual("anything");
+
+  expect(parseInput('updated_at:26/02/2017').updated_at).toEqual({operator:':', value:"26/02/2017"});
+  expect(parseInput('updated_at<26/02/2017    ').updated_at).toEqual({operator:'<', value:"26/02/2017"});
+  expect(parseInput('updated_at>26/02/2017').updated_at).toEqual({operator:'>', value:"26/02/2017"});
+
+  //Combine them
+  expect(parseInput('anything twice')).toEqual({"text":"anything twice"});
+  expect(parseInput('anything twice projects:2')).toEqual({"projects":{operator:':', value:2}, "text":"anything twice"});
+
 });
 
 test('getNameFromValue(key, value) function', () => {

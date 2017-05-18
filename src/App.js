@@ -8,7 +8,7 @@ import NavBarMenu from './header/navbarmenu'
 import IssuesList from './issues/index'
 import ListCurrentFilters from './current_filters'
 
-import {convertFiltersToText, normalizeFilter, removeBlankAttributes, log} from './helpers/helper_functions'
+import {convertFiltersToText, normalizeFilter, removeBlankAttributes, log, parseInput, value_of, exists, merge} from './helpers/helper_functions'
 
 const default_filters = {text:""}; /*{
   projects: 0,
@@ -16,6 +16,25 @@ const default_filters = {text:""}; /*{
   text: ""
 };
 */
+
+// Check if a filter has been entered in the Content form textfield
+let lookForFiltersInText = function(selected_filters){
+  if (exists(selected_filters.text)){
+    let filtersInText = parseInput(selected_filters.text);
+    Object.keys(filtersInText).forEach(function(key) {
+      if(key=='text'){
+        selected_filters = merge(selected_filters, {
+          text: filtersInText.text.trim(),
+        });
+      }else{
+        let new_obj = {};
+        new_obj[key] = filtersInText[key];
+        selected_filters = merge(selected_filters, new_obj);
+      }
+    });
+  }
+  return selected_filters;
+};
 
 class App extends Component {
 
@@ -35,6 +54,7 @@ class App extends Component {
     this.applyFiltersChanges = this.applyFiltersChanges.bind(this);
     this.updateIssues = this.updateIssues.bind(this);
     this.compareSelectedAndAppliedFilters = this.compareSelectedAndAppliedFilters.bind(this);
+    this.syncSelectedFiltersWithCurrents = this.syncSelectedFiltersWithCurrents.bind(this);
   }
 
   replaceSelectedFilters(new_filter, and_apply=false){
@@ -104,11 +124,17 @@ class App extends Component {
   };
 
   applyFiltersChanges(){
-    this.setState({current_filters: this.state.selected_filters}, function(){
+    let selected_filters =  lookForFiltersInText(this.state.selected_filters);
+    this.setState({current_filters: selected_filters}, function(){
       this.updateIssues();
       this.updateSelectedFiltersAsText(); // Ensure the input field is up to date
       this.compareSelectedAndAppliedFilters();
+      this.syncSelectedFiltersWithCurrents();
     });
+  }
+
+  syncSelectedFiltersWithCurrents(){
+    this.setState({selected_filters: this.state.current_filters});
   }
 
   componentDidMount() {

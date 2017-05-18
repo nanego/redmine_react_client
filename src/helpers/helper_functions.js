@@ -5,11 +5,82 @@ import moment from 'moment'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
-const issue_statuses = sample_issue_statuses.issue_statuses;
+const list_of_statuses = sample_issue_statuses.issue_statuses;
+
+export function findOperatorIn(string){
+  if(string.indexOf(':') > 0)
+    return ':';
+  if(string.indexOf('=') > 0)
+    return '=';
+  if(string.indexOf('<') > 0)
+    return '<';
+  if(string.indexOf('>') > 0)
+    return '>';
+}
+
+export function parseInput(input){
+
+  log(input);
+
+  let words = splitByKeyValue(input);
+  let filters = {text:""};
+
+  log("words", words);
+
+  words.forEach(function(word){
+
+    log(word);
+
+    let operator = findOperatorIn(word);
+
+    if(operator){
+      let key_value = word.split(operator);
+      let key = key_value[0];
+      let value = key_value[1];
+      switch(key.toLowerCase()){
+        case 'projects':
+          filters.projects = {operator: operator, value: getIdByValue(projects, value) || value};
+          break;
+        case 'trackers':
+          filters.trackers = {operator: operator, value: getIdByValue(trackers, value) || value};
+          break;
+        case 'status':
+          filters.issue_statuses = {operator: operator, value: getIdByValue(list_of_statuses, value) || value};
+          break;
+        case 'watched':
+          filters.watched = {operator: operator, value: convertToBoolean(value)};
+          break;
+        case 'updated_at':
+          filters.updated_at = {operator: operator, value: convertToStringDate(value)};
+          break;
+        default:
+          if(exists(word)){
+            if(exists(filters.text))
+              filters.text += " ";
+            filters.text += word;
+          }
+          // _this.props.updateSelectedFilters({text: content_filter});
+          // text += word + " ";
+      }
+      console.log("key="+key_value[0]);
+      console.log("value="+key_value[1]);
+    }else{
+      if(exists(word)){
+        if(exists(filters.text))
+          filters.text += " ";
+        filters.text += word;
+      }
+      // _this.props.updateSelectedFilters({text: content_filter});
+      // text += word + ' ';
+    }
+  });
+
+  return filters;
+}
 
 export function findByAttribute(array, attr, value) {
   if(array != undefined){
-    for(var i = 0; i < array.length; i += 1) {
+    for(let i = 0; i < array.length; i += 1) {
       if(array[i][attr] === value) {
         return i;
       }
@@ -32,11 +103,12 @@ export function log(string, object = undefined){
 
 export function splitByKeyValue(input){
   // Split input by key:value (with quotes)
-  var regexp = /[^\W]+:"([^"]*)"|[^\s"]+/gi;
-  var words = [];
+  const regexp = /[^\W]+:"([^"]*)"|[^\s"]+/gi;
+  let words = [];
+  let match;
   do {
     //Each call to exec returns the next regex match as an array
-    var match = regexp.exec(input);
+    match = regexp.exec(input);
     if (match != null)
     {
       //Index 1 in the array is the captured group if it exists
@@ -48,8 +120,30 @@ export function splitByKeyValue(input){
   return words
 }
 
+export function merge(o1, o2){
+  let merged_object = {};
+  Object.assign(merged_object, o1, o2);
+  return merged_object;
+}
+
+export function operator_of(filter){
+  if (filter){
+    return filter.operator;
+  }else{
+    return "=";
+  }
+}
+
+export function value_of(filter){
+  if (filter){
+    return filter.value;
+  }else{
+    return undefined;
+  }
+}
+
 export function getNamesFromIds(array, ids){
-  var names = [];
+  let names = [];
   if(ids instanceof Array){
     for (let id of ids) {
       let name = getNameFromId(array, id);
@@ -67,7 +161,7 @@ export function getNamesFromIds(array, ids){
 }
 
 export function getNameFromId(array, id){
-  var element = array.find(function (d) {
+  let element = array.find(function (d) {
     return d.id == id;
   });
   if(element){
@@ -78,7 +172,7 @@ export function getNameFromId(array, id){
 }
 
 export function getIdFromName(array, name){
-  var element = array.find(function (d) {
+  let element = array.find(function (d) {
     return d.name.toLowerCase() === name.toLowerCase();
   });
   if(element){
@@ -143,7 +237,7 @@ export function getNameFromValue(key, value){
       case 'trackers':
         return getNameFromId(trackers, getIdByValue(trackers, value)) || value;
       case 'status':
-        return getNameFromId(issue_statuses, getIdByValue(issue_statuses, value)) || value;
+        return getNameFromId(list_of_statuses, getIdByValue(list_of_statuses, value)) || value;
       default:
         return value;
     }
@@ -162,7 +256,7 @@ export function exists(value){
 
 export function convertFiltersToText(filters){
   let complete_filters_as_text = "";
-  for(var key in filters){
+  for(let key in filters){
     if(key!=='text') {
       complete_filters_as_text += convertFilterToText(key, filters[key]);
     }
@@ -177,7 +271,7 @@ export function removeBlankAttributes(object){
 
   log("start", object);
 
-  var obj = Object.assign({}, object);
+  let obj = Object.assign({}, object);
   Object.keys(obj).forEach(key => ((obj[key]!==false && !obj[key]) || JSON.stringify(obj[key])===JSON.stringify({}) ) && delete obj[key]);
 
   log("removeBlankAttributes", obj);
@@ -188,8 +282,8 @@ export function removeBlankAttributes(object){
 export function normalizeFilter(filters){
   log("10 - normalizeFilter", filters);
 
-  var normalized_filter = {};
-  for (var filter_key in filters) {
+  let normalized_filter = {};
+  for (let filter_key in filters) {
 
     if(filter_key=="text"){
       normalized_filter[filter_key] = filters[filter_key];
@@ -232,7 +326,6 @@ export function convertToStringDate(value){
   }else{
     return "";
   }
-  return date;
 }
 
 export function getFilterValue(filter){

@@ -1,88 +1,9 @@
 import React, {Component} from 'react'
-import { Dropdown, Menu, Input, Button, Icon, Popup, Radio, Modal } from 'semantic-ui-react'
+import { Menu, Input, Button, Icon, Popup, Modal } from 'semantic-ui-react'
 import FiltersForm from './form/filters_form'
 import CustomQueries from './custom_queries'
 import LoginForm from '../account/login'
-import sample_projects from '../services/samples/projects.json'
-import sample_trackers from '../services/samples/trackers.json'
-import sample_issue_statuses from '../services/samples/issue_statuses.json'
-import {getIdByValue, splitByKeyValue, removeBlankAttributes, convertToBoolean, convertToStringDate, log, exists} from '../helpers/helper_functions'
-// import SelectProjects from './form/select_projects'
-
-const projects = sample_projects.projects;
-const trackers = sample_trackers.trackers;
-const list_of_statuses = sample_issue_statuses.issue_statuses;
-
-export function parseInput(input){
-
-  log(input);
-
-  let words = splitByKeyValue(input);
-  let filters = {text:""};
-
-  log("words", words);
-
-  words.forEach(function(word){
-
-    log(word);
-
-    let operator = findOperatorIn(word);
-
-    if(operator){
-      let key_value = word.split(operator);
-      let key = key_value[0];
-      let value = key_value[1];
-      switch(key.toLowerCase()){
-        case 'projects':
-          filters.projects = {operator: operator, value: getIdByValue(projects, value) || value};
-          break;
-        case 'trackers':
-          filters.trackers = {operator: operator, value: getIdByValue(trackers, value) || value};
-          break;
-        case 'status':
-          filters.issue_statuses = {operator: operator, value: getIdByValue(list_of_statuses, value) || value};
-          break;
-        case 'watched':
-          filters.watched = {operator: operator, value: convertToBoolean(value)};
-          break;
-        case 'updated_at':
-          filters.updated_at = {operator: operator, value: convertToStringDate(value)};
-          break;
-        default:
-          if(exists(word)){
-            if(exists(filters.text))
-              filters.text += " ";
-            filters.text += word;
-          }
-          // _this.props.updateSelectedFilters({text: content_filter});
-          // text += word + " ";
-      }
-      console.log("key="+key_value[0]);
-      console.log("value="+key_value[1]);
-    }else{
-      if(exists(word)){
-        if(exists(filters.text))
-          filters.text += " ";
-        filters.text += word;
-      }
-      // _this.props.updateSelectedFilters({text: content_filter});
-      // text += word + ' ';
-    }
-  });
-
-  return filters;
-}
-
-export function findOperatorIn(string){
-  if(string.indexOf(':') > 0)
-    return ':';
-  if(string.indexOf('=') > 0)
-    return '=';
-  if(string.indexOf('<') > 0)
-    return '<';
-  if(string.indexOf('>') > 0)
-    return '>';
-}
+import {removeBlankAttributes, parseInput} from '../helpers/helper_functions'
 
 class NavBarMenu extends Component {
 
@@ -125,13 +46,11 @@ class NavBarMenu extends Component {
   }
 
   validateSearchInputChange(event){
-    let _this = this;
-    let input = event.target.value;
-    this.setState({searchInputValue: input});
+    let input_value = event.target.value;
+    this.setState({searchInputValue: input_value});
 
-    let filters = parseInput(input);
-
-    _this.props.replaceSelectedFilters({
+    let filters = parseInput(input_value);
+    this.props.replaceSelectedFilters({
       text: filters.text.trim(),
       projects: filters.projects,
       trackers: filters.trackers,

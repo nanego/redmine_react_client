@@ -53,7 +53,7 @@ class FiltersForm extends Component {
           <SelectWatched selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         </Form.Field>
         <InputField label="Date de mise à jour" filter_name='updated_at' selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
-        <Form.Field inline>
+        <Form.Field inline id='form_content_field'>
           <label>Contient</label>
           <Input placeholder='contenu recherché' value={this.props.selected_filters.text} onChange={this.updateTextFilter} />
         </Form.Field>

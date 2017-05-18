@@ -97,6 +97,9 @@
 #filters_form_popup label{
   min-width: 120px;
 }
+#filters_form_popup #form_content_field .input{
+  width: 350px;
+}
 #filters_form_popup .ui.selection.dropdown .menu{
   border-top-width: 1px !important;
 }

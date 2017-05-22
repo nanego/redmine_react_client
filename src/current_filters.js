@@ -10,7 +10,7 @@ import { getNamesFromIds, exists, convertToBoolean } from './helpers/helper_func
 const list_of_projects = sample_projects.projects;
 const list_of_trackers = sample_trackers.trackers;
 const list_of_statuses = sample_issue_statuses.issue_statuses;
-const list_of_users = sample_users.users;
+const list_of_users = [{"id":"me","login":"me","firstname":"moi","lastname":""}, ...sample_users.users];
 
 function knownFilters(filters){
   return (<Segment attached>

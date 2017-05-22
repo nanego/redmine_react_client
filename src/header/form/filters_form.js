@@ -10,6 +10,8 @@ import sample_issue_statuses from '../../services/samples/issue_statuses.json';
 import sample_trackers from '../../services/samples/trackers.json';
 import sample_users from '../../services/samples/users.json';
 
+const list_of_users = [{"id":"me","login":"me","firstname":"moi","lastname":""}, ...sample_users.users];
+
 class FiltersForm extends Component {
 
   constructor(props) {
@@ -60,7 +62,7 @@ class FiltersForm extends Component {
         </Form.Field>
         <SelectFormField label="Assigné à"
                          filter_name="assigned_to"
-                         possible_values={sample_users.users}
+                         possible_values={list_of_users}
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />
         <InputField label="Date de mise à jour"

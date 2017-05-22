@@ -646,6 +646,10 @@ exports[`test should render FiltersForm 1`] = `
           value={7}>
           Some One
         </option>
+        <option
+          value="me">
+          moi
+        </option>
       </select>
       <input
         aria-autocomplete="list"
@@ -789,6 +793,23 @@ exports[`test should render FiltersForm 1`] = `
           <span
             className="text">
             Some One
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            moi
           </span>
         </div>
       </div>

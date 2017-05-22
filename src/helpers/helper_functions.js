@@ -7,7 +7,7 @@ import moment from 'moment'
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
 const list_of_statuses = sample_issue_statuses.issue_statuses;
-const list_of_users = sample_users.users;
+const list_of_users = [{"id":"me","login":"me","firstname":"moi","lastname":""}, ...sample_users.users];
 
 export function findOperatorIn(string){
   if(string.indexOf(':') > 0)
@@ -21,20 +21,22 @@ export function findOperatorIn(string){
 }
 
 export function to_s(object){
-
   if(isString(object)){
     return object;
-  }else{
-    if (object.name){
-      return object.name;
-    }else{
-      if (object.firstname && object.lastname){
-        return object.firstname + ' ' + object.lastname;
-      }else{
-        return JSON.stringify(object);
-      }
-    }
   }
+  if (object.name){
+    return object.name;
+  }
+  if (object.firstname && object.lastname){
+    return object.firstname + ' ' + object.lastname;
+  }
+  if (object.firstname && !object.lastname){
+    return object.firstname;
+  }
+  if (!object.firstname && object.lastname){
+    return object.lastname;
+  }
+  return JSON.stringify(object);
 }
 
 export function parseInput(input){

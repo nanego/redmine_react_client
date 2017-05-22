@@ -24,7 +24,7 @@ test("parseInput function", () => {
   expect(parseInput('trackers="Feature request"').trackers).toEqual({operator:'=', value:2});
 
   expect(parseInput('status:"In Progress"').issue_statuses).toEqual({operator:':', value:2});
-  // TODO expect(parseInput('status:"Terminated"').issue_statuses).toEqual("Terminated");
+  expect(parseInput('status:Terminated').issue_statuses).toEqual({operator:':', value:"Terminated"});
 
   expect(parseInput('anykey:anything').text).toEqual("anykey:anything");
   expect(parseInput('anything').text).toEqual("anything");

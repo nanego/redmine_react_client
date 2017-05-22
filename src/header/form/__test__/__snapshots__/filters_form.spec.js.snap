@@ -596,6 +596,207 @@ exports[`test should render FiltersForm 1`] = `
   <div
     className="inline field">
     <label>
+      Assigné à
+    </label>
+    <div
+      aria-busy={false}
+      aria-disabled={undefined}
+      aria-expanded={false}
+      className="ui search selection left pointing link item dropdown"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseDown={[Function]}
+      role="combobox"
+      tabIndex={undefined}>
+      <select
+        aria-hidden="true"
+        multiple={undefined}
+        name={undefined}
+        type="hidden"
+        value="">
+        <option
+          value="" />
+        <option
+          value={1}>
+          Redmine Admin
+        </option>
+        <option
+          value={3}>
+          Dave Lopper
+        </option>
+        <option
+          value={2}>
+          John Smith
+        </option>
+        <option
+          value={8}>
+          User Misc
+        </option>
+        <option
+          value={9}>
+          User Misc
+        </option>
+        <option
+          value={4}>
+          Robert Hill
+        </option>
+        <option
+          value={7}>
+          Some One
+        </option>
+      </select>
+      <input
+        aria-autocomplete="list"
+        autoComplete="off"
+        className="search"
+        name="-search"
+        onChange={[Function]}
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+        tabIndex={0}
+        type="text"
+        value="" />
+      <div
+        className="default text">
+        Assigné à
+      </div>
+      <i
+        aria-hidden="true"
+        className="dropdown icon" />
+      <div
+        aria-multiselectable={undefined}
+        className="menu transition"
+        role="listbox">
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={true}
+          className="selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Redmine Admin
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Dave Lopper
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            John Smith
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            User Misc
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            User Misc
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Robert Hill
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Some One
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="inline field">
+    <label>
       Date de mise à jour
     </label>
     <div

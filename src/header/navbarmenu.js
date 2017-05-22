@@ -55,6 +55,7 @@ class NavBarMenu extends Component {
       projects: filters.projects,
       trackers: filters.trackers,
       issue_statuses: filters.issue_statuses,
+      assigned_to: filters.assigned_to,
       updated_at: filters.updated_at,
       watched: filters.watched
     });

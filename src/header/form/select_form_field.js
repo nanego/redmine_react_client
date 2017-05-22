@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Dropdown, Form } from 'semantic-ui-react'
 import {findByAttribute} from '../../helpers/helper_functions'
 
-import { getFilterValue } from '../../helpers/helper_functions'
+import { getFilterValue, to_s } from '../../helpers/helper_functions'
 // import ServiceAPI from '../services/service_api'
 
 class SelectFormField extends Component {
@@ -38,7 +38,7 @@ class SelectFormField extends Component {
 
   render() {
     var selected_value = getFilterValue(this.props.selected_filters[this.props.filter_name]);
-    var options = this.state.possible_values.map(p => { return {'key': p.id, 'value': p.id, 'text': p.name}});
+    var options = this.state.possible_values.map(p => { return {'key': p.id, 'value': p.id, 'text': to_s(p) }});
     var selected_option = {'key':selected_value,
         'value':selected_value,
         'text':selected_value};

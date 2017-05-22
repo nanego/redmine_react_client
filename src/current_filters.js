@@ -4,11 +4,13 @@ import moment from 'moment'
 import sample_projects from './services/samples/projects.json'
 import sample_trackers from './services/samples/trackers.json'
 import sample_issue_statuses from './services/samples/issue_statuses.json'
+import sample_users from './services/samples/users.json'
 import { getNamesFromIds, exists, convertToBoolean } from './helpers/helper_functions'
 
 const list_of_projects = sample_projects.projects;
 const list_of_trackers = sample_trackers.trackers;
 const list_of_statuses = sample_issue_statuses.issue_statuses;
+const list_of_users = sample_users.users;
 
 function knownFilters(filters){
   return (<Segment attached>
@@ -43,6 +45,14 @@ function knownFilters(filters){
         <List.Content>
           <List.Header as='a'>Observateur :</List.Header>
           <List.Description>{convertToBoolean(filters.watched.value) ? 'Oui':'Non'}</List.Description>
+        </List.Content>
+      </List.Item>
+      }
+      {(exists(filters.assigned_to) && exists(filters.assigned_to.value)) &&
+      <List.Item>
+        <List.Content>
+          <List.Header as='a'>Assigné à :</List.Header>
+          <List.Description>{getNamesFromIds(list_of_users, filters.assigned_to.value).join(', ')}</List.Description>
         </List.Content>
       </List.Item>
       }

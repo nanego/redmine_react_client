@@ -8,6 +8,7 @@ import {removeBlankAttributes, log} from '../../helpers/helper_functions'
 import sample_projects from '../../services/samples/projects.json';
 import sample_issue_statuses from '../../services/samples/issue_statuses.json';
 import sample_trackers from '../../services/samples/trackers.json';
+import sample_users from '../../services/samples/users.json';
 
 class FiltersForm extends Component {
 
@@ -57,6 +58,11 @@ class FiltersForm extends Component {
           <label>Observateur</label>
           <SelectWatched selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         </Form.Field>
+        <SelectFormField label="Assigné à"
+                         filter_name="assigned_to"
+                         possible_values={sample_users.users}
+                         selected_filters={this.props.selected_filters}
+                         updateSelectedFilters={this.props.updateSelectedFilters} />
         <InputField label="Date de mise à jour"
                     filter_name='updated_at'
                     selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />

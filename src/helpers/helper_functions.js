@@ -1,11 +1,13 @@
 import sample_projects from '../services/samples/projects.json'
 import sample_trackers from '../services/samples/trackers.json'
 import sample_issue_statuses from '../services/samples/issue_statuses.json';
+import sample_users from '../services/samples/users.json';
 import moment from 'moment'
 
 const projects = sample_projects.projects;
 const trackers = sample_trackers.trackers;
 const list_of_statuses = sample_issue_statuses.issue_statuses;
+const list_of_users = sample_users.users;
 
 export function findOperatorIn(string){
   if(string.indexOf(':') > 0)
@@ -16,6 +18,23 @@ export function findOperatorIn(string){
     return '<';
   if(string.indexOf('>') > 0)
     return '>';
+}
+
+export function to_s(object){
+
+  if(isString(object)){
+    return object;
+  }else{
+    if (object.name){
+      return object.name;
+    }else{
+      if (object.firstname && object.lastname){
+        return object.firstname + ' ' + object.lastname;
+      }else{
+        return JSON.stringify(object);
+      }
+    }
+  }
 }
 
 export function parseInput(input){
@@ -49,6 +68,9 @@ export function parseInput(input){
           break;
         case 'watched':
           filters.watched = {operator: operator, value: convertToBoolean(value)};
+          break;
+        case 'assigned_to':
+          filters.assigned_to = {operator: operator, value: getIdByValue(list_of_users, value) || value};
           break;
         case 'updated_at':
           filters.updated_at = {operator: operator, value: convertToStringDate(value)};
@@ -165,15 +187,15 @@ export function getNameFromId(array, id){
     return d.id == id;
   });
   if(element){
-    return element.name
+    return to_s(element);
   }else{
-    return undefined
+    return undefined;
   }
 }
 
 export function getIdFromName(array, name){
   let element = array.find(function (d) {
-    return d.name.toLowerCase() === name.toLowerCase();
+    return to_s(d).toLowerCase() === name.toLowerCase();
   });
   if(element){
     return element.id
@@ -312,7 +334,7 @@ export function convertToBoolean(value){
 
   log('convertToBoolean', value);
 
-  if (typeof(value)=='string'){
+  if (isString(value)){
     value = value.toLowerCase();
   }
   return (value != 'false' && value != '0' && value != 'no' && value!==false);

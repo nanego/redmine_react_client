@@ -25,6 +25,8 @@ test("parseInput function", () => {
   expect(parseInput('anykey:anything').text).toEqual("anykey:anything");
   expect(parseInput('anything').text).toEqual("anything");
 
+  expect(parseInput('assigned_to:2').assigned_to).toEqual({operator:':', value:2});
+
   expect(parseInput('updated_at:26/02/2017').updated_at).toEqual({operator:':', value:"26/02/2017"});
   expect(parseInput('updated_at<26/02/2017    ').updated_at).toEqual({operator:'<', value:"26/02/2017"});
   expect(parseInput('updated_at>26/02/2017').updated_at).toEqual({operator:'>', value:"26/02/2017"});

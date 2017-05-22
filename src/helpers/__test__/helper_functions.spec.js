@@ -1,4 +1,5 @@
-import {log, getNameFromValue, convertToStringDate, removeBlankAttributes, convertFilterToText, normalizeFilter, parseInput} from '../helper_functions'
+import {log, getNameFromValue, convertToStringDate, removeBlankAttributes, convertFilterToText, normalizeFilter,
+  parseInput, getIdFromName, getIdByValue, splitByKeyValue} from '../helper_functions'
 // import moment from 'moment'
 
 it('should provide log() function', () => {
@@ -18,6 +19,9 @@ test("parseInput function", () => {
   expect(parseInput('projects=3').projects).toEqual({operator:'=', value:3});
 
   expect(parseInput('trackers:Bug').trackers).toEqual({operator:':', value:1});
+  expect(parseInput('trackers:Bug').trackers).toEqual({operator:':', value:1});
+  expect(parseInput('trackers:"Bug"').trackers).toEqual({operator:':', value:1});
+  expect(parseInput('trackers="Feature request"').trackers).toEqual({operator:'=', value:2});
 
   expect(parseInput('status:"In Progress"').issue_statuses).toEqual({operator:':', value:2});
   // TODO expect(parseInput('status:"Terminated"').issue_statuses).toEqual("Terminated");
@@ -70,4 +74,26 @@ test('convertFilterToText', () => {
 test('normalizeFilter', () => {
   expect(normalizeFilter({"projects":{operator:':', value:'1'}})).toEqual({"projects":{operator:':', value:1}});
   expect(normalizeFilter({"text":"a"})).toEqual({"text":"a"});
+});
+
+test('getIdFromName', () => {
+  expect(getIdFromName([{id:1, name:'test1'}, {id:2, name:'test2'}], 'test2')).toEqual(2);
+  expect(getIdFromName([{id:1, name:'test with space 1'}, {id:2, name:'test with space 2'}], 'test with space 2')).toEqual(2);
+});
+
+test('getIdByValue', () => {
+  expect(getIdByValue([{id:1, name:'test1'}, {id:2, name:'test2'}], 2)).toEqual(2);
+  expect(getIdByValue([{id:1, name:'test with space 1'}, {id:2, name:'test with space 2'}], 'test with space 2')).toEqual(2);
+  expect(getIdByValue([{id:1, name:'test1'}, {id:2, name:'test2'}], '"test2"')).toEqual(2);
+});
+
+test('splitByKeyValue', () => {
+  expect(splitByKeyValue('test:2')).toEqual(['test:2']);
+  expect(splitByKeyValue('test with spaces')).toEqual(["test", "with", "spaces"]);
+  expect(splitByKeyValue('test with spaces:')).toEqual(["test", "with", "spaces:"]);
+  expect(splitByKeyValue('test with spaces:value')).toEqual(["test", "with", "spaces:value"]);
+  expect(splitByKeyValue('test with spaces=value')).toEqual(["test", "with", "spaces=value"]);
+  expect(splitByKeyValue('test with spaces:"value"')).toEqual(["test", "with", "spaces:\"value\""]);
+  expect(splitByKeyValue('test with spaces:"value with spaces"')).toEqual(["test", "with", "spaces:\"value with spaces\""]);
+  expect(splitByKeyValue('test with spaces="value with spaces"')).toEqual(["test", "with", "spaces=\"value with spaces\""]);
 });

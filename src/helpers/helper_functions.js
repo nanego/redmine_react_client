@@ -125,7 +125,7 @@ export function log(string, object = undefined){
 
 export function splitByKeyValue(input){
   // Split input by key:value (with quotes)
-  const regexp = /[^\W]+:"([^"]*)"|[^\s"]+/gi;
+  const regexp = /[^\W]+(:|=)"([^"]*)"|[^\s"]+/gi;
   let words = [];
   let match;
   do {

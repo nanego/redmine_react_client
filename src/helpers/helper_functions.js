@@ -1,7 +1,5 @@
 import moment from 'moment'
-import { AVAILABLE_OPERATORS,
-         LIST_OF_PROJECTS, LIST_OF_TRACKERS, LIST_OF_STATUSES, LIST_OF_USERS,
-         TYPES_OF_FILTERS, AVAILABLE_FILTERS } from './constants';
+import { AVAILABLE_OPERATORS, TYPES_OF_FILTERS, AVAILABLE_FILTERS } from './constants';
 
 export function findOperatorIn(string){
   for(let operator of AVAILABLE_OPERATORS){

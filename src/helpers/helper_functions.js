@@ -1,18 +1,8 @@
-import sample_projects from '../services/samples/projects.json'
-import sample_trackers from '../services/samples/trackers.json'
-import sample_issue_statuses from '../services/samples/issue_statuses.json';
-import sample_users from '../services/samples/users.json';
 import moment from 'moment'
-
-const projects = sample_projects.projects;
-const trackers = sample_trackers.trackers;
-const list_of_statuses = sample_issue_statuses.issue_statuses;
-const list_of_users = [{"id":"me","login":"me","firstname":"moi","lastname":""}, ...sample_users.users];
-
-const available_operators = ['!=', ':', '=', '<', '>']; // ORDER IS IMPORTANT (highest priority first)
+import { AVAILABLE_OPERATORS, LIST_OF_PROJECTS, LIST_OF_TRACKERS, LIST_OF_STATUSES, LIST_OF_USERS } from './constants';
 
 export function findOperatorIn(string){
-  for(let operator of available_operators){
+  for(let operator of AVAILABLE_OPERATORS){
     if(string.indexOf(operator) > 0)
       return operator;
   }
@@ -20,7 +10,7 @@ export function findOperatorIn(string){
 
 export function to_s(object){
   if(isString(object)){
-    if(available_operators.indexOf(object)>0){
+    if(AVAILABLE_OPERATORS.indexOf(object)>0){
       switch(object){
         case '<':
           return 'avant le';
@@ -72,19 +62,19 @@ export function parseInput(input){
       let value = key_value[1];
       switch(key.toLowerCase()){
         case 'projects':
-          filters.projects = {operator: operator, value: getIdByValue(projects, value) || value};
+          filters.projects = {operator: operator, value: getIdByValue(LIST_OF_PROJECTS, value) || value};
           break;
         case 'trackers':
-          filters.trackers = {operator: operator, value: getIdByValue(trackers, value) || value};
+          filters.trackers = {operator: operator, value: getIdByValue(LIST_OF_TRACKERS, value) || value};
           break;
         case 'status':
-          filters.issue_statuses = {operator: operator, value: getIdByValue(list_of_statuses, value) || value};
+          filters.issue_statuses = {operator: operator, value: getIdByValue(LIST_OF_STATUSES, value) || value};
           break;
         case 'watched':
           filters.watched = {operator: operator, value: convertToBoolean(value)};
           break;
         case 'assigned_to':
-          filters.assigned_to = {operator: operator, value: getIdByValue(list_of_users, value) || value};
+          filters.assigned_to = {operator: operator, value: getIdByValue(LIST_OF_USERS, value) || value};
           break;
         case 'updated_at':
           filters.updated_at = {operator: operator, value: convertToStringDate(value)};
@@ -138,7 +128,7 @@ export function log(string, object = undefined){
 }
 
 export function splitByKeyValue(input){
-  let operators = available_operators.join("|");
+  let operators = AVAILABLE_OPERATORS.join("|");
   // Split input by key:value (with quotes)
   const regexp = new RegExp('[^\\W]+('+operators+')"([^"]*)"|[^\\s"]+', "gi");
   let words = [];
@@ -270,11 +260,11 @@ export function getNameFromValue(key, value){
   if(exists(value)){
     switch(key){
       case 'projects':
-        return getNameFromId(projects, getIdByValue(projects, value)) || value;
+        return getNameFromId(LIST_OF_PROJECTS, getIdByValue(LIST_OF_PROJECTS, value)) || value;
       case 'trackers':
-        return getNameFromId(trackers, getIdByValue(trackers, value)) || value;
+        return getNameFromId(LIST_OF_TRACKERS, getIdByValue(LIST_OF_TRACKERS, value)) || value;
       case 'status':
-        return getNameFromId(list_of_statuses, getIdByValue(list_of_statuses, value)) || value;
+        return getNameFromId(LIST_OF_STATUSES, getIdByValue(LIST_OF_STATUSES, value)) || value;
       default:
         return value;
     }

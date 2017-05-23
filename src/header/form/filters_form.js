@@ -4,13 +4,7 @@ import SelectFormField from './select_form_field'
 import SelectWatched from './select_watched'
 import InputField from './input_with_label'
 import {removeBlankAttributes, log} from '../../helpers/helper_functions'
-
-import sample_projects from '../../services/samples/projects.json';
-import sample_issue_statuses from '../../services/samples/issue_statuses.json';
-import sample_trackers from '../../services/samples/trackers.json';
-import sample_users from '../../services/samples/users.json';
-
-const list_of_users = [{"id":"me","login":"me","firstname":"moi","lastname":""}, ...sample_users.users];
+import { LIST_OF_PROJECTS, LIST_OF_TRACKERS, LIST_OF_STATUSES, LIST_OF_USERS } from '../../helpers/constants'
 
 class FiltersForm extends Component {
 
@@ -43,17 +37,17 @@ class FiltersForm extends Component {
       <Form className='filters_form'>
         <SelectFormField label="Projets"
                          filter_name="projects"
-                         possible_values={sample_projects.projects}
+                         possible_values={LIST_OF_PROJECTS}
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />
         <SelectFormField label="Trackers"
                          filter_name="trackers"
-                         possible_values={sample_trackers.trackers}
+                         possible_values={LIST_OF_TRACKERS}
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />
         <SelectFormField label="Statuts"
                          filter_name="issue_statuses"
-                         possible_values={sample_issue_statuses.issue_statuses}
+                         possible_values={LIST_OF_STATUSES}
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />
         <Form.Field inline>
@@ -62,7 +56,7 @@ class FiltersForm extends Component {
         </Form.Field>
         <SelectFormField label="Assigné à"
                          filter_name="assigned_to"
-                         possible_values={list_of_users}
+                         possible_values={LIST_OF_USERS}
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />
         <InputField label="Date de mise à jour"

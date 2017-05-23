@@ -73,28 +73,25 @@ export function parseInput(input){
         case TYPES_OF_FILTERS.DATE:
           filters[key.toLowerCase()] = {operator: operator, value: convertToStringDate(value)};
         default:
-          if(exists(word)){
-            if(exists(filters.text))
-              filters.text += " ";
-            filters.text += word;
-          }
-          // _this.props.updateSelectedFilters({text: content_filter});
-          // text += word + " ";
+          filters.text = concat(filters.text, word);
       }
       console.log("key="+key_value[0]);
       console.log("value="+key_value[1]);
     }else{
-      if(exists(word)){
-        if(exists(filters.text))
-          filters.text += " ";
-        filters.text += word;
-      }
-      // _this.props.updateSelectedFilters({text: content_filter});
-      // text += word + ' ';
+      filters.text = concat(filters.text, word);
     }
   });
 
   return filters;
+}
+
+export function concat(previous_text, new_text){
+  if(exists(new_text)){
+    if(exists(previous_text))
+      previous_text += " ";
+    previous_text += new_text;
+  }
+  return previous_text;
 }
 
 export function findByAttribute(array, attr, value) {

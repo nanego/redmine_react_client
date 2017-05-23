@@ -2,8 +2,10 @@ import React, {Component} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import {convertToBoolean, exists, log} from '../../helpers/helper_functions'
 
+const placeholder = 'Indéterminé';
+
 const options = [
-  { key: 1, text: '', value: '' },
+  { key: 1, text: placeholder, value: '' },
   { key: 2, text: 'Oui', value: 'true' },
   { key: 3, text: 'Non', value: 'false' },
 ];
@@ -35,6 +37,7 @@ class SelectWatched extends Component {
       <Dropdown search selection allowAdditions
                 pointing='left'
                 className='link item'
+                placeholder={placeholder}
                 closeOnBlur={false}
                 options={options}
                 value={selected_value}

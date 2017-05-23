@@ -505,7 +505,7 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
           value="" />
         <option
           value="">
-          
+          Indéterminé
         </option>
         <option
           value="true">
@@ -531,7 +531,9 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         type="text"
         value="" />
       <div
-        className="text" />
+        className="default text">
+        Indéterminé
+      </div>
       <i
         aria-hidden="true"
         className="dropdown icon" />
@@ -553,7 +555,7 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
           }>
           <span
             className="text">
-            
+            Indéterminé
           </span>
         </div>
         <div
@@ -1467,7 +1469,7 @@ exports[`test should render FiltersForm with empty filters 1`] = `
           value="" />
         <option
           value="">
-          
+          Indéterminé
         </option>
         <option
           value="true">
@@ -1493,7 +1495,9 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         type="text"
         value="" />
       <div
-        className="text" />
+        className="default text">
+        Indéterminé
+      </div>
       <i
         aria-hidden="true"
         className="dropdown icon" />
@@ -1515,7 +1519,7 @@ exports[`test should render FiltersForm with empty filters 1`] = `
           }>
           <span
             className="text">
-            
+            Indéterminé
           </span>
         </div>
         <div

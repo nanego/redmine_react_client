@@ -5,73 +5,34 @@ import sample_projects from './services/samples/projects.json'
 import sample_trackers from './services/samples/trackers.json'
 import sample_issue_statuses from './services/samples/issue_statuses.json'
 import sample_users from './services/samples/users.json'
-import { getNamesFromIds, exists, convertToBoolean } from './helpers/helper_functions'
+import { getNamesFromIds, exists, convertToBoolean, to_s } from './helpers/helper_functions'
 
 const list_of_projects = sample_projects.projects;
 const list_of_trackers = sample_trackers.trackers;
 const list_of_statuses = sample_issue_statuses.issue_statuses;
 const list_of_users = [{"id":"me","login":"me","firstname":"moi","lastname":""}, ...sample_users.users];
 
+function item(label, filter, description){
+  return (exists(filter)) &&
+    <List.Item>
+      <List.Content>
+        <List.Header as='a'>{label + (exists(filter.operator) ? (' ' + to_s(filter.operator)) : ' :')}</List.Header>
+        <List.Description>{description}</List.Description>
+      </List.Content>
+    </List.Item>
+}
+
 function knownFilters(filters){
   return (<Segment attached>
     <span>{JSON.stringify(filters, null, 4)}</span>
     <List>
-      {(exists(filters.projects) && exists(filters.projects.value)) &&
-      <List.Item>
-        <List.Content>
-          <List.Header as='a'>Projets :</List.Header>
-          <List.Description>{getNamesFromIds(list_of_projects, filters.projects.value).join(', ')}</List.Description>
-        </List.Content>
-      </List.Item>
-      }
-      {(exists(filters.trackers) && exists(filters.trackers.value)) &&
-      <List.Item>
-        <List.Content>
-          <List.Header as='a'>Trackers :</List.Header>
-          <List.Description>{getNamesFromIds(list_of_trackers, filters.trackers.value).join(', ')}</List.Description>
-        </List.Content>
-      </List.Item>
-      }
-      {(exists(filters.issue_statuses) && exists(filters.issue_statuses.value)) &&
-      <List.Item>
-        <List.Content>
-          <List.Header as='a'>Statut :</List.Header>
-          <List.Description>{getNamesFromIds(list_of_statuses, filters.issue_statuses.value).join(', ')}</List.Description>
-        </List.Content>
-      </List.Item>
-      }
-      {exists(filters.watched) && exists(filters.watched.value) &&
-      <List.Item>
-        <List.Content>
-          <List.Header as='a'>Observateur :</List.Header>
-          <List.Description>{convertToBoolean(filters.watched.value) ? 'Oui':'Non'}</List.Description>
-        </List.Content>
-      </List.Item>
-      }
-      {(exists(filters.assigned_to) && exists(filters.assigned_to.value)) &&
-      <List.Item>
-        <List.Content>
-          <List.Header as='a'>Assigné à :</List.Header>
-          <List.Description>{getNamesFromIds(list_of_users, filters.assigned_to.value).join(', ')}</List.Description>
-        </List.Content>
-      </List.Item>
-      }
-      {exists(filters.updated_at) && exists(filters.updated_at.value) &&
-      <List.Item>
-        <List.Content>
-          <List.Header as='a'>Mis à jour {filters.updated_at.operator=='<' ? 'avant le' : filters.updated_at.operator=='>' ? 'après le' : ""}</List.Header>
-          <List.Description>{moment(filters.updated_at.value, 'DD/MM/YYYY').format('LLLL')}</List.Description>
-        </List.Content>
-      </List.Item>
-      }
-      {(filters.text && filters.text.length > 0) &&
-      <List.Item>
-        <List.Content>
-          <List.Header as='a'>Contient :</List.Header>
-          <List.Description>{filters.text}</List.Description>
-        </List.Content>
-      </List.Item>
-      }
+      {item('Projets', filters.projects, (exists(filters.projects) && exists(filters.projects.value) && getNamesFromIds(list_of_projects, filters.projects.value).join(', ')))}
+      {item('Trackers', filters.trackers, (exists(filters.trackers) && exists(filters.trackers.value) && getNamesFromIds(list_of_trackers, filters.trackers.value).join(', ')))}
+      {item('Statut', filters.issue_statuses, (exists(filters.issue_statuses) && exists(filters.issue_statuses.value) && getNamesFromIds(list_of_statuses, filters.issue_statuses.value).join(', ')))}
+      {item('Observateur', filters.watched, (exists(filters.watched) && exists(filters.watched.value) && convertToBoolean(filters.watched.value) ? 'Oui':'Non'))}
+      {item('Assigné à', filters.assigned_to, (exists(filters.assigned_to) && exists(filters.assigned_to.value) && getNamesFromIds(list_of_users, filters.assigned_to.value).join(', ')))}
+      {exists(filters.updated_at) && exists(filters.updated_at.value) && item('Mis à jour', filters.updated_at, moment(filters.updated_at.value, 'DD/MM/YYYY').format('LLLL'))}
+      {(filters.text && filters.text.length > 0) && item('Contient', filters.text, filters.text)}
     </List>
   </Segment>)
 }

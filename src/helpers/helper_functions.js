@@ -9,19 +9,31 @@ const trackers = sample_trackers.trackers;
 const list_of_statuses = sample_issue_statuses.issue_statuses;
 const list_of_users = [{"id":"me","login":"me","firstname":"moi","lastname":""}, ...sample_users.users];
 
+const available_operators = ['!=', ':', '=', '<', '>']; // ORDER IS IMPORTANT (highest priority first)
+
 export function findOperatorIn(string){
-  if(string.indexOf(':') > 0)
-    return ':';
-  if(string.indexOf('=') > 0)
-    return '=';
-  if(string.indexOf('<') > 0)
-    return '<';
-  if(string.indexOf('>') > 0)
-    return '>';
+  for(let operator of available_operators){
+    if(string.indexOf(operator) > 0)
+      return operator;
+  }
 }
 
 export function to_s(object){
   if(isString(object)){
+    if(available_operators.indexOf(object)>0){
+      switch(object){
+        case '<':
+          return 'avant le';
+        case '>':
+          return 'après le';
+        case ':':
+          return ':';
+        case '!=':
+          return 'différent de';
+        case '=':
+          return ':';
+      }
+    }
     return object;
   }
   if (object.name){
@@ -126,8 +138,9 @@ export function log(string, object = undefined){
 }
 
 export function splitByKeyValue(input){
+  let operators = available_operators.join("|");
   // Split input by key:value (with quotes)
-  const regexp = /[^\W]+(:|=)"([^"]*)"|[^\s"]+/gi;
+  const regexp = new RegExp('[^\\W]+('+operators+')"([^"]*)"|[^\\s"]+', "gi");
   let words = [];
   let match;
   do {

@@ -619,6 +619,10 @@ exports[`test should render FiltersForm 1`] = `
         <option
           value="" />
         <option
+          value="me">
+          moi
+        </option>
+        <option
           value={1}>
           Redmine Admin
         </option>
@@ -645,10 +649,6 @@ exports[`test should render FiltersForm 1`] = `
         <option
           value={7}>
           Some One
-        </option>
-        <option
-          value="me">
-          moi
         </option>
       </select>
       <input
@@ -681,6 +681,23 @@ exports[`test should render FiltersForm 1`] = `
           aria-disabled={undefined}
           aria-selected={true}
           className="selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            moi
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
           onClick={[Function]}
           role="option"
           style={
@@ -793,23 +810,6 @@ exports[`test should render FiltersForm 1`] = `
           <span
             className="text">
             Some One
-          </span>
-        </div>
-        <div
-          aria-checked={false}
-          aria-disabled={undefined}
-          aria-selected={false}
-          className="item"
-          onClick={[Function]}
-          role="option"
-          style={
-            Object {
-              "pointerEvents": "all",
-            }
-          }>
-          <span
-            className="text">
-            moi
           </span>
         </div>
       </div>

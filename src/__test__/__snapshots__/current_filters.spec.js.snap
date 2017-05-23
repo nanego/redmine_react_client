@@ -1,0 +1,199 @@
+exports[`test should render CurrentFilters 1`] = `
+<div
+  className="ui centered two column grid list_current_filters">
+  <div
+    className="column">
+    <div
+      className="ui text container">
+      <div
+        className="ui top attached header">
+        <i
+          aria-hidden="true"
+          className="filter icon" />
+        Filtres appliqués
+      </div>
+      <div
+        className="ui attached segment">
+        <span>
+          {
+              \"projects\": {
+                  \"operator\": \"=\",
+                  \"value\": 1
+              },
+              \"trackers\": {
+                  \"operator\": \"=\",
+                  \"value\": 2
+              },
+              \"issue_statuses\": {
+                  \"operator\": \"=\",
+                  \"value\": 2
+              },
+              \"watched\": {
+                  \"operator\": \"=\",
+                  \"value\": \"true\"
+              },
+              \"assigned_to\": {
+                  \"operator\": \"=\",
+                  \"value\": 1
+              },
+              \"updated_at\": {
+                  \"operator\": \">\",
+                  \"value\": \"12/12/2017\"
+              },
+              \"text\": \"test\"
+          }
+        </span>
+        <div
+          className="ui list"
+          role="list">
+          <div
+            className="item"
+            data-value={undefined}
+            onClick={[Function]}
+            role="listitem">
+            <div
+              className="content">
+              <a
+                className="header">
+                Projets :
+              </a>
+              <div
+                className="description">
+                eCookbook
+              </div>
+            </div>
+          </div>
+          <div
+            className="item"
+            data-value={undefined}
+            onClick={[Function]}
+            role="listitem">
+            <div
+              className="content">
+              <a
+                className="header">
+                Trackers :
+              </a>
+              <div
+                className="description">
+                Feature request
+              </div>
+            </div>
+          </div>
+          <div
+            className="item"
+            data-value={undefined}
+            onClick={[Function]}
+            role="listitem">
+            <div
+              className="content">
+              <a
+                className="header">
+                Statut :
+              </a>
+              <div
+                className="description">
+                In Progress
+              </div>
+            </div>
+          </div>
+          <div
+            className="item"
+            data-value={undefined}
+            onClick={[Function]}
+            role="listitem">
+            <div
+              className="content">
+              <a
+                className="header">
+                Observateur :
+              </a>
+              <div
+                className="description">
+                Oui
+              </div>
+            </div>
+          </div>
+          <div
+            className="item"
+            data-value={undefined}
+            onClick={[Function]}
+            role="listitem">
+            <div
+              className="content">
+              <a
+                className="header">
+                Assigné à :
+              </a>
+              <div
+                className="description">
+                Redmine Admin
+              </div>
+            </div>
+          </div>
+          <div
+            className="item"
+            data-value={undefined}
+            onClick={[Function]}
+            role="listitem">
+            <div
+              className="content">
+              <a
+                className="header">
+                Mis à jour après le
+              </a>
+              <div
+                className="description">
+                Tuesday, December 12, 2017 12:00 AM
+              </div>
+            </div>
+          </div>
+          <div
+            className="item"
+            data-value={undefined}
+            onClick={[Function]}
+            role="listitem">
+            <div
+              className="content">
+              <a
+                className="header">
+                Contient :
+              </a>
+              <div
+                className="description">
+                test
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="column">
+    <div
+      className="ui text container">
+      <div
+        className="ui top attached header">
+        <i
+          aria-hidden="true"
+          className="filter icon" />
+        Filtres en cours de modification
+      </div>
+      <div
+        className="ui attached segment">
+        <span>
+          {
+              \"text\": \"\"
+          }
+        </span>
+        <div
+          className="ui list"
+          role="list">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,5 +1,5 @@
 import {log, getNameFromValue, convertToStringDate, removeBlankAttributes, convertFilterToText, normalizeFilter,
-  parseInput, getIdFromName, getIdByValue, splitByKeyValue} from '../helper_functions'
+  parseInput, getIdFromName, getIdByValue, splitByKeyValue, to_s} from '../helper_functions'
 // import moment from 'moment'
 
 it('should provide log() function', () => {
@@ -30,6 +30,8 @@ test("parseInput function", () => {
   expect(parseInput('anything').text).toEqual("anything");
 
   expect(parseInput('assigned_to:2').assigned_to).toEqual({operator:':', value:2});
+  expect(parseInput('assigned_to=2').assigned_to).toEqual({operator:'=', value:2});
+  expect(parseInput('assigned_to!=2').assigned_to).toEqual({operator:'!=', value:2});
 
   expect(parseInput('updated_at:26/02/2017').updated_at).toEqual({operator:':', value:"26/02/2017"});
   expect(parseInput('updated_at<26/02/2017    ').updated_at).toEqual({operator:'<', value:"26/02/2017"});
@@ -93,7 +95,14 @@ test('splitByKeyValue', () => {
   expect(splitByKeyValue('test with spaces:')).toEqual(["test", "with", "spaces:"]);
   expect(splitByKeyValue('test with spaces:value')).toEqual(["test", "with", "spaces:value"]);
   expect(splitByKeyValue('test with spaces=value')).toEqual(["test", "with", "spaces=value"]);
+  expect(splitByKeyValue('test with spaces!=value')).toEqual(["test", "with", "spaces!=value"]);
   expect(splitByKeyValue('test with spaces:"value"')).toEqual(["test", "with", "spaces:\"value\""]);
   expect(splitByKeyValue('test with spaces:"value with spaces"')).toEqual(["test", "with", "spaces:\"value with spaces\""]);
   expect(splitByKeyValue('test with spaces="value with spaces"')).toEqual(["test", "with", "spaces=\"value with spaces\""]);
+});
+
+test('to_s', () => {
+  expect(to_s({id:1, name:'test1'})).toEqual('test1');
+  expect(to_s("word")).toEqual("word");
+  expect(to_s({id:1})).toEqual("{\"id\":1}");
 });

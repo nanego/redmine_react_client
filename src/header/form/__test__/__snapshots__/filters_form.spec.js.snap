@@ -27,6 +27,10 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         <option
           value="" />
         <option
+          value="">
+          Tous les projets
+        </option>
+        <option
           value={1}>
           eCookbook
         </option>
@@ -67,7 +71,7 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         value="" />
       <div
         className="default text">
-        Projets
+        Tous les projets
       </div>
       <i
         aria-hidden="true"
@@ -77,10 +81,27 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         className="menu transition"
         role="listbox">
         <div
-          aria-checked={false}
+          aria-checked={true}
           aria-disabled={undefined}
           aria-selected={true}
-          className="selected item"
+          className="active selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Tous les projets
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
           onClick={[Function]}
           role="option"
           style={
@@ -207,6 +228,10 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         <option
           value="" />
         <option
+          value="">
+          Tous les trackers
+        </option>
+        <option
           value={1}>
           Bug
         </option>
@@ -235,7 +260,7 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         value="" />
       <div
         className="default text">
-        Trackers
+        Tous les trackers
       </div>
       <i
         aria-hidden="true"
@@ -245,10 +270,27 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         className="menu transition"
         role="listbox">
         <div
-          aria-checked={false}
+          aria-checked={true}
           aria-disabled={undefined}
           aria-selected={true}
-          className="selected item"
+          className="active selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Tous les trackers
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
           onClick={[Function]}
           role="option"
           style={
@@ -324,6 +366,10 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         <option
           value="" />
         <option
+          value="">
+          Tous les statuts
+        </option>
+        <option
           value={1}>
           New
         </option>
@@ -364,7 +410,7 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         value="" />
       <div
         className="default text">
-        Statuts
+        Tous les statuts
       </div>
       <i
         aria-hidden="true"
@@ -374,10 +420,27 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         className="menu transition"
         role="listbox">
         <div
-          aria-checked={false}
+          aria-checked={true}
           aria-disabled={undefined}
           aria-selected={true}
-          className="selected item"
+          className="active selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Tous les statuts
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
           onClick={[Function]}
           role="option"
           style={
@@ -621,6 +684,10 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         <option
           value="" />
         <option
+          value="">
+          Indéterminé
+        </option>
+        <option
           value="me">
           moi
         </option>
@@ -669,7 +736,7 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         value="" />
       <div
         className="default text">
-        Assigné à
+        Indéterminé
       </div>
       <i
         aria-hidden="true"
@@ -679,10 +746,27 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
         className="menu transition"
         role="listbox">
         <div
-          aria-checked={false}
+          aria-checked={true}
           aria-disabled={undefined}
           aria-selected={true}
-          className="selected item"
+          className="active selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Indéterminé
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
           onClick={[Function]}
           role="option"
           style={
@@ -991,6 +1075,10 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         <option
           value="" />
         <option
+          value="">
+          Tous les projets
+        </option>
+        <option
           value={1}>
           eCookbook
         </option>
@@ -1031,7 +1119,7 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         value="" />
       <div
         className="default text">
-        Projets
+        Tous les projets
       </div>
       <i
         aria-hidden="true"
@@ -1041,10 +1129,27 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         className="menu transition"
         role="listbox">
         <div
-          aria-checked={false}
+          aria-checked={true}
           aria-disabled={undefined}
           aria-selected={true}
-          className="selected item"
+          className="active selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Tous les projets
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
           onClick={[Function]}
           role="option"
           style={
@@ -1171,6 +1276,10 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         <option
           value="" />
         <option
+          value="">
+          Tous les trackers
+        </option>
+        <option
           value={1}>
           Bug
         </option>
@@ -1199,7 +1308,7 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         value="" />
       <div
         className="default text">
-        Trackers
+        Tous les trackers
       </div>
       <i
         aria-hidden="true"
@@ -1209,10 +1318,27 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         className="menu transition"
         role="listbox">
         <div
-          aria-checked={false}
+          aria-checked={true}
           aria-disabled={undefined}
           aria-selected={true}
-          className="selected item"
+          className="active selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Tous les trackers
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
           onClick={[Function]}
           role="option"
           style={
@@ -1288,6 +1414,10 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         <option
           value="" />
         <option
+          value="">
+          Tous les statuts
+        </option>
+        <option
           value={1}>
           New
         </option>
@@ -1328,7 +1458,7 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         value="" />
       <div
         className="default text">
-        Statuts
+        Tous les statuts
       </div>
       <i
         aria-hidden="true"
@@ -1338,10 +1468,27 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         className="menu transition"
         role="listbox">
         <div
-          aria-checked={false}
+          aria-checked={true}
           aria-disabled={undefined}
           aria-selected={true}
-          className="selected item"
+          className="active selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Tous les statuts
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
           onClick={[Function]}
           role="option"
           style={
@@ -1585,6 +1732,10 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         <option
           value="" />
         <option
+          value="">
+          Indéterminé
+        </option>
+        <option
           value="me">
           moi
         </option>
@@ -1633,7 +1784,7 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         value="" />
       <div
         className="default text">
-        Assigné à
+        Indéterminé
       </div>
       <i
         aria-hidden="true"
@@ -1643,10 +1794,27 @@ exports[`test should render FiltersForm with empty filters 1`] = `
         className="menu transition"
         role="listbox">
         <div
-          aria-checked={false}
+          aria-checked={true}
           aria-disabled={undefined}
           aria-selected={true}
-          className="selected item"
+          className="active selected item"
+          onClick={[Function]}
+          role="option"
+          style={
+            Object {
+              "pointerEvents": "all",
+            }
+          }>
+          <span
+            className="text">
+            Indéterminé
+          </span>
+        </div>
+        <div
+          aria-checked={false}
+          aria-disabled={undefined}
+          aria-selected={false}
+          className="item"
           onClick={[Function]}
           role="option"
           style={

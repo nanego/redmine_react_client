@@ -3,13 +3,11 @@ import {shallow} from 'enzyme';
 import SelectFormField from '../select_form_field';
 import renderer from 'react-test-renderer';
 
-var updateSelectedFilters = function(){return true;};
+let updateSelectedFilters = function(){return true;};
 
 it('should render SelectProjects', () => {
   const component = renderer.create(
-      <SelectFormField label="Projets"
-                       filter_name="projects"
-                       possible_values={[]}
+      <SelectFormField filter_name="projects"
                        selected_filters={{}}
                        updateSelectedFilters={updateSelectedFilters} />
   );
@@ -31,16 +29,15 @@ it('should render SelectProjects', () => {
 
 it('render component with Enzyme', () => {
   const component = shallow(
-      <SelectFormField label="Projets"
-                       filter_name="projects"
-                       possible_values={[]}
-                       selected_filters={{}} updateSelectedFilters={updateSelectedFilters} />
+      <SelectFormField filter_name="projects"
+                       selected_filters={{}}
+                       updateSelectedFilters={updateSelectedFilters} />
   );
   const select = component.find('select');
   const event1 = {target: {value: 'eCookbook'}};
   let handler1 = component.instance().handleSelection(event1, "eCookbook");
   let handler2 = component.instance().handleSelection(event1, {value: "eCookbook"});
-  var assert = require('assert');
+  let assert = require('assert');
   assert.equal(handler1, undefined); // TODO
   assert.equal(handler2, undefined);
 

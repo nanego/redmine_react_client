@@ -17,22 +17,31 @@ class InputField extends Component {
   }
 
   updateValue(e, {value}){
-    log("param value", value);
+    // log("param value", value);
     let new_filter = {};
-    new_filter[this.props.filter_name] = {
-      operator: operator_of(this.props.selected_filters[this.props.filter_name]),
-      value: value
-    };
+    if(value){
+      new_filter[this.props.filter_name] = {
+        operator: operator_of(this.props.selected_filters[this.props.filter_name]),
+        value: value
+      };
+    }else{
+      new_filter[this.props.filter_name] = {};
+    }
     this.props.updateSelectedFilters(new_filter);
   }
 
   updateOperator(e, {value}){
     let operator = value;
     let new_filter = {};
-    new_filter[this.props.filter_name] = {
-      operator: operator,
-      value: value_of(this.props.selected_filters[this.props.filter_name])
-    };
+    let input_value = value_of(this.props.selected_filters[this.props.filter_name]);
+    if(input_value){
+      new_filter[this.props.filter_name] = {
+        operator: operator,
+        value: input_value
+      };
+    }else{
+      new_filter[this.props.filter_name] = {};
+    }
     this.props.updateSelectedFilters(new_filter);
   }
 

@@ -5,10 +5,10 @@ exports[`test should render SelectProjects 1`] = `
     Projets
   </label>
   <div
-    aria-busy={true}
+    aria-busy={false}
     aria-disabled={undefined}
     aria-expanded={false}
-    className="ui loading search selection left pointing link item dropdown"
+    className="ui search selection left pointing link item dropdown"
     onBlur={[Function]}
     onChange={[Function]}
     onClick={[Function]}
@@ -24,6 +24,34 @@ exports[`test should render SelectProjects 1`] = `
       value="">
       <option
         value="" />
+      <option
+        value="">
+        Tous les projets
+      </option>
+      <option
+        value={1}>
+        eCookbook
+      </option>
+      <option
+        value={5}>
+        Private child of eCookbook
+      </option>
+      <option
+        value={6}>
+        Child of private child
+      </option>
+      <option
+        value={3}>
+        eCookbook Subproject 1
+      </option>
+      <option
+        value={4}>
+        eCookbook Subproject 2
+      </option>
+      <option
+        value={2}>
+        OnlineStore
+      </option>
     </select>
     <input
       aria-autocomplete="list"
@@ -41,7 +69,7 @@ exports[`test should render SelectProjects 1`] = `
       value="" />
     <div
       className="default text">
-      Projets
+      Tous les projets
     </div>
     <i
       aria-hidden="true"
@@ -51,8 +79,123 @@ exports[`test should render SelectProjects 1`] = `
       className="menu transition"
       role="listbox">
       <div
-        className="message">
-        No results found.
+        aria-checked={true}
+        aria-disabled={undefined}
+        aria-selected={true}
+        className="active selected item"
+        onClick={[Function]}
+        role="option"
+        style={
+          Object {
+            "pointerEvents": "all",
+          }
+        }>
+        <span
+          className="text">
+          Tous les projets
+        </span>
+      </div>
+      <div
+        aria-checked={false}
+        aria-disabled={undefined}
+        aria-selected={false}
+        className="item"
+        onClick={[Function]}
+        role="option"
+        style={
+          Object {
+            "pointerEvents": "all",
+          }
+        }>
+        <span
+          className="text">
+          eCookbook
+        </span>
+      </div>
+      <div
+        aria-checked={false}
+        aria-disabled={undefined}
+        aria-selected={false}
+        className="item"
+        onClick={[Function]}
+        role="option"
+        style={
+          Object {
+            "pointerEvents": "all",
+          }
+        }>
+        <span
+          className="text">
+          Private child of eCookbook
+        </span>
+      </div>
+      <div
+        aria-checked={false}
+        aria-disabled={undefined}
+        aria-selected={false}
+        className="item"
+        onClick={[Function]}
+        role="option"
+        style={
+          Object {
+            "pointerEvents": "all",
+          }
+        }>
+        <span
+          className="text">
+          Child of private child
+        </span>
+      </div>
+      <div
+        aria-checked={false}
+        aria-disabled={undefined}
+        aria-selected={false}
+        className="item"
+        onClick={[Function]}
+        role="option"
+        style={
+          Object {
+            "pointerEvents": "all",
+          }
+        }>
+        <span
+          className="text">
+          eCookbook Subproject 1
+        </span>
+      </div>
+      <div
+        aria-checked={false}
+        aria-disabled={undefined}
+        aria-selected={false}
+        className="item"
+        onClick={[Function]}
+        role="option"
+        style={
+          Object {
+            "pointerEvents": "all",
+          }
+        }>
+        <span
+          className="text">
+          eCookbook Subproject 2
+        </span>
+      </div>
+      <div
+        aria-checked={false}
+        aria-disabled={undefined}
+        aria-selected={false}
+        className="item"
+        onClick={[Function]}
+        role="option"
+        style={
+          Object {
+            "pointerEvents": "all",
+          }
+        }>
+        <span
+          className="text">
+          OnlineStore
+        </span>
       </div>
     </div>
   </div>

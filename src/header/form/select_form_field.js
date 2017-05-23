@@ -4,6 +4,7 @@ import {findByAttribute} from '../../helpers/helper_functions'
 
 import { getFilterValue, to_s } from '../../helpers/helper_functions'
 // import ServiceAPI from '../services/service_api'
+import { AVAILABLE_FILTERS } from '../../helpers/constants'
 
 class SelectFormField extends Component {
 
@@ -16,12 +17,14 @@ class SelectFormField extends Component {
   }
 
   handleSelection(e, {value}){
-    console.log(this.props.filter_name + " : new value = " + value);
+    // console.log(this.props.filter_name + " : new value = " + value);
+    let current_filter = {};
     if(value){
-      let current_filter = {};
       current_filter[this.props.filter_name] = {operator: '=', value: value};
-      this.props.updateSelectedFilters(current_filter);
+    }else{
+      current_filter[this.props.filter_name] = {};
     }
+    this.props.updateSelectedFilters(current_filter);
   }
 
   componentDidMount() {
@@ -32,7 +35,7 @@ class SelectFormField extends Component {
       this.setState({projects});
     });
     */
-    let possible_values = this.props.possible_values;
+    let possible_values = AVAILABLE_FILTERS[this.props.filter_name].values;
     this.setState({possible_values: possible_values});
   }
 
@@ -45,16 +48,17 @@ class SelectFormField extends Component {
     if(selected_value && findByAttribute(options, 'key', selected_value) == undefined){
       options.push(selected_option);
     }
+    options.unshift({key: 0, text: AVAILABLE_FILTERS[this.props.filter_name].placeholder, value: ''});
     return (
         <Form.Field inline>
-          <label>{this.props.label}</label>
+          <label>{AVAILABLE_FILTERS[this.props.filter_name].label}</label>
             <Dropdown search
                       selection
                       allowAdditions
                       pointing='left'
                       className='link item'
                       loading={this.state.possible_values.length===0}
-                      placeholder={this.props.label}
+                      placeholder={AVAILABLE_FILTERS[this.props.filter_name].placeholder}
                       options={options}
                       value={selected_value}
                       onChange={this.handleSelection}

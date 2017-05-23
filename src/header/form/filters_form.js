@@ -4,7 +4,6 @@ import SelectFormField from './select_form_field'
 import SelectWatched from './select_watched'
 import InputField from './input_with_label'
 import {removeBlankAttributes, log} from '../../helpers/helper_functions'
-import { LIST_OF_PROJECTS, LIST_OF_TRACKERS, LIST_OF_STATUSES, LIST_OF_USERS } from '../../helpers/constants'
 
 class FiltersForm extends Component {
 
@@ -35,28 +34,20 @@ class FiltersForm extends Component {
   render() {
     return (
       <Form className='filters_form'>
-        <SelectFormField label="Projets"
-                         filter_name="projects"
-                         possible_values={LIST_OF_PROJECTS}
+        <SelectFormField filter_name="projects"
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />
-        <SelectFormField label="Trackers"
-                         filter_name="trackers"
-                         possible_values={LIST_OF_TRACKERS}
+        <SelectFormField filter_name="trackers"
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />
-        <SelectFormField label="Statuts"
-                         filter_name="status"
-                         possible_values={LIST_OF_STATUSES}
+        <SelectFormField filter_name="status"
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />
         <Form.Field inline>
           <label>Observateur</label>
           <SelectWatched selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         </Form.Field>
-        <SelectFormField label="Assigné à"
-                         filter_name="assigned_to"
-                         possible_values={LIST_OF_USERS}
+        <SelectFormField filter_name="assigned_to"
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />
         <InputField label="Date de mise à jour"

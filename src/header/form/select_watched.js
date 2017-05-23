@@ -5,9 +5,9 @@ import {convertToBoolean, exists, log} from '../../helpers/helper_functions'
 const placeholder = 'Indéterminé';
 
 const options = [
-  { key: 1, text: placeholder, value: '' },
-  { key: 2, text: 'Oui', value: 'true' },
-  { key: 3, text: 'Non', value: 'false' },
+  { key: 0, text: placeholder, value: '' },
+  { key: 1, text: 'Oui', value: 'true' },
+  { key: 2, text: 'Non', value: 'false' },
 ];
 
 class SelectWatched extends Component {

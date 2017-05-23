@@ -22,11 +22,11 @@ class CustomQueries extends Component {
         break;
       case "Traité sans activité récente":
         var date = moment().subtract(60, 'days').format("DD/MM/YYYY");
-        this.props.replaceSelectedFilters({issue_statuses:filter_value('=', 3), updated_at:filter_value('<', date)}, true);
+        this.props.replaceSelectedFilters({status:filter_value('=', 3), updated_at:filter_value('<', date)}, true);
         // closePopup();
         break;
       case "Filtres du permanent":
-        this.props.replaceSelectedFilters({issue_statuses:filter_value('=',"open"), assigned_to:filter_value('!*')}, true);
+        this.props.replaceSelectedFilters({status:filter_value('=',"open"), assigned_to:filter_value('!*')}, true);
         // closePopup();
         break;
       default:

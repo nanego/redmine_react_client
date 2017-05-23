@@ -17,20 +17,20 @@ test("parseInput function", () => {
   expect(parseInput('projects:eCookbook').projects).toEqual({operator:':', value:1});
   expect(parseInput('projects:2').projects).toEqual({operator:':', value:2});
   expect(parseInput('projects=3').projects).toEqual({operator:'=', value:3});
+  expect(parseInput('projects:newproject').projects).toEqual({operator:':', value:'newproject'});
 
   expect(parseInput('trackers:Bug').trackers).toEqual({operator:':', value:1});
   expect(parseInput('trackers:Bug').trackers).toEqual({operator:':', value:1});
   expect(parseInput('trackers:"Bug"').trackers).toEqual({operator:':', value:1});
+  expect(parseInput('trackers:todo').trackers).toEqual({operator:':', value:"todo"});
   expect(parseInput('trackers="Feature request"').trackers).toEqual({operator:'=', value:2});
 
-  expect(parseInput('status:"In Progress"').issue_statuses).toEqual({operator:':', value:2});
-  expect(parseInput('status:Terminated').issue_statuses).toEqual({operator:':', value:"Terminated"});
-
-  expect(parseInput('anykey:anything').text).toEqual("anykey:anything");
-  expect(parseInput('anything').text).toEqual("anything");
+  expect(parseInput('status:"In Progress"').status).toEqual({operator:':', value:2});
+  expect(parseInput('status:Terminated').status).toEqual({operator:':', value:"Terminated"});
 
   expect(parseInput('assigned_to:2').assigned_to).toEqual({operator:':', value:2});
   expect(parseInput('assigned_to=2').assigned_to).toEqual({operator:'=', value:2});
+  expect(parseInput('assigned_to=john').assigned_to).toEqual({operator:'=', value:'john'});
   expect(parseInput('assigned_to!=2').assigned_to).toEqual({operator:'!=', value:2});
 
   expect(parseInput('updated_at:26/02/2017').updated_at).toEqual({operator:':', value:"26/02/2017"});
@@ -40,6 +40,9 @@ test("parseInput function", () => {
   //Combine them
   expect(parseInput('anything twice')).toEqual({"text":"anything twice"});
   expect(parseInput('anything twice projects:2')).toEqual({"projects":{operator:':', value:2}, "text":"anything twice"});
+
+  expect(parseInput('anything').text).toEqual("anything");
+  expect(parseInput('anykey:anything').text).toEqual("anykey:anything");
 
 });
 

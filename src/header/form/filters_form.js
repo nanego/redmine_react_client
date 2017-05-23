@@ -46,7 +46,7 @@ class FiltersForm extends Component {
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />
         <SelectFormField label="Statuts"
-                         filter_name="issue_statuses"
+                         filter_name="status"
                          possible_values={LIST_OF_STATUSES}
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />

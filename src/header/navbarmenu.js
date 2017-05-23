@@ -54,7 +54,7 @@ class NavBarMenu extends Component {
       text: filters.text.trim(),
       projects: filters.projects,
       trackers: filters.trackers,
-      issue_statuses: filters.issue_statuses,
+      status: filters.status,
       assigned_to: filters.assigned_to,
       updated_at: filters.updated_at,
       watched: filters.watched

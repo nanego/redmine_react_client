@@ -1,5 +1,7 @@
 import moment from 'moment'
-import { AVAILABLE_OPERATORS, LIST_OF_PROJECTS, LIST_OF_TRACKERS, LIST_OF_STATUSES, LIST_OF_USERS } from './constants';
+import { AVAILABLE_OPERATORS,
+         LIST_OF_PROJECTS, LIST_OF_TRACKERS, LIST_OF_STATUSES, LIST_OF_USERS,
+         TYPES_OF_FILTERS, AVAILABLE_FILTERS } from './constants';
 
 export function findOperatorIn(string){
   for(let operator of AVAILABLE_OPERATORS){
@@ -60,25 +62,16 @@ export function parseInput(input){
       let key_value = word.split(operator);
       let key = key_value[0];
       let value = key_value[1];
-      switch(key.toLowerCase()){
-        case 'projects':
-          filters.projects = {operator: operator, value: getIdByValue(LIST_OF_PROJECTS, value) || value};
+      let type_of_filter = AVAILABLE_FILTERS[key.toLowerCase()] && AVAILABLE_FILTERS[key.toLowerCase()].type;
+      switch(type_of_filter){
+        case TYPES_OF_FILTERS.SELECT:
+          filters[key.toLowerCase()] = {operator: operator, value: getIdByValue(AVAILABLE_FILTERS[key.toLowerCase()].values, value) || value};
           break;
-        case 'trackers':
-          filters.trackers = {operator: operator, value: getIdByValue(LIST_OF_TRACKERS, value) || value};
+        case TYPES_OF_FILTERS.BOOLEAN:
+          filters[key.toLowerCase()] = {operator: operator, value: convertToBoolean(value)};
           break;
-        case 'status':
-          filters.issue_statuses = {operator: operator, value: getIdByValue(LIST_OF_STATUSES, value) || value};
-          break;
-        case 'watched':
-          filters.watched = {operator: operator, value: convertToBoolean(value)};
-          break;
-        case 'assigned_to':
-          filters.assigned_to = {operator: operator, value: getIdByValue(LIST_OF_USERS, value) || value};
-          break;
-        case 'updated_at':
-          filters.updated_at = {operator: operator, value: convertToStringDate(value)};
-          break;
+        case TYPES_OF_FILTERS.DATE:
+          filters[key.toLowerCase()] = {operator: operator, value: convertToStringDate(value)};
         default:
           if(exists(word)){
             if(exists(filters.text))
@@ -228,8 +221,6 @@ export function convertFilterToText(key, content){
   log("convertFilterToText(operator)", operator);
   log("convertFilterToText(value)", value);
 
-  if(key==="issue_statuses")
-    key="status";
   if(key==="text"){
     return content;
   }else{
@@ -258,15 +249,10 @@ export function isString(value){
 
 export function getNameFromValue(key, value){
   if(exists(value)){
-    switch(key){
-      case 'projects':
-        return getNameFromId(LIST_OF_PROJECTS, getIdByValue(LIST_OF_PROJECTS, value)) || value;
-      case 'trackers':
-        return getNameFromId(LIST_OF_TRACKERS, getIdByValue(LIST_OF_TRACKERS, value)) || value;
-      case 'status':
-        return getNameFromId(LIST_OF_STATUSES, getIdByValue(LIST_OF_STATUSES, value)) || value;
-      default:
-        return value;
+    if(exists(AVAILABLE_FILTERS[key]) && AVAILABLE_FILTERS[key].type === TYPES_OF_FILTERS.SELECT){
+      return getNameFromId(AVAILABLE_FILTERS[key].values, getIdByValue(AVAILABLE_FILTERS[key].values, value)) || value;
+    }else{
+      return value;
     }
   }else{
     return "";

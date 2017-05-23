@@ -24,7 +24,7 @@ exports[`test should render CurrentFilters 1`] = `
                   \"operator\": \"=\",
                   \"value\": 2
               },
-              \"issue_statuses\": {
+              \"status\": {
                   \"operator\": \"=\",
                   \"value\": 2
               },

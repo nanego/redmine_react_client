@@ -20,7 +20,7 @@ function knownFilters(filters){
     <List>
       {item('Projets', filters.projects, (exists(filters.projects) && exists(filters.projects.value) && getNamesFromIds(LIST_OF_PROJECTS, filters.projects.value).join(', ')))}
       {item('Trackers', filters.trackers, (exists(filters.trackers) && exists(filters.trackers.value) && getNamesFromIds(LIST_OF_TRACKERS, filters.trackers.value).join(', ')))}
-      {item('Statut', filters.issue_statuses, (exists(filters.issue_statuses) && exists(filters.issue_statuses.value) && getNamesFromIds(LIST_OF_STATUSES, filters.issue_statuses.value).join(', ')))}
+      {item('Statut', filters.status, (exists(filters.status) && exists(filters.status.value) && getNamesFromIds(LIST_OF_STATUSES, filters.status.value).join(', ')))}
       {item('Observateur', filters.watched, (exists(filters.watched) && exists(filters.watched.value) && convertToBoolean(filters.watched.value) ? 'Oui':'Non'))}
       {item('Assigné à', filters.assigned_to, (exists(filters.assigned_to) && exists(filters.assigned_to.value) && getNamesFromIds(LIST_OF_USERS, filters.assigned_to.value).join(', ')))}
       {exists(filters.updated_at) && exists(filters.updated_at.value) && item('Mis à jour', filters.updated_at, moment(filters.updated_at.value, 'DD/MM/YYYY').format('LLLL'))}

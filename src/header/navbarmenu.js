@@ -11,7 +11,7 @@ class NavBarMenu extends Component {
     super(props);
     this.state = {
       searchInputValue: this.props.selected_filters_as_text,
-      isPopupOpen: false,
+      isQueriesPopupOpen: false,
       isFormOpen: false
     };
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
@@ -62,14 +62,14 @@ class NavBarMenu extends Component {
   }
 
   openPopup = () => {
-    this.setState({ isPopupOpen: true })
+    this.setState({ isQueriesPopupOpen: true })
   };
 
   closePopup = (e, data) => {
     console.log("close popup");
     console.log(e.currentTarget);
     console.log(data);
-    this.setState({ isPopupOpen: false })
+    this.setState({ isQueriesPopupOpen: false })
   };
 
   openForm = () => {
@@ -101,7 +101,7 @@ class NavBarMenu extends Component {
                  actionPosition="left"
                  placeholder='Rechercher'
                  className='searchController'>
-            <Button icon id="mainSearchButton" onClick={this.props.applyFiltersChanges} {...this.props.dirty_filters ? {color:'blue'} : {}}><Icon name='search' /></Button>
+            <Button icon id="mainSearchButton" onClick={this.props.applyFiltersChanges} {...this.props.areFiltersDirty ? {color:'blue'} : {}}><Icon name='search' /></Button>
             <Popup
               trigger={<Input id="mainSearchInput"
                               className="searchInput"
@@ -121,14 +121,14 @@ class NavBarMenu extends Component {
               flowing
               // offset={50}
               position='bottom left'
-              open={this.state.isPopupOpen}
+              open={this.state.isQueriesPopupOpen}
               onClose={this.closePopup}
               onOpen={this.openPopup}
               basic
             />
             <Icon link name='cancel' className='reset'
                   onClick={this.clearSearchInput}
-                  disabled={this.props.dirty_filters === false && JSON.stringify(removeBlankAttributes(this.props.current_filters)) === JSON.stringify({}) }
+                  disabled={this.props.areFiltersDirty === false && JSON.stringify(removeBlankAttributes(this.props.current_filters)) === JSON.stringify({}) }
             />
             <Popup
               trigger={<Button icon className="last" id="filters_dropdown"><Icon name='dropdown' /></Button>}
@@ -138,7 +138,7 @@ class NavBarMenu extends Component {
                                     updateSelectedFilters={this.props.updateSelectedFilters}
                                     searchValue={this.state.searchInputValue}
                                     updateSearchValue={this.handleSearchInputChange}
-                                    dirty_filters={this.props.dirty_filters}
+                                    areFiltersDirty={this.props.areFiltersDirty}
                                     closeForm={this.closeForm}
               />}
               on='click'

@@ -46,7 +46,7 @@ class App extends Component {
       selected_filters_as_text: "",
       displayed_issues: [],
       loading: true,
-      dirty_filters: false
+      areFiltersDirty: false
     };
     this.replaceSelectedFilters = this.replaceSelectedFilters.bind(this);
     this.updateSelectedFilters = this.updateSelectedFilters.bind(this);
@@ -117,9 +117,9 @@ class App extends Component {
 
   compareSelectedAndAppliedFilters(){
     if(JSON.stringify(removeBlankAttributes(this.state.selected_filters)) === JSON.stringify(removeBlankAttributes(this.state.current_filters))){
-      this.setState({dirty_filters: false});
+      this.setState({areFiltersDirty: false});
     }else{
-      this.setState({dirty_filters: true});
+      this.setState({areFiltersDirty: true});
     }
   };
 
@@ -166,7 +166,7 @@ class App extends Component {
                     applyFiltersChanges={this.applyFiltersChanges}
                     updateSelectedFilters={this.updateSelectedFilters}
                     replaceSelectedFilters={this.replaceSelectedFilters}
-                    dirty_filters={this.state.dirty_filters}
+                    areFiltersDirty={this.state.areFiltersDirty}
         />
         <IssuesList current_filters={this.state.current_filters}
                     issues={this.state.displayed_issues}

@@ -58,8 +58,8 @@ class FiltersForm extends Component {
           <Input placeholder='contenu recherché' value={this.props.selected_filters.text} onChange={this.updateTextFilter} />
         </Form.Field>
         <Divider/>
-        <Button type='submit' {...this.props.dirty_filters ? {color:'blue'} : {color:'grey'}} name="apply_filters" onClick={this.applyFilters}>Appliquer</Button>
-        <Button {...(this.props.dirty_filters || JSON.stringify(removeBlankAttributes(this.props.current_filters)) !== JSON.stringify({})) ? {disabled:false} : {disabled:true}} name="reset_filters" onClick={this.resetFilters}>Effacer</Button>
+        <Button type='submit' {...this.props.areFiltersDirty ? {color:'blue'} : {color:'grey'}} name="apply_filters" onClick={this.applyFilters}>Appliquer</Button>
+        <Button {...(this.props.areFiltersDirty || JSON.stringify(removeBlankAttributes(this.props.current_filters)) !== JSON.stringify({})) ? {disabled:false} : {disabled:true}} name="reset_filters" onClick={this.resetFilters}>Effacer</Button>
       </Form>
     )
   }

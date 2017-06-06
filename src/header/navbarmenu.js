@@ -1,20 +1,30 @@
 import React, {Component} from 'react'
-import { Menu, Input, Button, Icon, Popup, Modal } from 'semantic-ui-react'
+import { Menu, Input, Search, Button, Icon, Popup, Modal } from 'semantic-ui-react'
 import FiltersForm from './form/filters_form'
 import CustomQueries from './custom_queries'
 import LoginForm from '../account/login'
 import {removeBlankAttributes, parseInput, log} from '../helpers/helper_functions'
+import _ from 'lodash'
+import { AVAILABLE_FILTERS } from '../helpers/constants';
 
-class NavBarMenu extends Component {
+// Init available filters for Auto-Complete
+let options = [];
+{Object.keys(AVAILABLE_FILTERS).forEach(function (key) {
+  options.push({title: key});
+})}
+
+export default class NavBarMenu extends Component {
 
   constructor(props){
     super(props);
     this.state = {
       searchInputValue: this.props.selected_filters_as_text,
       isQueriesPopupOpen: false,
-      isFormOpen: false
+      isFormOpen: false,
+      auto_complete_results: []
     };
     this.validateSearchInputChange = this.validateSearchInputChange.bind(this);
+    this.selectAutoCompleteResult = this.selectAutoCompleteResult.bind(this);
     this.clearSearchInput = this.clearSearchInput.bind(this);
     this.applyIfEnter = this.applyIfEnter.bind(this);
   }
@@ -43,7 +53,32 @@ class NavBarMenu extends Component {
   validateSearchInputChange(event){
     let input_value = event.target.value;
     this.setState({searchInputValue: input_value});
+    this.toggleInputPopups(input_value);
+    this.parseInputAndUpdateFilters(input_value);
 
+    // AutoComplete
+    const re = new RegExp(_.escapeRegExp(input_value), 'i');
+    const isMatch = (result) => re.test(result.title);
+    this.setState({
+      auto_complete_results: _.filter(options, isMatch)
+    })
+  }
+
+  selectAutoCompleteResult(event, data){
+    let selected_value = data.title;
+    this.setState({searchInputValue: selected_value, isQueriesPopupOpen: false});
+    this.parseInputAndUpdateFilters(selected_value);
+  }
+
+  toggleInputPopups(input_value) {
+    if (input_value.length === 0) {
+      this.setState({isQueriesPopupOpen: true})
+    } else {
+      this.setState({isQueriesPopupOpen: false})
+    }
+  }
+
+  parseInputAndUpdateFilters(input_value) {
     let filters = parseInput(input_value);
     this.props.replaceSelectedFilters({
       text: filters.text.trim(),
@@ -57,7 +92,9 @@ class NavBarMenu extends Component {
   }
 
   openPopup = () => {
-    this.setState({ isQueriesPopupOpen: true })
+    if (this.state.searchInputValue.length === 0) {
+      this.setState({isQueriesPopupOpen: true})
+    }
   };
 
   closePopup = (e, data) => {
@@ -98,18 +135,25 @@ class NavBarMenu extends Component {
                  className='searchController'>
             <Button icon id="mainSearchButton" onClick={this.props.applyFiltersChanges} {...this.props.areFiltersDirty ? {color:'blue'} : {}}><Icon name='search' /></Button>
             <Popup
-              trigger={<Input id="mainSearchInput"
-                              className="searchInput"
-                              placeholder='Rechercher'
-                              actionPosition="left"
-                              labelPosition={'right'}
-                              value={this.state.searchInputValue}
-                              onChange={this.validateSearchInputChange}
-                              onKeyPress={this.applyIfEnter}
+              trigger={<Search input={{placeholder: 'Rechercher',
+                                       actionPosition: "left",
+                                       labelPosition: 'right',
+                                       className: "searchInput"}}
+                               fluid
+                               minCharacters={1}
+                               showNoResults={false}
+                               noResultsMessage="Aucun filtre trouvé."
+                               icon={false}
+                               id="mainSearchInput"
+                               className="searchInput"
+                               onSearchChange={this.validateSearchInputChange}
+                               onResultSelect={this.selectAutoCompleteResult}
+                               results={this.state.auto_complete_results}
+                               value={this.state.searchInputValue}
               />}
               content={<CustomQueries replaceSelectedFilters={this.props.replaceSelectedFilters}
-                                      closePopup={this.closePopup}
-                                      openForm={this.openForm}
+                                   closePopup={this.closePopup}
+                                   openForm={this.openForm}
               />}
               on='focus'
               id="custom_queries_popup"
@@ -164,5 +208,3 @@ class NavBarMenu extends Component {
     )
   }
 }
-
-export default NavBarMenu

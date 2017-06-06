@@ -106,3 +106,7 @@
 #filters_form_popup .ui.left.pointing.dropdown > .menu{
   margin: 0em 0em 0em 0.2em;
 }
+
+.ui.search > .results {
+  margin-top: 0 !important;
+}

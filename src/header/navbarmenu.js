@@ -3,7 +3,7 @@ import { Menu, Input, Button, Icon, Popup, Modal } from 'semantic-ui-react'
 import FiltersForm from './form/filters_form'
 import CustomQueries from './custom_queries'
 import LoginForm from '../account/login'
-import {removeBlankAttributes, parseInput} from '../helpers/helper_functions'
+import {removeBlankAttributes, parseInput, log} from '../helpers/helper_functions'
 
 class NavBarMenu extends Component {
 
@@ -14,7 +14,6 @@ class NavBarMenu extends Component {
       isQueriesPopupOpen: false,
       isFormOpen: false
     };
-    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.validateSearchInputChange = this.validateSearchInputChange.bind(this);
     this.clearSearchInput = this.clearSearchInput.bind(this);
     this.applyIfEnter = this.applyIfEnter.bind(this);
@@ -22,10 +21,6 @@ class NavBarMenu extends Component {
 
   clearSearchInput(event) {
     this.props.updateSelectedFilters({}, true);
-  }
-
-  handleSearchInputChange(event){
-    this.setState({searchInputValue: event.target.value});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -137,7 +132,6 @@ class NavBarMenu extends Component {
                                     applyFiltersChanges={this.props.applyFiltersChanges}
                                     updateSelectedFilters={this.props.updateSelectedFilters}
                                     searchValue={this.state.searchInputValue}
-                                    updateSearchValue={this.handleSearchInputChange}
                                     areFiltersDirty={this.props.areFiltersDirty}
                                     closeForm={this.closeForm}
               />}

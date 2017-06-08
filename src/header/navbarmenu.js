@@ -37,6 +37,8 @@ export default class NavBarMenu extends Component {
 
     console.log("Just received new props. document.activeElement = " + document.activeElement);
 
+    log('nextProps', nextProps);
+
     if (document.getElementById('mainSearchInput') !== document.activeElement &&
         nextProps.selected_filters_as_text !== this.state.searchInputValue) {
       this.setState({ searchInputValue: nextProps.selected_filters_as_text });
@@ -44,8 +46,8 @@ export default class NavBarMenu extends Component {
   }
 
   applyIfEnter(event){
+    log("*** onKeyPRESSED ***", event.key);
     if(event.key === 'Enter'){
-      console.log('enter');
       this.props.applyFiltersChanges();
     }
   }
@@ -67,6 +69,7 @@ export default class NavBarMenu extends Component {
   selectAutoCompleteResult(event, data){
     let selected_value = data.title;
     this.setState({searchInputValue: selected_value, isQueriesPopupOpen: false});
+    this.mainSearchInput.focus();
     this.parseInputAndUpdateFilters(selected_value);
   }
 
@@ -80,6 +83,8 @@ export default class NavBarMenu extends Component {
 
   parseInputAndUpdateFilters(input_value) {
     let filters = parseInput(input_value);
+
+    log('parseInputAndUpdateFilters', filters);
     this.props.replaceSelectedFilters({
       text: filters.text.trim(),
       projects: filters.projects,
@@ -138,7 +143,9 @@ export default class NavBarMenu extends Component {
               trigger={<Search input={{placeholder: 'Rechercher',
                                        actionPosition: "left",
                                        labelPosition: 'right',
-                                       className: "searchInput"}}
+                                       className: "searchInput",
+                                       ref:(input) => { this.mainSearchInput = input; }
+                                     }}
                                fluid
                                minCharacters={1}
                                showNoResults={false}
@@ -150,6 +157,7 @@ export default class NavBarMenu extends Component {
                                onResultSelect={this.selectAutoCompleteResult}
                                results={this.state.auto_complete_results}
                                value={this.state.searchInputValue}
+                               onKeyPress={this.applyIfEnter}
               />}
               content={<CustomQueries replaceSelectedFilters={this.props.replaceSelectedFilters}
                                    closePopup={this.closePopup}

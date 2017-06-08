@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import moment from 'moment'
 import { AVAILABLE_OPERATORS, TYPES_OF_FILTERS, AVAILABLE_FILTERS } from './constants';
 
@@ -133,6 +134,31 @@ export function splitByKeyValue(input){
       words.push(match[0]);
     }
   } while (match != null);
+  return words
+}
+
+export function lastWordIn(input){
+  return _.last(splitByWord(input))
+}
+
+export function splitByWord(input){
+  const regexp = new RegExp('[^\\s"]+', "gi");
+  let words = [];
+  let match;
+  do {
+    //Each call to exec returns the next regex match as an array
+    match = regexp.exec(input);
+    if (match != null)
+    {
+      //Index 1 in the array is the captured group if it exists
+      //Index 0 is the matched text, which we use if no captured group exists
+      // words.push(match[1] ? match[1] : match[0]);
+      words.push(match[0]);
+    }
+  } while (match != null);
+
+  log("splitByWord", words);
+
   return words
 }
 

@@ -3,7 +3,7 @@ import { Menu, Input, Search, Button, Icon, Popup, Modal } from 'semantic-ui-rea
 import FiltersForm from './form/filters_form'
 import CustomQueries from './custom_queries'
 import LoginForm from '../account/login'
-import {removeBlankAttributes, parseInput, log} from '../helpers/helper_functions'
+import {removeBlankAttributes, parseInput, lastWordIn, log} from '../helpers/helper_functions'
 import _ from 'lodash'
 import { AVAILABLE_FILTERS } from '../helpers/constants';
 
@@ -35,9 +35,7 @@ export default class NavBarMenu extends Component {
 
   componentWillReceiveProps(nextProps) {
 
-    console.log("Just received new props. document.activeElement = " + document.activeElement);
-
-    log('nextProps', nextProps);
+    log("Just received new props. nextProps", nextProps);
 
     if (document.getElementById('mainSearchInput') !== document.activeElement &&
         nextProps.selected_filters_as_text !== this.state.searchInputValue) {
@@ -59,16 +57,23 @@ export default class NavBarMenu extends Component {
     this.parseInputAndUpdateFilters(input_value);
 
     // AutoComplete
-    const re = new RegExp(_.escapeRegExp(input_value), 'i');
-    const isMatch = (result) => re.test(result.title);
-    this.setState({
-      auto_complete_results: _.filter(options, isMatch)
-    })
+    if(input_value.slice(-1)===' ') {
+      this.setState({
+        auto_complete_results: []
+      })
+    }else{
+      const re = new RegExp(_.escapeRegExp(lastWordIn(input_value)), 'i');
+      const isMatch = (result) => re.test(result.title);
+      this.setState({
+        auto_complete_results: _.filter(options, isMatch)
+      })
+    }
   }
 
   selectAutoCompleteResult(event, data){
     let selected_value = data.title;
-    this.setState({searchInputValue: selected_value, isQueriesPopupOpen: false});
+    let new_input_value = this.state.searchInputValue.replace(new RegExp(lastWordIn(this.state.searchInputValue) + '$'), selected_value);
+    this.setState({searchInputValue: new_input_value, isQueriesPopupOpen: false});
     this.mainSearchInput.focus();
     this.parseInputAndUpdateFilters(selected_value);
   }

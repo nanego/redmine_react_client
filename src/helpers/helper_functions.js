@@ -107,14 +107,20 @@ export function findByAttribute(array, attr, value) {
 }
 
 export function log(string, object = undefined){
-  let print = "";
-  if(object){
-    print = string + " : " + JSON.stringify(object);
+
+  if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    let print = "";
+    if(object){
+      print = string + " : " + JSON.stringify(object);
+    }else{
+      print = string;
+    }
+    console.log(print);
+    return print;
   }else{
-    print = string;
+    return "";
   }
-  console.log(print);
-  return print;
+
 }
 
 export function splitByKeyValue(input){

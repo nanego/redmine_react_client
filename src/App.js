@@ -73,7 +73,7 @@ class App extends Component {
     }
     this.setState({selected_filters: new_selection}, function() {
 
-      console.log("001 : state = " + JSON.stringify(this.state.selected_filters));
+      log("state", this.state.selected_filters);
 
       if(and_apply){
         this.applyFiltersChanges();
@@ -88,16 +88,12 @@ class App extends Component {
     new_filter = normalizeFilter(new_filter);
     var new_selection;
     if(JSON.stringify(new_filter)===JSON.stringify({})){ // Re-init filters
-      // console.log("REINIT FILTERS");
       new_selection = default_filters;
     }else{
-      // log("2 new_filter", new_filter);
       new_selection = Object.assign({},this.state.selected_filters, new_filter);
-      // log("3 new_selection", new_selection);
       new_selection = removeBlankAttributes(new_selection);
     }
     this.setState({selected_filters: new_selection}, function() {
-      // console.log("001 : state = " + JSON.stringify(this.state.selected_filters));
       this.updateSelectedFiltersAsText();
       if(and_apply){
         this.applyFiltersChanges();

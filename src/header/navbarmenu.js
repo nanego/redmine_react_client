@@ -108,9 +108,9 @@ export default class NavBarMenu extends Component {
   };
 
   closePopup = (e, data) => {
-    console.log("close popup");
-    console.log(e.currentTarget);
-    console.log(data);
+    log("close popup");
+    // console.log(e.currentTarget);
+    // console.log(data);
     this.setState({ isQueriesPopupOpen: false })
   };
 
@@ -119,9 +119,9 @@ export default class NavBarMenu extends Component {
   };
 
   closeForm = (e, data) => {
-    console.log("close form");
-    console.log(e.currentTarget);
-    console.log(data);
+    log("close form");
+    // console.log(e.currentTarget);
+    // console.log(data);
     this.setState({ isFormOpen: false })
   };
 

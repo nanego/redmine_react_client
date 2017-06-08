@@ -84,7 +84,7 @@ class App extends Component {
   }
 
   updateSelectedFilters(new_filter, and_apply=false){
-    console.log("START update selected filters : " + JSON.stringify(new_filter));
+    log("START update selected filters", new_filter);
     new_filter = normalizeFilter(new_filter);
     var new_selection;
     if(JSON.stringify(new_filter)===JSON.stringify({})){ // Re-init filters

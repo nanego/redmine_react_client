@@ -75,8 +75,8 @@ export function parseInput(input){
         default:
           filters.text = concat(filters.text, word);
       }
-      console.log("key="+key_value[0]);
-      console.log("value="+key_value[1]);
+      log("key", key_value[0]);
+      log("value", key_value[1]);
     }else{
       filters.text = concat(filters.text, word);
     }

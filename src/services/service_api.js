@@ -11,7 +11,7 @@ function checkStatus(response) {
     const error = new Error(`HTTP Error ${response.statusText}`);
     error.status = response.statusText;
     error.response = response;
-    console.log(error); // eslint-disable-line no-console
+    log('Error', error); // eslint-disable-line no-console
     throw error;
   }
 }
@@ -89,7 +89,7 @@ function fetch_issues(offset, limit, filters, base_url) {
 }
 
 function getFilteredIssues(filters, cb) {
-  console.log("getFilteredIssues : " + JSON.stringify(filters, null, 2) );
+  log("getFilteredIssues", filters);
   return fetch_issues(null, null, filters)
     .then(checkStatus)
     .then(parseJSON)

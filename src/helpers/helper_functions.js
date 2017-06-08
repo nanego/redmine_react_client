@@ -70,6 +70,7 @@ export function parseInput(input){
           break;
         case TYPES_OF_FILTERS.DATE:
           filters[key.toLowerCase()] = {operator: operator, value: convertToStringDate(value)};
+          break;
         default:
           filters.text = concat(filters.text, word);
       }

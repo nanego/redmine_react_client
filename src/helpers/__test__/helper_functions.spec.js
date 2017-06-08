@@ -33,6 +33,7 @@ test("parseInput function", () => {
   expect(parseInput('assigned_to=john').assigned_to).toEqual({operator:'=', value:'john'});
   expect(parseInput('assigned_to!=2').assigned_to).toEqual({operator:'!=', value:2});
 
+  expect(parseInput('updated_at:26/02/2017')).toEqual({"text":"", "updated_at":{operator:':', value:"26/02/2017"}});
   expect(parseInput('updated_at:26/02/2017').updated_at).toEqual({operator:':', value:"26/02/2017"});
   expect(parseInput('updated_at<26/02/2017    ').updated_at).toEqual({operator:'<', value:"26/02/2017"});
   expect(parseInput('updated_at>26/02/2017').updated_at).toEqual({operator:'>', value:"26/02/2017"});

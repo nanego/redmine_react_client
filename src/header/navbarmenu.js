@@ -27,6 +27,7 @@ export default class NavBarMenu extends Component {
     this.selectAutoCompleteResult = this.selectAutoCompleteResult.bind(this);
     this.clearSearchInput = this.clearSearchInput.bind(this);
     this.applyIfEnter = this.applyIfEnter.bind(this);
+    this.selectCustomQuery = this.selectCustomQuery.bind(this);
   }
 
   clearSearchInput(event) {
@@ -101,21 +102,25 @@ export default class NavBarMenu extends Component {
     });
   }
 
+  selectCustomQuery = (filters) => {
+    // log("SELECT CUSTOM QUERY");
+    this.closePopup();
+    this.props.updateSelectedFilters(filters, true);
+  };
+
   openPopup = () => {
     if (this.state.searchInputValue.length === 0) {
-      this.setState({isQueriesPopupOpen: true})
+      this.setState({isQueriesPopupOpen: true, isFormOpen: false})
     }
   };
 
   closePopup = (e, data) => {
-    log("close popup");
-    // console.log(e.currentTarget);
-    // console.log(data);
-    this.setState({ isQueriesPopupOpen: false })
+    this.setState({ isQueriesPopupOpen: false });
   };
 
   openForm = () => {
-    this.setState({ isFormOpen: true })
+    log("OPEN FORM");
+    this.setState({ isFormOpen: true, isQueriesPopupOpen: false })
   };
 
   closeForm = (e, data) => {
@@ -164,11 +169,9 @@ export default class NavBarMenu extends Component {
                                value={this.state.searchInputValue}
                                onKeyPress={this.applyIfEnter}
               />}
-              content={<CustomQueries replaceSelectedFilters={this.props.replaceSelectedFilters}
-                                   closePopup={this.closePopup}
-                                   openForm={this.openForm}
-              />}
-              on='focus'
+              content={<CustomQueries selectCustomQuery={this.selectCustomQuery}
+                                      openForm={this.openForm} />}
+              on='click'
               id="custom_queries_popup"
               flowing
               // offset={50}

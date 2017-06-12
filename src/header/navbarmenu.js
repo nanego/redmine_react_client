@@ -75,7 +75,7 @@ export default class NavBarMenu extends Component {
     let new_input_value = this.state.searchInputValue.replace(new RegExp(lastWordIn(this.state.searchInputValue) + '$'), selected_value);
     this.setState({searchInputValue: new_input_value, isQueriesPopupOpen: false});
     this.mainSearchInput.focus();
-    this.parseInputAndUpdateFilters(selected_value);
+    this.parseInputAndUpdateFilters(new_input_value);
   }
 
   toggleInputPopups(input_value) {

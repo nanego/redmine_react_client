@@ -41,6 +41,7 @@ export default class NavBarMenu extends Component {
     if (document.getElementById('mainSearchInput') !== document.activeElement &&
         nextProps.selected_filters_as_text !== this.state.searchInputValue) {
       this.setState({ searchInputValue: nextProps.selected_filters_as_text });
+      this.mainSearchInput.focus();
     }
   }
 

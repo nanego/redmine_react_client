@@ -56,12 +56,12 @@ class DateField extends Component {
   }
 
   handleOperatorChange(e, {value}){
-    log(filter_value);
+    // log(filter_value);
     let filter_value = value_of(this.props.selected_filters[this.props.filter_name]);
     let filter_op = value;
     this.setState({current_operator:filter_op});
     if(filter_value){
-      log('UPDATE FILTER');
+      // log('UPDATE FILTER');
       this.updateFilter(filter_op, filter_value);
     }
   }
@@ -80,6 +80,8 @@ class DateField extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // We have to update the selected shortcut each time the filter is changed
+
     // log("Date field received new props. nextProps", nextProps);
     let filter_value = value_of(nextProps.selected_filters[nextProps.filter_name]);
     // log("filter_value", filter_value);

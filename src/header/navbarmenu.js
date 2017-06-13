@@ -80,7 +80,7 @@ export default class NavBarMenu extends Component {
   }
 
   toggleInputPopups(input_value) {
-    if (input_value.length === 0) {
+    if (input_value.length === 0 && this.state.isFormOpen === false) {
       this.setState({isQueriesPopupOpen: true})
     } else {
       this.setState({isQueriesPopupOpen: false})

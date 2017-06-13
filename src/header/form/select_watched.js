@@ -38,7 +38,7 @@ class SelectWatched extends Component {
                 pointing='left'
                 className='link item'
                 placeholder={placeholder}
-                closeOnBlur={false}
+                // closeOnBlur={false}
                 options={options}
                 value={selected_value}
                 onChange={this.handleWatchedSelection}

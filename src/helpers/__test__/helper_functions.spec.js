@@ -1,6 +1,5 @@
 import {log, getNameFromValue, convertToStringDate, removeBlankAttributes, convertFilterToText, normalizeFilter,
   parseInput, getIdFromName, getIdByValue, splitByKeyValue, to_s} from '../helper_functions'
-// import moment from 'moment'
 
 it('should provide log() function', () => {
   // with 1 param (string)

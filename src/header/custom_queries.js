@@ -19,7 +19,7 @@ class CustomQueries extends Component {
         this.props.selectCustomQuery({watched:filter_value('=', "true")}, true);
         break;
       case "Traité sans activité récente":
-        var date = moment().subtract(60, 'days').format("DD/MM/YYYY");
+        let date = moment().subtract(60, 'days').format("DD/MM/YYYY");
         this.props.selectCustomQuery({status:filter_value('=', 3), updated_at:filter_value('<', date)}, true);
         break;
       case "Filtres du permanent":

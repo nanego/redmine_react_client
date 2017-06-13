@@ -907,7 +907,7 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
       Date de mise à jour
     </label>
     <div
-      className="ui left action input">
+      className="ui left action input date_input">
       <div
         aria-busy={undefined}
         aria-disabled={undefined}
@@ -1004,11 +1004,150 @@ exports[`test should render FiltersForm with NOT empty filters 1`] = `
           </div>
         </div>
       </div>
+      <div
+        aria-busy={undefined}
+        aria-disabled={undefined}
+        aria-expanded={false}
+        aria-multiselectable={undefined}
+        className="ui selection link item dropdown"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseDown={[Function]}
+        role="listbox"
+        tabIndex={0}>
+        <select
+          aria-hidden="true"
+          multiple={undefined}
+          name={undefined}
+          type="hidden"
+          value="">
+          <option
+            value="" />
+          <option
+            value="">
+            Indéterminée
+          </option>
+          <option
+            value="0 day">
+            Aujourd\'hui
+          </option>
+          <option
+            value="1 week">
+            Il y a une semaine
+          </option>
+          <option
+            value="1 month">
+            Il y a un mois
+          </option>
+          <option
+            value="other">
+            Autre
+          </option>
+        </select>
+        <div
+          className="default text">
+          Indéterminée
+        </div>
+        <i
+          aria-hidden="true"
+          className="dropdown icon" />
+        <div
+          className="menu transition">
+          <div
+            aria-checked={true}
+            aria-disabled={undefined}
+            aria-selected={true}
+            className="active selected item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }>
+            <span
+              className="text">
+              Indéterminée
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-disabled={undefined}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }>
+            <span
+              className="text">
+              Aujourd\'hui
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-disabled={undefined}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }>
+            <span
+              className="text">
+              Il y a une semaine
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-disabled={undefined}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }>
+            <span
+              className="text">
+              Il y a un mois
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-disabled={undefined}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }>
+            <span
+              className="text">
+              Autre
+            </span>
+          </div>
+        </div>
+      </div>
       <input
+        className="hidden"
         onChange={[Function]}
         placeholder="DD/MM/YYYY"
         type="text"
-        value={undefined} />
+        value="" />
     </div>
   </div>
   <div
@@ -1955,7 +2094,7 @@ exports[`test should render FiltersForm with empty filters 1`] = `
       Date de mise à jour
     </label>
     <div
-      className="ui left action input">
+      className="ui left action input date_input">
       <div
         aria-busy={undefined}
         aria-disabled={undefined}
@@ -2052,11 +2191,150 @@ exports[`test should render FiltersForm with empty filters 1`] = `
           </div>
         </div>
       </div>
+      <div
+        aria-busy={undefined}
+        aria-disabled={undefined}
+        aria-expanded={false}
+        aria-multiselectable={undefined}
+        className="ui selection link item dropdown"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseDown={[Function]}
+        role="listbox"
+        tabIndex={0}>
+        <select
+          aria-hidden="true"
+          multiple={undefined}
+          name={undefined}
+          type="hidden"
+          value="">
+          <option
+            value="" />
+          <option
+            value="">
+            Indéterminée
+          </option>
+          <option
+            value="0 day">
+            Aujourd\'hui
+          </option>
+          <option
+            value="1 week">
+            Il y a une semaine
+          </option>
+          <option
+            value="1 month">
+            Il y a un mois
+          </option>
+          <option
+            value="other">
+            Autre
+          </option>
+        </select>
+        <div
+          className="default text">
+          Indéterminée
+        </div>
+        <i
+          aria-hidden="true"
+          className="dropdown icon" />
+        <div
+          className="menu transition">
+          <div
+            aria-checked={true}
+            aria-disabled={undefined}
+            aria-selected={true}
+            className="active selected item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }>
+            <span
+              className="text">
+              Indéterminée
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-disabled={undefined}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }>
+            <span
+              className="text">
+              Aujourd\'hui
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-disabled={undefined}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }>
+            <span
+              className="text">
+              Il y a une semaine
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-disabled={undefined}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }>
+            <span
+              className="text">
+              Il y a un mois
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-disabled={undefined}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }>
+            <span
+              className="text">
+              Autre
+            </span>
+          </div>
+        </div>
+      </div>
       <input
+        className="hidden"
         onChange={[Function]}
         placeholder="DD/MM/YYYY"
         type="text"
-        value={undefined} />
+        value="" />
     </div>
   </div>
   <div

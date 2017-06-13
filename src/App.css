@@ -110,3 +110,7 @@
 .ui.search > .results {
   margin-top: 0 !important;
 }
+
+.ui.input.date_input .hidden{
+  display: none;
+}

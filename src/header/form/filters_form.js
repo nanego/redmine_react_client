@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Button, Checkbox, Form, Segment, Divider, Input } from 'semantic-ui-react'
 import SelectFormField from './select_form_field'
 import SelectWatched from './select_watched'
-import InputField from './input_with_label'
+import DateField from './date_field'
 import {removeBlankAttributes, log} from '../../helpers/helper_functions'
 
 class FiltersForm extends Component {
@@ -50,7 +50,7 @@ class FiltersForm extends Component {
         <SelectFormField filter_name="assigned_to"
                          selected_filters={this.props.selected_filters}
                          updateSelectedFilters={this.props.updateSelectedFilters} />
-        <InputField label="Date de mise à jour"
+        <DateField label="Date de mise à jour"
                     filter_name='updated_at'
                     selected_filters={this.props.selected_filters} updateSelectedFilters={this.props.updateSelectedFilters} />
         <Form.Field inline id='form_content_field'>

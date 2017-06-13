@@ -108,7 +108,7 @@ export function findByAttribute(array, attr, value) {
 
 export function log(string, object = undefined){
 
-  if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  if (!process.env.NODE_ENV || process.env.NODE_ENV !== "production") {
     let print = "";
     if(object){
       print = string + " : " + JSON.stringify(object);
@@ -178,7 +178,7 @@ export function operator_of(filter){
   if (filter){
     return filter.operator;
   }else{
-    return "=";
+    return undefined;
   }
 }
 
@@ -186,7 +186,7 @@ export function value_of(filter){
   if (filter){
     return filter.value;
   }else{
-    return undefined;
+    return '';
   }
 }
 

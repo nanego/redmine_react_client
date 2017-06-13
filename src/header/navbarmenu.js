@@ -23,7 +23,7 @@ export default class NavBarMenu extends Component {
       isFormOpen: false,
       auto_complete_results: []
     };
-    this.validateSearchInputChange = this.validateSearchInputChange.bind(this);
+    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.selectAutoCompleteResult = this.selectAutoCompleteResult.bind(this);
     this.clearSearchInput = this.clearSearchInput.bind(this);
     this.applyIfEnter = this.applyIfEnter.bind(this);
@@ -41,7 +41,9 @@ export default class NavBarMenu extends Component {
     if (document.getElementById('mainSearchInput') !== document.activeElement &&
         nextProps.selected_filters_as_text !== this.state.searchInputValue) {
       this.setState({ searchInputValue: nextProps.selected_filters_as_text });
-      this.mainSearchInput.focus();
+      if(this.state.isFormOpen===false){
+        this.mainSearchInput.focus();
+      }
     }
   }
 
@@ -52,19 +54,18 @@ export default class NavBarMenu extends Component {
     }
   }
 
-  validateSearchInputChange(event){
-    let input_value = event.target.value;
-    this.setState({searchInputValue: input_value});
-    this.toggleInputPopups(input_value);
-    this.parseInputAndUpdateFilters(input_value);
+  validateSearchInputChange(new_input_value){
+    this.setState({searchInputValue: new_input_value});
+    this.toggleInputPopups(new_input_value);
+    this.parseInputAndUpdateFilters(new_input_value);
 
     // AutoComplete
-    if(input_value.slice(-1)===' ') {
+    if(new_input_value.slice(-1)===' ') {
       this.setState({
-        auto_complete_results: []
+        auto_complete_results: options //[]
       })
     }else{
-      const re = new RegExp(_.escapeRegExp(lastWordIn(input_value)), 'i');
+      const re = new RegExp(_.escapeRegExp(lastWordIn(new_input_value)), 'i');
       const isMatch = (result) => re.test(result.title);
       this.setState({
         auto_complete_results: _.filter(options, isMatch)
@@ -72,9 +73,18 @@ export default class NavBarMenu extends Component {
     }
   }
 
+  handleSearchInputChange(event){
+    this.validateSearchInputChange(event.target.value);
+  }
+
   selectAutoCompleteResult(event, data){
     let selected_value = data.title;
-    let new_input_value = this.state.searchInputValue.replace(new RegExp(lastWordIn(this.state.searchInputValue) + '$'), selected_value);
+    let new_input_value;
+    if(this.state.searchInputValue.slice(-1)===' ') {
+      new_input_value = this.state.searchInputValue + selected_value;
+    }else{
+      new_input_value = this.state.searchInputValue.replace(new RegExp(lastWordIn(this.state.searchInputValue) + '$'), selected_value);
+    }
     this.setState({searchInputValue: new_input_value, isQueriesPopupOpen: false});
     this.mainSearchInput.focus();
     this.parseInputAndUpdateFilters(new_input_value);
@@ -131,6 +141,13 @@ export default class NavBarMenu extends Component {
     this.setState({ isFormOpen: false })
   };
 
+  onInputFocus = () => {
+    log("-- OnInputFocus --");
+    if(this.state.isFormOpen === true){
+      this.setState({ isFormOpen: false })
+    }
+  };
+
   render(){
 
     return (
@@ -155,7 +172,8 @@ export default class NavBarMenu extends Component {
                                        actionPosition: "left",
                                        labelPosition: 'right',
                                        className: "searchInput",
-                                       ref:(input) => { this.mainSearchInput = input; }
+                                       ref:(input) => { this.mainSearchInput = input; },
+                                       onFocus: this.onInputFocus
                                      }}
                                fluid
                                minCharacters={1}
@@ -164,7 +182,7 @@ export default class NavBarMenu extends Component {
                                icon={false}
                                id="mainSearchInput"
                                className="searchInput"
-                               onSearchChange={this.validateSearchInputChange}
+                               onSearchChange={this.handleSearchInputChange}
                                onResultSelect={this.selectAutoCompleteResult}
                                results={this.state.auto_complete_results}
                                value={this.state.searchInputValue}

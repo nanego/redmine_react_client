@@ -138,7 +138,8 @@ export default class NavBarMenu extends Component {
     log("close form");
     // console.log(e.currentTarget);
     // console.log(data);
-    this.setState({ isFormOpen: false })
+    this.setState({ isFormOpen: false });
+    this.mainSearchInput.focus();
   };
 
   onInputFocus = () => {
@@ -210,7 +211,6 @@ export default class NavBarMenu extends Component {
                                     selected_filters={this.props.selected_filters}
                                     applyFiltersChanges={this.props.applyFiltersChanges}
                                     updateSelectedFilters={this.props.updateSelectedFilters}
-                                    searchValue={this.state.searchInputValue}
                                     areFiltersDirty={this.props.areFiltersDirty}
                                     closeForm={this.closeForm}
               />}

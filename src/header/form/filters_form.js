@@ -59,7 +59,8 @@ class FiltersForm extends Component {
         </Form.Field>
         <Divider/>
         <Button type='submit' {...this.props.areFiltersDirty ? {color:'blue'} : {color:'grey'}} name="apply_filters" onClick={this.applyFilters}>Appliquer</Button>
-        <Button {...(this.props.areFiltersDirty || JSON.stringify(removeBlankAttributes(this.props.current_filters)) !== JSON.stringify({})) ? {disabled:false} : {disabled:true}} name="reset_filters" onClick={this.resetFilters}>Effacer</Button>
+        <Button name="reset_filters" onClick={this.resetFilters} {...(this.props.areFiltersDirty || JSON.stringify(removeBlankAttributes(this.props.current_filters)) !== JSON.stringify({})) ? {disabled:false} : {disabled:true}}>Effacer</Button>
+        <Button floated='right' name="close_form" onClick={this.props.closeForm}>Fermer</Button>
       </Form>
     )
   }

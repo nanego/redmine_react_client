@@ -30,21 +30,22 @@ export default class NavBarMenu extends Component {
     this.selectCustomQuery = this.selectCustomQuery.bind(this);
   }
 
-  clearSearchInput(event) {
+  clearSearchInput() {
+    log("-- Clear Search Input -- ");
+    this.setState({searchInputValue: ''});
     this.props.updateSelectedFilters({}, true);
   }
 
   componentWillReceiveProps(nextProps) {
-
     log("Just received new props. nextProps", nextProps);
-
-    if (document.getElementById('mainSearchInput') !== document.activeElement &&
+    if ((!this.searchInputHasFocus()) &&
         nextProps.selected_filters_as_text !== this.state.searchInputValue) {
       this.setState({ searchInputValue: nextProps.selected_filters_as_text });
-      if(this.state.isFormOpen===false){
-        this.mainSearchInput.focus();
-      }
     }
+  }
+
+  searchInputHasFocus() {
+    return document.getElementById('mainSearchInput') === document.activeElement;
   }
 
   applyIfEnter(event){
@@ -136,10 +137,9 @@ export default class NavBarMenu extends Component {
 
   closeForm = (e, data) => {
     log("close form");
-    // console.log(e.currentTarget);
-    // console.log(data);
-    this.setState({ isFormOpen: false });
-    this.mainSearchInput.focus();
+    this.setState({ isFormOpen: false }, function(){
+      this.mainSearchInput.focus();
+    });
   };
 
   onInputFocus = () => {
@@ -213,6 +213,7 @@ export default class NavBarMenu extends Component {
                                     updateSelectedFilters={this.props.updateSelectedFilters}
                                     areFiltersDirty={this.props.areFiltersDirty}
                                     closeForm={this.closeForm}
+                                    clearSearchInput={this.clearSearchInput}
               />}
               on='click'
               flowing

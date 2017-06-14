@@ -17,13 +17,13 @@ class FiltersForm extends Component {
   applyFilters(e){
     e.preventDefault();
     this.props.applyFiltersChanges();
-    document.getElementById('filters_dropdown').click(); // closeDropdown
+    this.props.closeForm();
   }
 
   resetFilters(e){
     e.preventDefault();
-    this.props.updateSelectedFilters({}, true);
-    document.getElementById('filters_dropdown').click(); // closeDropdown
+    this.props.clearSearchInput();
+    this.props.closeForm();
   }
 
   updateTextFilter(e, {value}){

@@ -34,6 +34,7 @@ export default class NavBarMenu extends Component {
     log("-- Clear Search Input -- ");
     this.setState({searchInputValue: ''});
     this.props.updateSelectedFilters({}, true);
+    this.mainSearchInput.focus();
   }
 
   componentWillReceiveProps(nextProps) {

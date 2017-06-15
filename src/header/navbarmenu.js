@@ -3,15 +3,54 @@ import { Menu, Input, Search, Button, Icon, Popup, Modal } from 'semantic-ui-rea
 import FiltersForm from './form/filters_form'
 import CustomQueries from './custom_queries'
 import LoginForm from '../account/login'
-import {removeBlankAttributes, parseInput, lastWordIn, log} from '../helpers/helper_functions'
+import {removeBlankAttributes, parseInput, lastWordIn, log, surroundWithQuotesIfNecessary} from '../helpers/helper_functions'
 import _ from 'lodash'
 import { AVAILABLE_FILTERS } from '../helpers/constants';
 
 // Init available filters for Auto-Complete
-let options = [];
-{Object.keys(AVAILABLE_FILTERS).forEach(function (key) {
-  options.push({title: key});
-})}
+const basic_options = init_basic_options();
+const advanced_options = initAdvancedOptions();
+
+function init_basic_options() {
+  let options = [];
+  {
+    Object.keys(AVAILABLE_FILTERS).forEach(function (key) {
+      let operators = AVAILABLE_FILTERS[key].type.operators;
+      if (operators.length > 1) {
+        options.push({title: key, key: key});
+      } else {
+        operators.map(function (operator, i) {
+          let option = key + operator;
+          options.push({title: option, key: key + i});
+        });
+      }
+    })
+  }
+  return options;
+}
+
+function initAdvancedOptions() {
+  let options = [];
+  {
+    Object.keys(AVAILABLE_FILTERS).forEach(function (key) {
+      AVAILABLE_FILTERS[key].type.operators.map(function (operator, i) {
+
+        let option = key + operator;
+        let possible_values = AVAILABLE_FILTERS[key].values;
+        if (possible_values && possible_values.length > 0 && possible_values.length < 4) {
+          for (let val of possible_values) {
+            options.push({title: option + surroundWithQuotesIfNecessary(val.name), key: key + i + val.name});
+          }
+        } else {
+          options.push({title: option, key: key + i});
+        }
+
+      });
+
+    })
+  }
+  return options;
+}
 
 export default class NavBarMenu extends Component {
 
@@ -64,13 +103,14 @@ export default class NavBarMenu extends Component {
     // AutoComplete
     if(new_input_value.slice(-1)===' ') {
       this.setState({
-        auto_complete_results: options //[]
+        auto_complete_results: basic_options
       })
     }else{
-      const re = new RegExp(_.escapeRegExp(lastWordIn(new_input_value)), 'i');
+      let current_word = lastWordIn(new_input_value);
+      const re = new RegExp(_.escapeRegExp(current_word), 'i');
       const isMatch = (result) => re.test(result.title);
       this.setState({
-        auto_complete_results: _.filter(options, isMatch)
+        auto_complete_results: _.filter(advanced_options, isMatch)
       })
     }
   }

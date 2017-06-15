@@ -114,3 +114,7 @@
 .ui.input.date_input .hidden{
   display: none;
 }
+.ui.dropdown.shortcuts {
+  margin-left: -1px;
+}
+

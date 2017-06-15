@@ -37,7 +37,7 @@ function initAdvancedOptions() {
 
         let option = key + operator;
         let possible_values = AVAILABLE_FILTERS[key].values;
-        if (possible_values && possible_values.length > 0 && possible_values.length < 4) {
+        if (possible_values && possible_values.length > 0 && possible_values.length < 5) {
           for (let val of possible_values) {
             options.push({title: option + surroundWithQuotesIfNecessary(val.name), key: key + i + val.name});
           }

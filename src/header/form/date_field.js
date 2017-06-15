@@ -116,7 +116,7 @@ class DateField extends Component {
             <Input type='text' placeholder='DD/MM/YYYY' action actionPosition={'left'} onChange={this.handleValueChange} className='date_input' >
               <Select compact options={operator_options} value={operator_of(this.props.selected_filters[this.props.filter_name]) || this.state.current_operator} onChange={this.handleOperatorChange} />
               <Dropdown selection
-                        className='link item'
+                        className='link item shortcuts'
                         placeholder={placeholder}
                         options={shortcut_options}
                         value={this.state.shortcut_value}

@@ -1,7 +1,13 @@
 import React, {Component} from 'react'
-import { Item, Button, Image, List, Menu, Popup, Divider } from 'semantic-ui-react'
-import {filter_value} from "../helpers/helper_functions"
+import { Menu, Divider } from 'semantic-ui-react'
+import {filter_value, log} from "../helpers/helper_functions"
 import moment from 'moment'
+
+const queries = [{title: "Mes demandes par priorité", filter: {assigned_to:filter_value('=', "me"), order:filter_value('=', "priority")}},
+  {title: "Demandes surveillées", filter: {watched:filter_value('=', "true")}},
+  {title: "Traité sans activité récente", filter: {status:filter_value('=', 3), updated_at:filter_value('<', moment().subtract(60, 'days').format("DD/MM/YYYY"))}},
+  {title: "Filtres du permanent", filter: {status:filter_value('=',"open"), assigned_to:filter_value('!*')}}
+];
 
 class CustomQueries extends Component {
 
@@ -11,30 +17,16 @@ class CustomQueries extends Component {
   }
 
   applyCustomQuery(event, data){
-    switch(event.currentTarget.textContent){
-      case "Mes demandes par priorité":
-        this.props.selectCustomQuery({assigned_to:filter_value('=', "me"), order:filter_value('=', "priority")}, true);
-        break;
-      case "Demandes surveillées":
-        this.props.selectCustomQuery({watched:filter_value('=', "true")}, true);
-        break;
-      case "Traité sans activité récente":
-        let date = moment().subtract(60, 'days').format("DD/MM/YYYY");
-        this.props.selectCustomQuery({status:filter_value('=', 3), updated_at:filter_value('<', date)}, true);
-        break;
-      case "Filtres du permanent":
-        this.props.selectCustomQuery({status:filter_value('=',"open"), assigned_to:filter_value('!*')}, true);
-        break;
-    }
+    this.props.selectCustomQuery(queries[data.index].filter, true);
   }
 
   render() {
+    let _this = this;
     return (
       <Menu vertical secondary>
-        <Menu.Item icon={false} onClick={this.applyCustomQuery}>Mes demandes par priorité</Menu.Item>
-        <Menu.Item icon={false} onClick={this.applyCustomQuery} >Demandes surveillées</Menu.Item>
-        <Menu.Item icon={false} onClick={this.applyCustomQuery} >Traité sans activité récente</Menu.Item>
-        <Menu.Item icon={false} onClick={this.applyCustomQuery} >Filtres du permanent</Menu.Item>
+        {queries.map(function(query, i){
+          return <Menu.Item icon={false} onClick={_this.applyCustomQuery} index={i} key={i}>{query.title}</Menu.Item>;
+        })}
         <Divider />
         <Menu.Item onClick={this.props.openForm}>Recherche avancée</Menu.Item>
       </Menu>

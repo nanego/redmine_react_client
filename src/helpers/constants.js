@@ -60,6 +60,7 @@ export const AVAILABLE_FILTERS = {
     placeholder: "Indéterminé"},
   updated_at: {label:'Date de mise à jour',
     type: TYPES_OF_FILTERS.DATE,
+    magic_values: [MAGIC_VALUES.today, MAGIC_VALUES.one_week_ago, MAGIC_VALUES.one_month_ago],
     placeholder: 'DD/MM/YYYY'},
   text: {label:'Contient',
     type: TYPES_OF_FILTERS.TEXT,

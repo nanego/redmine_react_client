@@ -2,15 +2,9 @@ import React, {Component} from 'react'
 import { Input, Form, Select, Dropdown } from 'semantic-ui-react'
 import {log, value_of, operator_of, exists} from '../../helpers/helper_functions'
 import moment from 'moment'
+import { AVAILABLE_FILTERS } from '../../helpers/constants'
 
 const placeholder = 'Indéterminée';
-const shortcut_options = [
-  { key: 0, text: placeholder, value: '' },
-  { key: 1, text: "Aujourd'hui", value: '0 day' },
-  { key: 2, text: "Il y a une semaine", value: '1 week' },
-  { key: 3, text: "Il y a un mois", value: '1 month' },
-  { key: 4, text: "Autre", value: 'other'}
-];
 
 const operator_options = [
   { key: '=', text: '=', value: '=' },
@@ -25,12 +19,25 @@ class DateField extends Component {
     this.state = {
       current_operator: '=',
       visible_input: false,
-      shortcut_value: ''
+      shortcut_value: '',
+      shortcut_options: [
+        { key: 0, text: placeholder, value: '' },
+        ...this.magic_shortcuts(),
+        { key: 99, text: "Autre", value: 'other'}
+      ]
     };
     this.updateFilter = this.updateFilter.bind(this);
     this.handleValueChange = this.handleValueChange.bind(this);
     this.handleOperatorChange = this.handleOperatorChange.bind(this);
     this.handleShortcutSelection = this.handleShortcutSelection.bind(this);
+  }
+
+  magic_shortcuts(){
+    let array = [];
+    for(let [index, val] of AVAILABLE_FILTERS[this.props.filter_name].magic_values.entries()){
+      array.push({key: index+1, text: val.text, value: val.value});
+    }
+    return array;
   }
 
   handleShortcutSelection(e, {value}){
@@ -90,7 +97,7 @@ class DateField extends Component {
       this.setState({ shortcut_value: '', visible_input: false});
     }else{
       let shortcut_date_selected = false;
-      for(let option of shortcut_options){
+      for(let option of this.state.shortcut_options){
         if(option.value !== '' && option.value!=='other'){
           // log("shortcut_option", option);
           let values = option.value.split(" ");
@@ -118,7 +125,7 @@ class DateField extends Component {
               <Dropdown selection
                         className='link item shortcuts'
                         placeholder={placeholder}
-                        options={shortcut_options}
+                        options={this.state.shortcut_options}
                         value={this.state.shortcut_value}
                         onChange={this.handleShortcutSelection}
               />

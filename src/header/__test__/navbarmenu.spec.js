@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBarMenu from '../navbarmenu';
+import NavBarMenu, {initAdvancedOptions} from '../navbarmenu';
 import renderer from 'react-test-renderer';
 
 it('should render NavBarMenu', () => {
@@ -26,4 +26,11 @@ it('should render NavBarMenu', () => {
   expect(navbar).toMatchSnapshot();
   */
 
+});
+
+test('initAdvancedOptions', () => {
+  expect(initAdvancedOptions().find(x => x.key === 'projects:-0').title).toEqual("projects:");
+  expect(initAdvancedOptions().find(x => x.key === 'assigned_to:-0').title).toEqual("assigned_to:");
+  expect(initAdvancedOptions().find(x => x.key === 'assigned_to:-0-0').title).toEqual("assigned_to:me");
+  // TODO expect(initAdvancedOptions().find(x => x.key === 'assigned_to1me').title).toEqual("assigned_to:me");
 });

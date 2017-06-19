@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { List, Segment, Header, Container, Grid } from 'semantic-ui-react'
 import moment from 'moment'
 import { getNamesFromIds, exists, convertToBoolean, to_s } from './helpers/helper_functions'
-import { LIST_OF_PROJECTS, LIST_OF_TRACKERS, LIST_OF_STATUSES, LIST_OF_USERS } from './helpers/constants'
+import { AVAILABLE_FILTERS } from './helpers/constants'
 
 function item(label, filter, description){
   return (exists(filter)) &&
@@ -18,11 +18,21 @@ function knownFilters(filters){
   return (<Segment attached>
     <span>{JSON.stringify(filters, null, 4)}</span>
     <List>
-      {item('Projets', filters.projects, (exists(filters.projects) && exists(filters.projects.value) && getNamesFromIds(LIST_OF_PROJECTS, filters.projects.value).join(', ')))}
-      {item('Trackers', filters.trackers, (exists(filters.trackers) && exists(filters.trackers.value) && getNamesFromIds(LIST_OF_TRACKERS, filters.trackers.value).join(', ')))}
-      {item('Statut', filters.status, (exists(filters.status) && exists(filters.status.value) && getNamesFromIds(LIST_OF_STATUSES, filters.status.value).join(', ')))}
+      {item('Projets',
+          filters.projects,
+          (exists(filters.projects)
+            && exists(filters.projects.value)
+            && getNamesFromIds([...AVAILABLE_FILTERS.projects.magic_values, ...AVAILABLE_FILTERS.projects.values], filters.projects.value).join(', ')
+          )
+      )}
+      {item('Trackers', filters.trackers, (exists(filters.trackers) && exists(filters.trackers.value) && getNamesFromIds(AVAILABLE_FILTERS.trackers.values, filters.trackers.value).join(', ')))}
+      {item('Statut', filters.status, (exists(filters.status) && exists(filters.status.value) && getNamesFromIds(AVAILABLE_FILTERS.status.values, filters.status.value).join(', ')))}
       {item('Observateur', filters.watched, (exists(filters.watched) && exists(filters.watched.value) && convertToBoolean(filters.watched.value) ? 'Oui':'Non'))}
-      {item('Assigné à', filters.assigned_to, (exists(filters.assigned_to) && exists(filters.assigned_to.value) && getNamesFromIds(LIST_OF_USERS, filters.assigned_to.value).join(', ')))}
+      {item('Assigné à', filters.assigned_to,
+          (exists(filters.assigned_to)
+            && exists(filters.assigned_to.value)
+            && getNamesFromIds([...AVAILABLE_FILTERS.assigned_to.magic_values, ...AVAILABLE_FILTERS.assigned_to.values], filters.assigned_to.value).join(', '))
+      )}
       {exists(filters.updated_at) && exists(filters.updated_at.value) && item('Mis à jour', filters.updated_at, moment(filters.updated_at.value, 'DD/MM/YYYY').format('LLLL'))}
       {(filters.text && filters.text.length > 0) && item('Contient', filters.text, filters.text)}
     </List>

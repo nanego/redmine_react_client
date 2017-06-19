@@ -29,7 +29,7 @@ function init_basic_options() {
   return options;
 }
 
-function initAdvancedOptions() {
+export function initAdvancedOptions() {
   let options = [];
   {
     Object.keys(AVAILABLE_FILTERS).forEach(function (key) {
@@ -37,14 +37,19 @@ function initAdvancedOptions() {
 
         let option = key + operator;
         let possible_values = AVAILABLE_FILTERS[key].values;
-        if (possible_values && possible_values.length > 0 && possible_values.length < 5) {
-          for (let val of possible_values) {
-            options.push({title: option + surroundWithQuotesIfNecessary(val.name), key: key + i + val.name});
+        let magic_values = AVAILABLE_FILTERS[key].magic_values;
+        if(magic_values && magic_values.length>0){
+          for (let [index, val] of magic_values.entries()) {
+            let key = `${option}-${i}-${index}`;
+            options.push({title: option + surroundWithQuotesIfNecessary(val.text), key: key});
           }
-        } else {
-          options.push({title: option, key: key + i});
+        }else if (possible_values && possible_values.length > 0 && possible_values.length < 5) {
+          for (let [index, val] of possible_values.entries()) {
+            let key = `${option}-${i}-${index}`;
+            options.push({title: option + surroundWithQuotesIfNecessary(val.name), key: key});
+          }
         }
-
+        options.push({title: option, key: `${option}-${i}`});
       });
 
     })

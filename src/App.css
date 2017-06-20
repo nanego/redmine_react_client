@@ -84,15 +84,12 @@
   white-space: nowrap;
 }
 
-#filters_form_popup, #custom_queries_popup{
+#filters_form_popup{
   left: 55px !important;
   right: 114px !important;
   top: 42px !important;
   border-radius: 0 0 0.285714rem 0.285714rem;
   margin-top: 0;
-}
-#custom_queries_popup .vertical.menu{
-  width: auto;
 }
 #filters_form_popup label{
   min-width: 120px;

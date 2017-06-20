@@ -23,7 +23,7 @@ class FiltersForm extends Component {
   resetFilters(e){
     e.preventDefault();
     this.props.clearSearchInput();
-    this.props.closeForm();
+    // this.props.closeForm();
   }
 
   updateTextFilter(e, {value}){

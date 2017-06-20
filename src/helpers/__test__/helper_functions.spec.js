@@ -1,5 +1,7 @@
 import {log, getNameFromValue, convertToStringDate, removeBlankAttributes, convertFilterToText, normalizeFilter,
-  parseInput, getIdFromName, getIdByValue, splitByKeyValue, to_s} from '../helper_functions'
+  parseInput, getIdFromName, getIdByValue, splitByKeyValue, to_s, findByAttribute, splitByKeyValueWhenTyping} from '../helper_functions'
+import moment from 'moment'
+import { MAGIC_VALUES } from '../constants'
 
 it('should provide log() function', () => {
   // with 1 param (string)
@@ -36,6 +38,8 @@ test("parseInput function", () => {
   expect(parseInput('updated_at:26/02/2017').updated_at).toEqual({operator:':', value:"26/02/2017"});
   expect(parseInput('updated_at<26/02/2017    ').updated_at).toEqual({operator:'<', value:"26/02/2017"});
   expect(parseInput('updated_at>26/02/2017').updated_at).toEqual({operator:'>', value:"26/02/2017"});
+  expect(parseInput(`updated_at:${MAGIC_VALUES.today.text}`)).toEqual({"text":"", "updated_at":{operator:':', value: moment().format("DD/MM/YYYY")}});
+  expect(parseInput(`updated_at:"${MAGIC_VALUES.one_week_ago.text}"`)).toEqual({"text":"", "updated_at":{operator:':', value: moment().subtract(1,'week').format("DD/MM/YYYY")}});
 
   //Combine them
   expect(parseInput('anything twice')).toEqual({"text":"anything twice"});
@@ -70,6 +74,7 @@ test('convertToStringDate function', () => {
   // moment.locale('fr');
   expect(convertToStringDate('26/01/2016')).toEqual('26/01/2016');
   expect(convertToStringDate('30/02/2016')).toEqual(''); // Invalid date
+  expect(convertToStringDate(MAGIC_VALUES.today.text)).toEqual(moment().format('DD/MM/YYYY'));
 });
 
 test('convertFilterToText', () => {
@@ -79,6 +84,15 @@ test('convertFilterToText', () => {
 test('normalizeFilter', () => {
   expect(normalizeFilter({"projects":{operator:':', value:'1'}})).toEqual({"projects":{operator:':', value:1}});
   expect(normalizeFilter({"text":"a"})).toEqual({"text":"a"});
+});
+
+test('findByAttribute', () => {
+  let array = [{text: 'test1'}, {text: 'test2'}];
+  expect(findByAttribute(array, 'text', 'test2')).toEqual(1);
+  expect(findByAttribute(array, 'text', 'do_not_exists')).toEqual(undefined);
+  let object = {one: {text: 'test1'}, two: {text: 'test2'}};
+  expect(findByAttribute(object, 'text', 'test2')).toEqual('two');
+  expect(findByAttribute(object, 'text', 'do_not_exists')).toEqual(undefined);
 });
 
 test('getIdFromName', () => {
@@ -102,6 +116,20 @@ test('splitByKeyValue', () => {
   expect(splitByKeyValue('test with spaces:"value"')).toEqual(["test", "with", "spaces:\"value\""]);
   expect(splitByKeyValue('test with spaces:"value with spaces"')).toEqual(["test", "with", "spaces:\"value with spaces\""]);
   expect(splitByKeyValue('test with spaces="value with spaces"')).toEqual(["test", "with", "spaces=\"value with spaces\""]);
+});
+
+test('splitByKeyValueWhenTyping', () => {
+  expect(splitByKeyValueWhenTyping('test:2')).toEqual(['test:2']);
+  expect(splitByKeyValueWhenTyping('test with spaces')).toEqual(["test", "with", "spaces"]);
+  expect(splitByKeyValueWhenTyping('test with spaces:')).toEqual(["test", "with", "spaces:"]);
+  expect(splitByKeyValueWhenTyping('test with spaces:value')).toEqual(["test", "with", "spaces:value"]);
+  expect(splitByKeyValueWhenTyping('test with spaces=value')).toEqual(["test", "with", "spaces=value"]);
+  expect(splitByKeyValueWhenTyping('test with spaces!=value')).toEqual(["test", "with", "spaces!=value"]);
+  expect(splitByKeyValueWhenTyping('test with spaces:"value"')).toEqual(["test", "with", "spaces:\"value\""]);
+  expect(splitByKeyValueWhenTyping('test with spaces:"value with spaces"')).toEqual(["test", "with", "spaces:\"value with spaces\""]);
+  expect(splitByKeyValueWhenTyping('test with spaces="value with spaces"')).toEqual(["test", "with", "spaces=\"value with spaces\""]);
+  // +
+  expect(splitByKeyValueWhenTyping('test with spaces="value with only one double quote')).toEqual(["test", "with", "spaces=\"value with only one double quote"]);
 });
 
 test('to_s', () => {

@@ -70,15 +70,20 @@ export default class NavBarMenu extends Component {
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.selectAutoCompleteResult = this.selectAutoCompleteResult.bind(this);
     this.clearSearchInput = this.clearSearchInput.bind(this);
+    this.clearAndFocusSearchInput = this.clearAndFocusSearchInput.bind(this);
     this.applyIfEnter = this.applyIfEnter.bind(this);
     this.selectCustomQuery = this.selectCustomQuery.bind(this);
+  }
+
+  clearAndFocusSearchInput(){
+    this.clearSearchInput();
+    this.mainSearchInput.focus();
   }
 
   clearSearchInput() {
     log("-- Clear Search Input -- ");
     this.setState({searchInputValue: ''});
     this.props.updateSelectedFilters({}, true);
-    this.mainSearchInput.focus();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -112,7 +117,7 @@ export default class NavBarMenu extends Component {
       })
     }else{
       let current_word = lastWordIn(new_input_value);
-      const re = new RegExp(_.escapeRegExp(current_word), 'i');
+      const re = new RegExp('^'+_.escapeRegExp(current_word), 'i');
       const isMatch = (result) => re.test(result.title);
       this.setState({
         auto_complete_results: _.filter(advanced_options, isMatch)
@@ -248,7 +253,7 @@ export default class NavBarMenu extends Component {
               basic
             />
             <Icon link name='cancel' className='reset'
-                  onClick={this.clearSearchInput}
+                  onClick={this.clearAndFocusSearchInput}
                   disabled={this.props.areFiltersDirty === false && JSON.stringify(removeBlankAttributes(this.props.current_filters)) === JSON.stringify({}) }
             />
             <Popup

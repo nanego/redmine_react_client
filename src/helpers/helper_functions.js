@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
-import { AVAILABLE_OPERATORS, TYPES_OF_FILTERS, AVAILABLE_FILTERS } from './constants';
+import { AVAILABLE_OPERATORS, TYPES_OF_FILTERS, AVAILABLE_FILTERS, MAGIC_VALUES } from './constants';
 
 export function findOperatorIn(string){
   for(let operator of AVAILABLE_OPERATORS){
@@ -44,12 +44,12 @@ export function to_s(object){
 
 export function parseInput(input){
 
-  log(input);
+  // log(input);
 
   let words = splitByKeyValue(input);
   let filters = {text:""};
 
-  log("words", words);
+  // log("words", words);
 
   words.forEach(function(word){
 
@@ -60,7 +60,7 @@ export function parseInput(input){
     if(operator){
       let key_value = word.split(operator);
       let key = key_value[0];
-      let value = key_value[1];
+      let value = key_value[1].replace(/"/g, '');
       let type_of_filter = AVAILABLE_FILTERS[key.toLowerCase()] && AVAILABLE_FILTERS[key.toLowerCase()].type;
       switch(type_of_filter){
         case TYPES_OF_FILTERS.SELECT:
@@ -75,8 +75,8 @@ export function parseInput(input){
         default:
           filters.text = concat(filters.text, word);
       }
-      log("key", key_value[0]);
-      log("value", key_value[1]);
+      // log("key", key_value[0]);
+      // log("value", key_value[1]);
     }else{
       filters.text = concat(filters.text, word);
     }
@@ -95,12 +95,32 @@ export function concat(previous_text, new_text){
 }
 
 export function findByAttribute(array, attr, value) {
+
+  log("00", value );
+
   if(array != undefined){
-    for(let i = 0; i < array.length; i += 1) {
-      if(array[i][attr] === value) {
-        return i;
+
+    if(Array.isArray(array)){
+      for(let i = 0; i < array.length; i += 1) {
+        if(array[i][attr] === value) {
+          return i;
+        }
+      }
+    }else{
+      for (let key of Object.keys(array)) {
+
+        log("01", array[key] );
+
+        if(array[key][attr] === value) {
+
+          log("02", array[key][attr] );
+
+          return key;
+        }
       }
     }
+
+
   }else{
     return undefined;
   }
@@ -144,11 +164,14 @@ export function splitByKeyValue(input){
 }
 
 export function lastWordIn(input){
-  return _.last(splitByWord(input))
+
+  return _.last(splitByKeyValueWhenTyping(input))
 }
 
-export function splitByWord(input){
-  const regexp = new RegExp('[^\\s"]+', "gi");
+export function splitByKeyValueWhenTyping(input){
+
+  let operators = AVAILABLE_OPERATORS.join("|");
+  const regexp = new RegExp('[^\\W]+('+operators+')"([^"]*)("|)|[^\\s"]+', "gi");
   let words = [];
   let match;
   do {
@@ -360,12 +383,18 @@ export function convertToBoolean(value){
 }
 
 export function convertToStringDate(value){
-  log(value);
+  log("00",value);
   let date = moment(value, "DD/MM/YYYY");
   if(date.isValid()){
     return date.format("DD/MM/YYYY");
   }else{
-    return "";
+    let magic_key = findByAttribute(MAGIC_VALUES, 'text', value);
+    if(magic_key){
+      let values = MAGIC_VALUES[magic_key].value.split(" ");
+      return moment().subtract(parseInt(values[0]), values[1]).format("DD/MM/YYYY");
+    }else{
+      return "";
+    }
   }
 }
 

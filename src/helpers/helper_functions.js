@@ -389,7 +389,7 @@ export function convertToStringDate(value){
     return date.format("DD/MM/YYYY");
   }else{
     let magic_key = findByAttribute(MAGIC_VALUES, 'text', value);
-    if(magic_key){
+    if(magic_key && MAGIC_VALUES[magic_key].value){
       let values = MAGIC_VALUES[magic_key].value.split(" ");
       return moment().subtract(parseInt(values[0]), values[1]).format("DD/MM/YYYY");
     }else{

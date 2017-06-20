@@ -82,7 +82,7 @@ export default class NavBarMenu extends Component {
 
   clearSearchInput() {
     log("-- Clear Search Input -- ");
-    this.setState({searchInputValue: ''});
+    this.setState({searchInputValue: '', isQueriesPopupOpen: true});
     this.props.updateSelectedFilters({}, true);
   }
 

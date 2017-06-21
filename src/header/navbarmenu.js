@@ -13,6 +13,7 @@ export default class NavBarMenu extends Component {
     this.state = {
       searchInputValue: this.props.selected_filters_as_text,
       isFormOpen: false,
+      showResultsAsCustomQueries: true,
       auto_complete_results: custom_queries_options
     };
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
@@ -65,6 +66,7 @@ export default class NavBarMenu extends Component {
     // AutoComplete
     if (new_input_value.slice(-1) === ' ') {
       this.setState({
+        showResultsAsCustomQueries: false,
         auto_complete_results: basic_options
       })
     } else {
@@ -72,6 +74,7 @@ export default class NavBarMenu extends Component {
       const re = new RegExp('^' + _.escapeRegExp(current_word), 'i');
       const isMatch = (result) => re.test(result.title);
       this.setState({
+        showResultsAsCustomQueries: false,
         auto_complete_results: _.filter(advanced_options, isMatch)
       })
     }
@@ -79,6 +82,7 @@ export default class NavBarMenu extends Component {
 
   display_custom_queries(){
     this.setState({
+      showResultsAsCustomQueries: true,
       auto_complete_results: custom_queries_options
     })
   }
@@ -184,7 +188,7 @@ export default class NavBarMenu extends Component {
                     noResultsMessage="Aucun filtre trouvé."
                     icon={false}
                     id="mainSearchInput"
-                    className="searchInput"
+                    className={"searchInput " + (this.state.showResultsAsCustomQueries ? 'custom_queries' : 'suggestions')}
                     onSearchChange={this.handleSearchInputChange}
                     onResultSelect={this.selectAutoCompleteResult}
                     results={this.state.auto_complete_results}

@@ -20,7 +20,7 @@ export default class NavBarMenu extends Component {
     this.clearSearchInput = this.clearSearchInput.bind(this);
     this.clearAndFocusSearchInput = this.clearAndFocusSearchInput.bind(this);
     this.applyIfEnter = this.applyIfEnter.bind(this);
-    this.reset_search_suggestions = this.reset_search_suggestions.bind(this);
+    this.resetSearchSuggestions = this.resetSearchSuggestions.bind(this);
   }
 
   clearAndFocusSearchInput(){
@@ -30,8 +30,9 @@ export default class NavBarMenu extends Component {
 
   clearSearchInput() {
     log("-- Clear Search Input -- ");
-    this.setState({searchInputValue: ''});
-    this.reset_search_suggestions('');
+    this.setState({searchInputValue: ''}, function() {
+      this.resetSearchSuggestions('');
+    });
     this.props.updateSelectedFilters({}, true);
   }
 
@@ -150,7 +151,7 @@ export default class NavBarMenu extends Component {
     }
   };
 
-  reset_search_suggestions(input) {
+  resetSearchSuggestions(input) {
     if (input.length === 0) {
       this.display_custom_queries();
     } else {

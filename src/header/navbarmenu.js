@@ -58,7 +58,7 @@ export default class NavBarMenu extends Component {
 
   validateSearchInputChange(new_input_value){
     this.setState({searchInputValue: new_input_value});
-    this.reset_search_suggestions(new_input_value);
+    this.resetSearchSuggestions(new_input_value);
     this.parseInputAndUpdateFilters(new_input_value);
   }
 
@@ -149,7 +149,7 @@ export default class NavBarMenu extends Component {
 
   onInputFocus = () => {
     log("-- OnInputFocus --");
-    this.reset_search_suggestions(this.state.searchInputValue);
+    this.resetSearchSuggestions(this.state.searchInputValue);
     if(this.state.isFormOpen === true){
       this.setState({ isFormOpen: false })
     }

@@ -27,6 +27,12 @@
 .ui.icon.searchController.input .searchInput {
   width: 100%;
 }
+.ui.icon.searchController .searchInput.custom_queries > .results .result {
+  border-bottom: none !important;
+}
+.ui.icon.searchController .searchInput.custom_queries > .results .result:last-child {
+  border-top: 1px solid rgba(34, 36, 38, 0.1);
+}
 
 /*
 .current_filters_dropdown{

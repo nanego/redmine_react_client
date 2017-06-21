@@ -20,6 +20,7 @@ export default class NavBarMenu extends Component {
     this.clearSearchInput = this.clearSearchInput.bind(this);
     this.clearAndFocusSearchInput = this.clearAndFocusSearchInput.bind(this);
     this.applyIfEnter = this.applyIfEnter.bind(this);
+    this.reset_search_suggestions = this.reset_search_suggestions.bind(this);
   }
 
   clearAndFocusSearchInput(){
@@ -29,7 +30,9 @@ export default class NavBarMenu extends Component {
 
   clearSearchInput() {
     log("-- Clear Search Input -- ");
-    this.setState({searchInputValue: ''});
+    this.setState({searchInputValue: ''}, function(){
+      this.reset_search_suggestions('');
+    });
     this.props.updateSelectedFilters({}, true);
   }
 
@@ -130,7 +133,7 @@ export default class NavBarMenu extends Component {
   }
 
   selectCustomQuery = (filters) => {
-    this.props.updateSelectedFilters(filters, true);
+    this.props.replaceSelectedFilters(filters, true);
   };
 
   openForm = () => {
@@ -147,10 +150,19 @@ export default class NavBarMenu extends Component {
 
   onInputFocus = () => {
     log("-- OnInputFocus --");
+    this.reset_search_suggestions(this.state.searchInputValue);
     if(this.state.isFormOpen === true){
       this.setState({ isFormOpen: false })
     }
   };
+
+  reset_search_suggestions(input) {
+    if (input.length === 0) {
+      this.display_custom_queries();
+    } else {
+      this.display_suggestions(input);
+    }
+  }
 
   render(){
 

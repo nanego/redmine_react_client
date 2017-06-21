@@ -30,9 +30,8 @@ export default class NavBarMenu extends Component {
 
   clearSearchInput() {
     log("-- Clear Search Input -- ");
-    this.setState({searchInputValue: ''}, function(){
-      this.reset_search_suggestions('');
-    });
+    this.setState({searchInputValue: ''});
+    this.reset_search_suggestions('');
     this.props.updateSelectedFilters({}, true);
   }
 
@@ -56,13 +55,8 @@ export default class NavBarMenu extends Component {
   }
 
   validateSearchInputChange(new_input_value){
-    if(new_input_value.length===0){
-      this.setState({searchInputValue: new_input_value});
-      this.display_custom_queries();
-    }else{
-      this.setState({searchInputValue: new_input_value});
-      this.display_suggestions(new_input_value);
-    }
+    this.setState({searchInputValue: new_input_value});
+    this.reset_search_suggestions(new_input_value);
     this.parseInputAndUpdateFilters(new_input_value);
   }
 

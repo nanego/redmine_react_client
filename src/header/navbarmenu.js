@@ -3,7 +3,7 @@ import { Menu, Input, Search, Button, Icon, Popup, Modal } from 'semantic-ui-rea
 import FiltersForm from './form/filters_form'
 import {basic_options, advanced_options, custom_queries_options} from './auto_completion'
 import LoginForm from '../account/login'
-import {removeBlankAttributes, parseInput, lastWordIn, log} from '../helpers/helper_functions'
+import {removeBlankAttributes, parseInput, lastWordIn, convertFiltersToText, log} from '../helpers/helper_functions'
 import _ from 'lodash'
 
 export default class NavBarMenu extends Component {
@@ -31,7 +31,7 @@ export default class NavBarMenu extends Component {
 
   clearSearchInput() {
     log("-- Clear Search Input -- ");
-    this.setState({searchInputValue: ''}, function() {
+    this.setState({searchInputValue: '', auto_complete_results: custom_queries_options}, function() {
       this.resetSearchSuggestions('');
     });
     this.props.updateSelectedFilters({}, true);
@@ -39,8 +39,7 @@ export default class NavBarMenu extends Component {
 
   componentWillReceiveProps(nextProps) {
     log("Just received new props. nextProps", nextProps);
-    if ((!this.searchInputHasFocus()) &&
-        nextProps.selected_filters_as_text !== this.state.searchInputValue) {
+    if ((!this.searchInputHasFocus()) && nextProps.selected_filters_as_text !== this.state.searchInputValue) {
       this.setState({ searchInputValue: nextProps.selected_filters_as_text });
     }
   }
@@ -133,6 +132,10 @@ export default class NavBarMenu extends Component {
 
   selectCustomQuery = (filters) => {
     this.props.replaceSelectedFilters(filters, true);
+    this.setState({
+      auto_complete_results: basic_options,
+      searchInputValue: convertFiltersToText(filters)
+    })
   };
 
   openForm = () => {

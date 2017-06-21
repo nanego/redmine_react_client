@@ -8,7 +8,7 @@ import NavBarMenu from './header/navbarmenu'
 import IssuesList from './issues/index'
 import ListCurrentFilters from './current_filters'
 
-import {convertFiltersToText, normalizeFilter, removeBlankAttributes, log, parseInput, value_of, exists, merge} from './helpers/helper_functions'
+import {convertFiltersToText, normalizeFilter, removeBlankAttributes, log, parseInput, exists, merge} from './helpers/helper_functions'
 
 const default_filters = {text:""}; /*{
   projects: 0,
